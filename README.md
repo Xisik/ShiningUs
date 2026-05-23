@@ -1,7 +1,83 @@
 # bichcheongmo
-본 개발을 담당하고 있는 개발자입니다. 해당 사이트는 성소수자 공조 단체용 사이트입니다. 사이트는 FlySkyPie의 yorha.css를 참고했습니다.
 
-## 성소수자 공조 단체란?
-성소수자 개인을 지원하고, 커뮤니티를 세우며, 회원 활동을 통해 성소수자에게 실질적인 도움을 주는 단체입니다.
+빛청모 공식 웹사이트 저장소입니다. 정적 HTML, CSS, Vanilla JavaScript로 구성되어 있으며 GitHub Pages를 통해 배포됩니다.
 
-성소수자 공조단체는 성소수자 존재 자체가 인권과 상관 관계임을 증명함과 동시에 해당 증명을 실체화하기 위해 인권운동에 참여합니다.
+## 개요
+
+빛청모는 성소수자 개인을 지원하고 커뮤니티를 세우며, 회원 활동을 통해 성소수자에게 실질적인 연대와 지원을 제공하는 공조단체입니다.
+
+이 저장소는 단체 소개, 활동 공유, 문의, 후원, 지역지부, 정치위원회, 성명 페이지를 관리합니다.
+
+## 주요 페이지
+
+- `index.html` - 메인 페이지
+- `about.html` - 단체 소개
+- `activities.html` - 활동 공유 목록 및 상세 보기
+- `contact.html` - 문의하기
+- `donate.html` - 후원하기
+- `region.html` - 지역지부 소개
+- `poli.html` - 정치위원회
+- `poli-statements.html` - 정치위원회 성명 목록 및 상세 보기
+
+## 프로젝트 구조
+
+```text
+bichcheongmo/
+├── assets/
+│   ├── css/        # 디자인 토큰, 레이아웃, 컴포넌트 스타일
+│   ├── font/       # 웹 폰트
+│   ├── img/        # 로고 및 콘텐츠 이미지
+│   └── js/         # 공통 UI, 활동/성명 데이터 렌더링 로직
+├── data/           # 활동 및 성명 JSON 데이터
+├── docs/           # 개발, 배포, Notion 연동 문서
+├── scripts/        # Notion 동기화 및 디버깅 스크립트
+├── .github/
+│   └── workflows/  # GitHub Pages 배포 및 Notion 동기화 워크플로
+└── *.html          # 정적 페이지 진입점
+```
+
+## 실행 및 확인
+
+이 프로젝트는 별도 빌드 과정 없이 정적 파일로 동작합니다. 로컬에서 확인하려면 저장소 루트에서 정적 서버를 실행합니다.
+
+```bash
+npx serve .
+```
+
+또는 Python이 설치되어 있으면 다음 명령을 사용할 수 있습니다.
+
+```bash
+python -m http.server 8000
+```
+
+## Notion 데이터 동기화
+
+활동과 성명 데이터는 Notion API를 통해 JSON 파일로 동기화됩니다.
+
+- 활동 데이터: `data/activities.json`
+- 성명 데이터: `data/statements.json`
+- 활동 동기화: `node scripts/sync-notion.js`
+- 성명 동기화: `node scripts/sync-notion-statements.js`
+
+필요한 환경 변수는 GitHub Actions Secrets 또는 로컬 환경 변수로 설정합니다.
+
+- `NOTION_API_KEY`
+- `NOTION_DATABASE_ID`
+- `NOTION_STATEMENTS_API_KEY`
+- `NOTION_STATEMENTS_DATABASE_ID`
+
+## 배포
+
+`main` 브랜치에 push되면 GitHub Actions의 Pages 배포 워크플로가 저장소 루트를 GitHub Pages 아티팩트로 업로드합니다.
+
+커스텀 도메인은 `CNAME` 파일에서 관리합니다.
+
+## 정리 내역
+
+- 독립 Discord 리다이렉트 페이지인 `discord/` 디렉터리를 제거했습니다.
+- 저장소 기능과 무관한 Cursor/BMAD 명령 파일인 `.cursor/` 디렉터리를 제거하고 `.gitignore`에 추가했습니다.
+- HTML에서 로드되지 않는 브라우저 콘솔용 테스트 보조 파일을 제거했습니다.
+
+## 라이선스
+
+이 저장소는 `GPL-3.0-or-later` 라이선스를 따릅니다.
