@@ -57,7 +57,7 @@
     'SNS 링크입니다.': 'These are our SNS links.',
     '팔로우 부탁드립니다.': 'Please follow us.',
     '팔로우': 'Follow',
-    '회원 가입': 'Membership Registration',
+    '회원 가입': 'Membership',
     '정회원 및 준회원 통합 회원가입 양식입니다.': 'This form is for both full and associate membership.',
     '가입하기': 'Sign up',
     '정회원과 준회원의 차이가 무엇인가요?': 'What is the difference between full and associate members?',
