@@ -59,7 +59,7 @@
     '팔로우': 'Follow',
     '회원 가입': 'Membership',
     '정회원 및 준회원': 'full and associate membership.',
-    '통합 회원가입 양식입니다.':'integrated sign-up form.',
+    '통합 회원가입 양식입니다.' :'integrated sign-up form.',
     '가입하기': 'Sign up',
     '정회원과 준회원의 차이가 무엇인가요?': 'What is the difference between full and associate members?',
     '정회원은 우리 모임의 전반적인 활동에 적극 참여하고 활동하는 회원으로써 각종 행사 참여와 총회에서 임원으로써의 선거권/피선거권을 가지며 각종 월례/ 연례 자료를 제공받을 수 있습니다. 정기 회비 납부가 필수입니다.': 'Full members actively participate in the organization, may take part in events, have voting and candidacy rights for officer roles at the general assembly, and can receive monthly and annual materials. Regular membership dues are required.',
