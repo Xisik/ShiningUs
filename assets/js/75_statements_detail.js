@@ -267,7 +267,7 @@
       const imageAlt = `${escapeHtml(title)} 성명 이미지`;
       imageHtml = `
         <div class="statement-image" role="img" aria-label="${imageAlt}">
-          <img width=512px style="text-align: center" src="${escapeHtml(image)}" alt="${imageAlt}" loading="lazy" onerror="this.closest('.statement-image').style.display='none'">
+          <img style="width:512px;text-align:center" src="${escapeHtml(image)}" alt="${imageAlt}" loading="lazy" onerror="this.closest('.statement-image').style.display='none'">
         </div>
       `;
     }
