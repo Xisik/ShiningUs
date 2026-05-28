@@ -490,15 +490,6 @@ button.btn {
   text-align: center;
 }
 
-.activity-image img{
-  width        : 100%;
-  height       : auto;
-  display      : block;
-  border       : 1px solid var(--bd-1, var(--line));
-  border-radius: var(--r, 6px);
-  opacity      : 0.85;
-}
-
 .activity-detail-body{
   margin: 1.5rem 0;
   line-height: 1.8;
