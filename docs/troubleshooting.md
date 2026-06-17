@@ -62,8 +62,8 @@
 
 - **요약**: "요약", "Summary", "설명", "Description"
 - **본문**: "본문", "Body", "내용", "Content" (또는 페이지 블록 콘텐츠)
-- **공개 여부**: "공개 여부", "Published", "Public" (체크박스 또는 Status)
-  - 없으면 기본값: **공개**
+- **공개 여부**: "공개 여부", "게시 상태", "발행 상태", "상태", "Published", "Public" (Checkbox, Status, Select, 텍스트)
+  - 없으면 기본값: **비공개**
 - **슬러그**: "슬러그", "Slug" (없으면 자동 생성)
 - **카테고리**: "카테고리", "Category"
 - **이미지**: "이미지", "Image"
@@ -116,8 +116,9 @@ NOTION_API_KEY=your_api_key NOTION_DATABASE_ID=your_database_id node scripts/deb
 **해결 방법:**
 1. "공개 여부" 필드 확인
    - 체크박스: 체크되어 있어야 공개
-   - Status: "공개", "Published", "Public"이어야 공개
-   - 필드가 없으면 기본적으로 공개
+   - Status/Select/Text: "공개", "공개됨", "게시", "게시됨", "발행", "발행됨", "Published", "Public", "Live", "Done", "완료" 등이어야 공개
+   - "비공개", "초안", "미공개", "미게시", "숨김", "Draft", "Hidden" 등은 비공개
+   - 필드가 없으면 기본적으로 비공개
 2. `data/activities.json` 파일 확인
    - 빈 배열 `[]`이면 데이터가 없음
    - GitHub Actions 로그 확인

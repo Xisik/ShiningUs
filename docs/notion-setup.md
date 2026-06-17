@@ -17,8 +17,8 @@
      - 또는 본문은 페이지 블록 콘텐츠로 작성 가능 (마크다운 지원)
    - **슬러그** 또는 **Slug** (Text 타입) - URL 슬러그 (고유 식별자)
      - 없으면 자동으로 페이지 ID 기반 생성
-   - **공개 여부** 또는 **Published** (Checkbox 타입) - 공개/비공개
-     - 기본값: true (체크박스가 없으면 공개로 처리)
+   - **공개 여부**, **게시 상태**, **발행 상태**, **Published** 등 (Checkbox/Status/Select 타입) - 공개/비공개
+     - 기본값: false (공개 필드가 없거나 알 수 없는 값이면 비공개로 처리)
 
    **선택적 필드:**
    - **카테고리** 또는 **Category** (Select 타입) - 활동 카테고리
@@ -93,7 +93,7 @@
 - 요약: `요약`, `Summary`, `summary`
 - 본문: `본문`, `Body`, `body` (또는 페이지 블록 콘텐츠)
 - 슬러그: `슬러그`, `Slug`, `slug`
-- 공개 여부: `공개 여부`, `Published`, `published`
+- 공개 여부: `공개여부`, `공개 여부`, `공개상태`, `공개 상태`, `게시여부`, `게시 여부`, `게시상태`, `게시 상태`, `발행여부`, `발행 여부`, `발행상태`, `발행 상태`, `상태`, `Status`, `status`, `Published`, `published`, `Public`, `public`, `Publish`, `publish`
 - 카테고리: `카테고리`, `Category`, `category`
 - 이미지: `이미지`, `Image`, `image`
 

@@ -85,6 +85,39 @@ function extractSelect(property) {
 }
 
 /**
+ * 공개 여부 속성에서 상태/선택/텍스트 값을 추출
+ * @param {Object} property - 노션 속성 객체
+ * @returns {string} 추출된 값
+ */
+function extractPublishStateName(property) {
+  if (!property) return '';
+
+  if (property.type === 'status') {
+    return property.status?.name || '';
+  }
+  if (property.type === 'select') {
+    return property.select?.name || '';
+  }
+  if (property.type === 'multi_select' && Array.isArray(property.multi_select)) {
+    return property.multi_select.map(item => item.name || '').join(' ');
+  }
+  if (property.type === 'rich_text' || property.type === 'title' || property.type === 'text') {
+    return extractText(property);
+  }
+
+  return '';
+}
+
+function normalizePublishValue(value) {
+  return String(value || '').toLowerCase().replace(/[\s_\-./()[\]{}]+/g, '');
+}
+
+function includesNormalized(values, target) {
+  const normalizedTarget = normalizePublishValue(target);
+  return values.some(value => normalizePublishValue(value) === normalizedTarget);
+}
+
+/**
  * 노션 속성에서 파일 URL 추출
  * @param {Object} property - 노션 속성 객체
  * @returns {string|null} 파일 URL
@@ -267,37 +300,54 @@ function transformNotionPage(page, blocks = []) {
   // 슬러그는 제목에서 자동 생성 (페이지 ID 기반 fallback)
   const slug = generateSlugFromTitle(title) || page.id.replace(/-/g, '').substring(0, 20);
 
-  // 공개 여부 (기본값: true)
-  // Checkbox 또는 Status 타입 모두 지원
-  // "공개여부" (공백 없음)도 지원
+  // 공개 여부 (opt-in)
+  // Checkbox, Status, Select, 텍스트 타입 모두 지원
   const publishedProperty = findProperty(properties, [
-    '공개여부', '공개 여부',  // 공백 있음/없음 모두 지원
-    'Published', 'published', 
-    'Public', 'public'
+    '공개여부', '공개 여부', '공개상태', '공개 상태',
+    '게시여부', '게시 여부', '게시상태', '게시 상태',
+    '발행여부', '발행 여부', '발행상태', '발행 상태',
+    '상태', 'Status', 'status',
+    'Published', 'published',
+    'Public', 'public',
+    'Publish', 'publish',
+    'Publication', 'publication'
   ]);
   // 보안: opt-in 공개 정책. 공개 여부가 명시되지 않으면 비공개로 처리한다.
   let published = false;
   if (publishedProperty) {
     if (publishedProperty.type === 'checkbox') {
       published = publishedProperty.checkbox === true;
-    } else if (publishedProperty.type === 'status') {
-      // Status가 "공개" 또는 "Published"면 true, 그 외에는 비공개
-      const statusName = publishedProperty.status?.name || '';
-      const publicValues = ['공개', 'Published', 'published', 'Public', 'public'];
-      const privateValues = ['비공개', 'Private', 'private', 'Unpublished', 'unpublished'];
+    } else {
+      // 상태/선택/텍스트 값이 공개 계열이면 true, 비공개/초안 계열이면 false
+      const statusName = extractPublishStateName(publishedProperty);
+      const publicValues = [
+        '공개', '공개됨', '게시', '게시됨', '게시 완료',
+        '발행', '발행됨', '발행 완료', '출판', '출판됨',
+        'Published', 'published', 'Public', 'public',
+        'Publish', 'publish', 'Live', 'live',
+        'Posted', 'posted', 'Visible', 'visible',
+        'Done', 'done', '완료'
+      ];
+      const privateValues = [
+        '비공개', '비공개됨', '미공개', '미게시', '숨김',
+        '초안', '임시', '검토중', '검토 중', '보류',
+        'Private', 'private', 'Unpublished', 'unpublished',
+        'Draft', 'draft', 'Hidden', 'hidden',
+        'Pending', 'pending', 'Review', 'review'
+      ];
       
-      if (publicValues.includes(statusName)) {
+      if (includesNormalized(publicValues, statusName)) {
         published = true;
-      } else if (privateValues.includes(statusName)) {
+      } else if (includesNormalized(privateValues, statusName)) {
         published = false;
       } else {
         // 알 수 없는 값이면 안전하게 비공개 처리
-        console.warn(`Unknown status value for published: "${statusName}", defaulting to false`);
+        console.warn(`Unknown publish state value: "${statusName}" (type=${publishedProperty.type}), defaulting to false`);
         published = false;
       }
-    } else {
-      published = false; // 명시되지 않은 타입은 비공개
     }
+  } else {
+    console.warn(`Publish property not found for page ${page.id.substring(0, 8)}, defaulting to false`);
   }
 
   // 선택적 필드
@@ -351,6 +401,7 @@ module.exports = {
   extractSelect,
   extractFileUrl,
   blocksToMarkdown,
-  extractRichText
+  extractRichText,
+  extractPublishStateName
 };
 
