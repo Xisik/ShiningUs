@@ -7,18 +7,28 @@
 
 body {
   background-color: var(--main-bg-color);
-  font-family     : 'Cafe24SurroundAir', system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans KR', sans-serif;
-  letter-spacing  : 0.02rem;
+  font-family     : 'Cafe24SurroundAir', 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans KR', sans-serif;
+  letter-spacing  : 0.01rem;
   font-weight     : 400;
   color           : var(--text-primary);
-  line-height     : 1.7;
+  line-height     : 1.68;
   -webkit-font-smoothing: antialiased;
   margin          : 0;
+  padding         : 12px;
   overflow-x      : hidden;
   overflow-wrap   : break-word;
 }
 
 * { box-sizing: border-box; }
+
+body::before {
+  content       : '';
+  position      : fixed;
+  inset         : 0;
+  z-index       : 9999;
+  pointer-events: none;
+  border        : 10px solid var(--page-border);
+}
 
 img {
   max-width : 100%;
@@ -26,11 +36,19 @@ img {
 }
 
 ::selection {
-  background-color: var(--pride-purple);
-  color           : var(--tx-0);
+  background-color: var(--accent);
+  color           : var(--accent-ink);
 }
 
-a { color: inherit; }
+a {
+  color          : inherit;
+  text-decoration: none;
+  transition     : color 0.25s ease, opacity 0.25s ease;
+}
+
+a:hover {
+  color: var(--accent);
+}
 
 p { margin: 0 0 1rem 0; }
 
@@ -40,30 +58,43 @@ mark {
 }
 
 h1 {
+  font-size     : clamp(2.6rem, 7vw, 5.6rem);
   font-weight   : 800;
   text-transform: uppercase;
-  letter-spacing: 0.2rem;
-  line-height   : 1.1;
-  margin: 0 0 1rem 0;
+  letter-spacing: -0.03em;
+  line-height   : 0.95;
+  margin        : 0 0 1rem 0;
 }
 
 h2 {
-  font-weight  : 700;
-  border       : none;
-  border-bottom: 1px solid var(--bd-0, var(--line));
-  padding      : 0 0 0.4rem 0;
-  margin       : 0 0 1rem 0;
+  position      : relative;
+  font-size     : clamp(1.65rem, 3vw, 2.35rem);
+  font-weight   : 700;
+  border        : none;
+  padding       : 0 0 1.35rem 0;
+  margin        : 0 0 1.5rem 0;
+  line-height   : 1.18;
+  letter-spacing: -0.02em;
+}
+
+h2::after {
+  content         : '';
+  display         : block;
+  width           : 30px;
+  height          : 5px;
+  margin-top      : 1.1rem;
+  background-color: var(--accent);
 }
 
 h3, h4, h5, h6 {
-  font-weight   : 600;
-  letter-spacing: 0.05rem;
+  font-weight   : 700;
+  letter-spacing: 0;
   margin: 0 0 0.75rem 0;
 }
 
 blockquote {
   position: relative;
-  padding : 0.5rem 0.5rem 0.5rem 1.25rem; /* 좌측 패딩으로 리본 공간 확보 */
+  padding : 0.5rem 0.5rem 0.5rem 1.25rem;
   margin  : 0 0 1rem 0;
 }
 
@@ -75,7 +106,7 @@ blockquote:before {
   bottom    : 0;
   height    : 100%;
   width     : 4px;
-  background: var(--accent-ribbon);
+  background: var(--accent);
   border    : none;
 }
 
@@ -195,9 +226,9 @@ select {
 input:disabled,
 button:disabled,
 .button-disabled{
-  border         : none;
+  border         : 1px solid var(--bd-1, var(--line));
   outline        : none;
-  border-radius  : 0;
+  border-radius  : var(--r, 3px);
 
   color          : inherit;
   font-family    : inherit;
@@ -209,22 +240,17 @@ button:disabled,
   opacity        : 0.5;
 }
 
-/* Base button: centered text + fixed square shape */
+/* Base button: header controls keep a compact square shape */
 button:not(:disabled),
 .button{
-  /* 고정 크기(정사각형) */
   inline-size       : 3.0rem;
   block-size        : 3.0rem;
   aspect-ratio      : 1 / 1;
   box-sizing        : border-box;
-
-  /* 크기 변형 방지 */
   padding           : 0;
   white-space       : nowrap;
   overflow          : hidden;
   text-overflow     : ellipsis;
-
-  /* 중앙 정렬 */
   display           : inline-flex;
   align-items       : center;
   justify-content   : center;
@@ -233,15 +259,15 @@ button:not(:disabled),
 
   font-size         : 1em;
 
-  border            : 1px solid var(--bd-1, var(--text-shadow));
+  border            : 1px solid var(--bd-1, var(--line));
   outline           : none;
-  border-radius     : var(--r, 6px);
+  border-radius     : var(--r, 3px);
 
   -webkit-appearance: none;
   -moz-appearance   : none;
   appearance        : none;
 
-  background-color  : var(--bg-2, var(--text-secondary));
+  background-color  : transparent;
   color             : var(--text-primary);
 
   font-family       : inherit;
@@ -250,7 +276,7 @@ button:not(:disabled),
 
   cursor            : pointer;
 
-  transition        : color 0.2s, background-color 0.2s, border-color 0.2s;
+  transition        : color 0.25s, background-color 0.25s, border-color 0.25s;
   position          : relative;
   z-index           : 1;
 }
@@ -259,7 +285,7 @@ button:not(:disabled),
 button:not(:disabled)::before,
 .button::before{
   content   : '';
-  transition: all 0.2s;
+  transition: all 0.25s;
   position  : absolute;
   top       : 0;
   bottom    : 0;
@@ -270,7 +296,7 @@ button:not(:disabled)::before,
 button:not(:disabled)::after,
 .button::after{
   content                   : '';
-  transition                : all 0.2s;
+  transition                : all 0.25s;
   transition-timing-function: ease-out;
 
   position                  : absolute;
@@ -279,7 +305,7 @@ button:not(:disabled)::after,
   left                      : 0;
 
   width                     : 0;
-  background-color          : var(--text-primary);
+  background-color          : var(--accent);
   z-index                   : -1;
 }
 
@@ -287,8 +313,8 @@ button:not(:disabled)::after,
 button:not(:disabled):hover,
 .button:hover{
   background-color: transparent;
-  color           : var(--text-secondary);
-  border-color    : var(--bd-2, var(--text-shadow));
+  color           : var(--accent-ink);
+  border-color    : var(--accent);
   box-shadow      : none;
 }
 
@@ -307,9 +333,9 @@ button:not(:disabled):hover::after,
 @media (hover: none) {
   button:not(:disabled):hover,
   .button:hover{
-    background-color: var(--bg-2, var(--text-secondary));
+    background-color: transparent;
     color           : var(--text-primary);
-    border-color    : var(--bd-1, var(--text-shadow));
+    border-color    : var(--bd-1, var(--line));
   }
 
   button:not(:disabled):hover::before,
@@ -327,12 +353,12 @@ button:not(:disabled):hover::after,
 /* Active */
 button:not(:disabled):active,
 .button:active{
-  color: var(--text-primary);
+  color: var(--accent-ink);
 }
 
 button:not(:disabled):active::after,
 .button:active::after{
-  background-color: var(--text-secondary);
+  background-color: var(--tx-0);
 }
 
 

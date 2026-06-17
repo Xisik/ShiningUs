@@ -8,7 +8,7 @@
 | Category | Technology | Version | Justification |
 |---------|------------|---------|---------------|
 | **Markup** | HTML5 | 5.0 | 표준 HTML5, 한국어 지원 (lang="ko") |
-| **Styling** | CSS3 | 3.0 | CSS 변수 기반 디자인 시스템, 다크 모드 지원 |
+| **Styling** | CSS3 | 3.0 | Namari 기반 CSS 변수 디자인 시스템, 다크 모드 지원 |
 | **Scripting** | Vanilla JavaScript | ES5/ES6 | 프레임워크 없는 순수 JavaScript |
 | **Build Tool** | Node.js script | - | `scripts/prepare-pages.js`로 GitHub Pages 배포 산출물 준비 |
 | **Package Manager** | npm | - | Notion 동기화 스크립트 의존성 관리 |
@@ -24,9 +24,10 @@
 
 ## Design System
 
-**CSS Token-based Design System**
-- CSS 변수를 통한 디자인 토큰 관리
+**Namari-inspired CSS Token-based Design System**
+- `namari-gh-pages/`의 Namari Landing Page v1.1.0을 참고한 CSS 변수 디자인 토큰 관리
 - 라이트/다크 모드 지원
+- 금색 포인트(`#d2b356`), 얇은 라인, 넓은 섹션 간격, reveal 애니메이션 사용
 - 모듈화된 CSS 구조:
   - `00_tokens.css` - 디자인 토큰
   - `00_tokens.dark.css` - 다크 모드 토큰
@@ -35,7 +36,8 @@
   - `03_components.css` - 컴포넌트
   - `04_modal.css` - 모달
   - `05_toast.css` - 토스트 알림
-  - `06_animations.css` - 애니메이션
+  - `06_animations.css` - Namari 스타일 기반 애니메이션
+  - `07_thumbnail_slide.css` - 메인 썸네일 슬라이드
 
 ## JavaScript Architecture
 
@@ -47,6 +49,7 @@
   - `30_disclosure.js` - 접기/펼치기
   - `40_theme.js` - 테마 전환
   - `50_mobile_menu.js` - 모바일 메뉴
+  - `07_thumbnail_silde.js` - 메인 썸네일 자동 슬라이드
   - `99_main.js` - 메인 초기화
 
 ## Localization

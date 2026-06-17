@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="./assets/css/04_modal.css" />
   <link rel="stylesheet" href="./assets/css/05_toast.css" />
   <link rel="stylesheet" href="./assets/css/06_animations.css" />
+  <link rel="stylesheet" href="./assets/css/07_thumbnail_slide.css" />
 </head>
 
 <body>
@@ -58,40 +59,59 @@
     </div>
   </header>
 
-
-
-  <main class="container">
-    <section class="hero">
-      <h1>빛청모</h1>
-      <p>
-        성소수자 공조단체 빛청모에 오신 것을 환영합니다! 빛청모는 오픈채팅방, SNS, 회원 모집 등으로 다양한 활동을 겸하고 있습니다.
-        성소수자 공조단체 빛청모는 여러분의 참여와 후원을 기다립니다. 단체 소개, 회원 안내, 문의하기 등 다양한 정보를 확인해보세요.
-      </p>
+  <div class="container index_main_grid">
+    <section class="slides" aria-label="주요 이미지 슬라이드">
+      <ul class="slide-track" data-slide-track>
+        <li class="slide">
+          <a href="#">
+            <img src="./assets/img/thumbnail_00.png" alt="이미지1">
+          </a>
+        </li>
+        <li class="slide">
+          <a href="#">
+            <img src="./assets/img/thumbnail_01.png" alt="이미지2">
+          </a>
+        </li>
+        <li class="slide">
+          <a href="#">
+            <img src="./assets/img/thumbnail_02.png" alt="이미지3">
+          </a>
+        </li>
+      </ul>
     </section>
 
-    <section class="grid" aria-label="메인 버튼">
-      <article class="card">
-        <h2>오픈채팅 참여하기</h2>
-        <div class="join-item">
-          <p>카카오톡 채팅방입니다.</p>
-          <p>링크를 누르면 연결됩니다.</p>
-          <a class="btn btn-primary" href="https://open.kakao.com/o/gRByFFTg" target="_blank"
-            rel="noopener noreferrer">참여하기</a>
-        </div>
-      </article>
+    <main class="main-content">
+      <section class="hero">
+        <h1>빛청모</h1>
+        <p>
+          성소수자 공조단체 빛청모에 오신 것을 환영합니다! 빛청모는 오픈채팅방, SNS, 회원 모집 등으로 다양한 활동을 겸하고 있습니다.
+          성소수자 공조단체 빛청모는 여러분의 참여와 후원을 기다립니다. 단체 소개, 회원 안내, 문의하기 등 다양한 정보를 확인해보세요.
+        </p>
+      </section>
 
-      <article class="card">
-        <h2>SNS 팔로우</h2>
-        <div class="join-item">
-          <p>SNS 링크입니다.</p>
-          <p>팔로우 부탁드립니다.</p>
-          <a class="btn btn-primary" href="https://linktr.ee/shinelgbtqkr" target="_blank"
-            rel="noopener noreferrer">팔로우</a>
-        </div>
-      </article>
+      <section class="grid" aria-label="메인 버튼">
+        <article class="card">
+          <h2>오픈채팅 참여하기</h2>
+          <div class="join-item">
+            <p>카카오톡 채팅방입니다.</p>
+            <p>링크를 누르면 연결됩니다.</p>
+            <a class="btn btn-primary" href="https://open.kakao.com/o/gRByFFTg" target="_blank"
+              rel="noopener noreferrer">참여하기</a>
+          </div>
+        </article>
 
-      <article class="card">
-        <h2>회원 가입</h2>
+        <article class="card">
+          <h2>SNS 팔로우</h2>
+          <div class="join-item">
+            <p>SNS 링크입니다.</p>
+            <p>팔로우 부탁드립니다.</p>
+            <a class="btn btn-primary" href="https://linktr.ee/shinelgbtqkr" target="_blank"
+              rel="noopener noreferrer">팔로우</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>회원 가입</h2>
 
           <div class="join-item">
             <p>정회원 및 준회원</p>
@@ -100,30 +120,30 @@
               href="https://docs.google.com/forms/d/e/1FAIpQLSdIptTfcIdpSzIKZTxlenlAdDixBxK6E1fzwn9n4DcMP-CjRg/viewform"
               target="_blank" rel="noopener noreferrer">가입하기</a>
           </div>
+        </article>
+
+        <div class="join-footer">
+          <a class="link" href="#" data-toggle="memberDiffBox" aria-expanded="false" aria-controls="memberDiffBox">정회원과
+            준회원의 차이가 무엇인가요?</a>
+
+          <div class="info-box" id="memberDiffBox" aria-hidden="true">
+            <p>
+              정회원은 우리 모임의 전반적인 활동에 적극 참여하고 활동하는 회원으로써 각종 행사 참여와 총회에서 임원으로써의 선거권/피선거권을 가지며 각종 월례/ 연례 자료를 제공받을 수 있습니다. 정기 회비
+              납부가 필수입니다.
+            </p>
+            <p>
+              준회원은 연령이나 개인적 상황등의 이유로 제한적으로 활동에 참여하는 회원으로써 각종 행사에 참여하거나 각종 월례/연례 자료를 제공받습니다. 정기 회비 납부는 필수가 아닙니다.
+            </p>
+          </div>
         </div>
-      </article>
+      </section>
 
-      <div class="join-footer">
-        <a class="link" href="#" data-toggle="memberDiffBox" aria-expanded="false" aria-controls="memberDiffBox">정회원과
-          준회원의 차이가 무엇인가요?</a>
-
-        <div class="info-box" id="memberDiffBox" aria-hidden="true">
-          <p>
-            정회원은 우리 모임의 전반적인 활동에 적극 참여하고 활동하는 회원으로써 각종 행사 참여와 총회에서 임원으로써의 선거권/피선거권을 가지며 각종 월례/ 연례 자료를 제공받을 수 있습니다. 정기 회비
-            납부가 필수입니다.
-          </p>
-          <p>
-            준회원은 연령이나 개인적 상황등의 이유로 제한적으로 활동에 참여하는 회원으로써 각종 행사에 참여하거나 각종 월례/연례 자료를 제공받습니다. 정기 회비 납부는 필수가 아닙니다.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="quick-links" aria-label="빠른 이동">
-      <a class="pill" href="./about.html">단체 소개로 이동</a>
-      <a class="pill" href="./contact.html">문의하기로 이동</a>
-    </section>
-  </main>
+      <section class="quick-links" aria-label="빠른 이동">
+        <a class="pill" href="./about.html">단체 소개로 이동</a>
+        <a class="pill" href="./contact.html">문의하기로 이동</a>
+      </section>
+    </main>
+  </div>
 
   <div class="modal" id="memberDiffModal" aria-hidden="true">
     <div class="modal-backdrop" data-close-modal="memberDiff" aria-hidden="true"></div>
@@ -191,6 +211,7 @@
   <script src="./assets/js/40_theme.js"></script>
   <script src="./assets/js/50_mobile_menu.js"></script>
   <script src="./assets/js/06_motion.js"></script>
+  <script src="./assets/js/07_thumbnail_silde.js"></script>
 </body>
 
 </html>

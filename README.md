@@ -30,6 +30,7 @@ bichcheongmo/
 │   └── js/         # 공통 UI, 활동/성명 데이터 렌더링 로직
 ├── data/           # 활동 및 성명 JSON 데이터
 ├── docs/           # 개발, 배포, Notion 연동 문서
+├── namari-gh-pages/ # Namari 템플릿 원본 참고 자료
 ├── scripts/        # Notion 동기화 및 디버깅 스크립트
 ├── .github/
 │   └── workflows/  # GitHub Pages 배포 및 Notion 동기화 워크플로
@@ -82,4 +83,4 @@ python -m http.server 8000
 
 이 저장소의 소스 코드는 GNU General Public License v3.0 또는 이후 버전(`GPL-3.0-or-later`)에 따라 배포됩니다. 자세한 조건과 보증 부인은 [`LICENSE`](./LICENSE)를 확인하세요.
 
-이 프로젝트의 CSS 디자인 및 일부 구현은 FlySkyPie의 `yorha.css` 작업/fork를 참고 및 변형했으며, 원 프로젝트인 YoRHa(`metakirby5/yorha`)는 MIT License로 배포됩니다. 해당 원 저작권 및 MIT 라이선스 고지는 [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md)에 보존되어 있습니다.
+현재 UI 스타일과 애니메이션은 `namari-gh-pages/`에 포함된 Namari Landing Page v1.1.0의 색상, 여백, 섹션 제목, 버튼, reveal 모션을 참고해 조정했습니다. Namari 패키지 안의 MIT 표기 컴포넌트와 기존 YoRHa(`metakirby5/yorha`) 참고 사항은 [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md)에 보존되어 있습니다.

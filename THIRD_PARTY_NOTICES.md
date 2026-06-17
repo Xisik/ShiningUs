@@ -1,8 +1,18 @@
 # Third-Party Notices
 
-This project is distributed under the GNU General Public License v3.0 or later (`GPL-3.0-or-later`). Parts of the CSS design and implementation are derived from or based on YoRHa (`yorha.css`), which is licensed under the MIT License.
+This project is distributed under the GNU General Public License v3.0 or later (`GPL-3.0-or-later`). Parts of the CSS design, animation timing, and visual treatment are derived from or inspired by third-party works noted below.
 
-The project referenced FlySkyPie's `yorha.css` work/fork, which is based on the original YoRHa project by Ethan Chan.
+The current visual system references Namari Landing Page v1.1.0 from ShapingRain and preserves prior references to FlySkyPie's `yorha.css` work/fork, which is based on the original YoRHa project by Ethan Chan.
+
+## Namari Landing Page
+
+- Source package: `namari-gh-pages/`
+- Original project: Namari Landing Page v1.1.0
+- Original author/site: ShapingRain, https://www.shapingrain.com
+- Usage note: The ShapingRain readme permits use in personal and commercial projects and does not require credit.
+- License for MIT-marked bundled components used as style/animation references: MIT License
+
+The Namari package also includes MIT-marked third-party components such as Featherlight, Load Awesome, animate.css, imagesLoaded, scrollUp, stickyNavbar, and enllax.js. Font Awesome assets in the package are distributed under their own Font Awesome terms (font: SIL OFL 1.1, CSS: MIT License).
 
 ## YoRHa / yorha.css
 
@@ -10,6 +20,10 @@ The project referenced FlySkyPie's `yorha.css` work/fork, which is based on the 
 - Original author: Ethan Chan
 - License: MIT License
 - Copyright: Copyright (c) 2017 Ethan Chan
+
+## MIT License Text
+
+The following preserved MIT License text applies to YoRHa / `yorha.css`.
 
 MIT License
 

@@ -4,18 +4,18 @@
   bottom   : 1.5rem;
   transform: translateX(-50%);
 
-  background-color   : var(--bg-1, var(--surface));
-  color              : var(--text-primary);
+  background-color   : var(--tx-0, var(--text-primary));
+  color              : var(--bg-0, var(--text-secondary));
 
-  border       : 1px solid var(--bd-2, var(--text-shadow));
-  border-radius: var(--r, 6px);
+  border       : 1px solid var(--tx-0, var(--text-primary));
+  border-radius: var(--r, 3px);
 
   padding  : 0.65rem 1rem;
-  box-shadow: none;
+  box-shadow: var(--shadow-2);
 
   font-size   : 0.85rem;
-  font-weight : 500;
-  letter-spacing: 0.02rem;
+  font-weight : 700;
+  letter-spacing: 0.04em;
 
   max-width: min(680px, calc(100% - 2rem));
   display  : none;

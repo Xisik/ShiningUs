@@ -1,7 +1,7 @@
 {
   "name": "bichcheongmo",
-  "version": "1.2.0",
-  "description": "본 개발을 담당하고 있는 개발자입니다. 해당 사이트는 성소수자 공조 단체용 사이트입니다. 사이트는 FlySkyPie의 yorha.css를 참고했습니다.",
+  "version": "2.0.0",
+  "description": "성소수자 공조 단체용 정적 사이트입니다. UI 스타일과 애니메이션은 namari-gh-pages의 Namari 템플릿을 참고하고, 기존 YoRHa 참고 고지를 보존합니다.",
   "main": "index.js",
   "directories": {
     "doc": "docs"

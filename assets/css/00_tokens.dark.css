@@ -1,90 +1,83 @@
 /* =====================================================
-   라이트 모드 오버라이드
-   (기본 테마가 다크이므로, 라이트 전환 시 적용)
+   Dark mode override — Namari palette adapted for contrast
 ===================================================== */
 
-/* 1) 수동 토글: data-theme="light" */
-:root[data-theme="light"] {
-  color-scheme: light;
+:root[data-theme="dark"] {
+  color-scheme: dark;
 
-  --bg-0:  #f2ede8;
-  --bg-1:  #faf7f4;
-  --bg-2:  #ede7e2;
+  --bg-0:  #111111;
+  --bg-1:  #171717;
+  --bg-2:  #222222;
 
-  --bd-0:  #ddd5ce;
-  --bd-1:  #c8bdb6;
-  --bd-2:  #a89890;
+  --bd-0:  #2a2a2a;
+  --bd-1:  #363636;
+  --bd-2:  #d2b356;
 
-  --tx-0:  #1a1614;
-  --tx-1:  #4a4240;
-  --tx-2:  #7a7068;
+  --tx-0:  #f5f5f5;
+  --tx-1:  #dddddd;
+  --tx-2:  #9c9c9c;
 
-  --pride-red:    #c42424;
-  --pride-orange: #b05e18;
-  --pride-yellow: #9e8010;
-  --pride-green:  #1e7040;
-  --pride-blue:   #2a56a0;
-  --pride-purple: #6634a0;
+  --accent: #d2b356;
+  --accent-ink: #111111;
+  --page-border: #242424;
 
-  --accent-ribbon: linear-gradient(90deg,
-    var(--pride-red),
-    var(--pride-orange),
-    var(--pride-yellow),
-    var(--pride-green),
-    var(--pride-blue),
-    var(--pride-purple));
+  --pride-red:    var(--accent);
+  --pride-orange: var(--accent);
+  --pride-yellow: var(--accent);
+  --pride-green:  var(--accent);
+  --pride-blue:   var(--accent);
+  --pride-purple: var(--accent);
+  --accent-ribbon: linear-gradient(90deg, var(--accent), var(--accent));
 
   --main-bg-color:  var(--bg-0);
   --text-primary:   var(--tx-0);
-  --text-secondary: var(--bg-1);
+  --text-secondary: var(--bg-0);
   --text-shadow:    var(--tx-2);
   --surface:        var(--bg-1);
   --surface-strong: var(--bg-1);
   --line:           var(--bd-0);
-  --shadow-1:       none;
-  --shadow-2:       none;
+  --primary:        var(--accent);
+  --shadow-1:       0 2px 10px rgba(0, 0, 0, 0.28);
+  --shadow-2:       0 16px 42px rgba(0, 0, 0, 0.42);
 }
 
-/* 2) 시스템 라이트: data-theme="dark"로 강제하지 않았을 때만 */
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    color-scheme: light;
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
 
-    --bg-0:  #f2ede8;
-    --bg-1:  #faf7f4;
-    --bg-2:  #ede7e2;
+    --bg-0:  #111111;
+    --bg-1:  #171717;
+    --bg-2:  #222222;
 
-    --bd-0:  #ddd5ce;
-    --bd-1:  #c8bdb6;
-    --bd-2:  #a89890;
+    --bd-0:  #2a2a2a;
+    --bd-1:  #363636;
+    --bd-2:  #d2b356;
 
-    --tx-0:  #1a1614;
-    --tx-1:  #4a4240;
-    --tx-2:  #7a7068;
+    --tx-0:  #f5f5f5;
+    --tx-1:  #dddddd;
+    --tx-2:  #9c9c9c;
 
-    --pride-red:    #c42424;
-    --pride-orange: #b05e18;
-    --pride-yellow: #9e8010;
-    --pride-green:  #1e7040;
-    --pride-blue:   #2a56a0;
-    --pride-purple: #6634a0;
+    --accent: #d2b356;
+    --accent-ink: #111111;
+    --page-border: #242424;
 
-    --accent-ribbon: linear-gradient(90deg,
-      var(--pride-red),
-      var(--pride-orange),
-      var(--pride-yellow),
-      var(--pride-green),
-      var(--pride-blue),
-      var(--pride-purple));
+    --pride-red:    var(--accent);
+    --pride-orange: var(--accent);
+    --pride-yellow: var(--accent);
+    --pride-green:  var(--accent);
+    --pride-blue:   var(--accent);
+    --pride-purple: var(--accent);
+    --accent-ribbon: linear-gradient(90deg, var(--accent), var(--accent));
 
     --main-bg-color:  var(--bg-0);
     --text-primary:   var(--tx-0);
-    --text-secondary: var(--bg-1);
+    --text-secondary: var(--bg-0);
     --text-shadow:    var(--tx-2);
     --surface:        var(--bg-1);
     --surface-strong: var(--bg-1);
     --line:           var(--bd-0);
-    --shadow-1:       none;
-    --shadow-2:       none;
+    --primary:        var(--accent);
+    --shadow-1:       0 2px 10px rgba(0, 0, 0, 0.28);
+    --shadow-2:       0 16px 42px rgba(0, 0, 0, 0.42);
   }
 }

@@ -11,9 +11,13 @@ bichcheongmo/
 ├── about.html              # 단체 소개 페이지
 ├── activities.html          # 활동 공유 페이지
 ├── contact.html             # 문의하기 페이지
+├── donate.html              # 후원하기 페이지
+├── region.html              # 지역지부 페이지
+├── poli.html                # 정치위원회 페이지
+├── poli-statements.html     # 정치위원회 성명 페이지
 ├── README.md                # 프로젝트 설명
 ├── LICENSE                  # GNU GPL v3.0-or-later 라이선스
-├── THIRD_PARTY_NOTICES.md   # 제3자 저작권 및 라이선스 고지
+├── THIRD_PARTY_NOTICES.md   # Namari/YoRHa 등 제3자 저작권 및 MIT 라이선스 고지
 ├── CNAME                    # GitHub Pages 커스텀 도메인 설정
 ├── favicon.ico              # 파비콘
 │
@@ -26,7 +30,8 @@ bichcheongmo/
 │   │   ├── 03_components.css       # 컴포넌트 스타일
 │   │   ├── 04_modal.css            # 모달 스타일
 │   │   ├── 05_toast.css            # 토스트 알림 스타일
-│   │   └── 06_animations.css       # 애니메이션 스타일
+│   │   ├── 06_animations.css       # Namari 스타일 기반 애니메이션
+│   │   └── 07_thumbnail_slide.css  # 메인 썸네일 슬라이드
 │   │
 │   ├── js/                  # JavaScript 모듈
 │   │   ├── 00_dom.js               # DOM 유틸리티 함수
@@ -35,6 +40,7 @@ bichcheongmo/
 │   │   ├── 30_disclosure.js        # 접기/펼치기 기능
 │   │   ├── 40_theme.js             # 테마 전환 기능
 │   │   ├── 50_mobile_menu.js       # 모바일 메뉴 기능
+│   │   ├── 07_thumbnail_silde.js   # 메인 썸네일 자동 슬라이드
 │   │   └── 99_main.js              # 메인 초기화
 │   │
 │   ├── img/                 # 이미지 파일
@@ -42,6 +48,8 @@ bichcheongmo/
 │   │
 │   └── font/                # 폰트 파일
 │       └── 0xProtoNerdFontPropo-Regular.ttf
+│
+├── namari-gh-pages/         # Namari Landing Page v1.1.0 원본 참고 자료
 │
 └── docs/                    # 문서 디렉토리 (생성됨)
     ├── project-scan-report.json

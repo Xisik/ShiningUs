@@ -3,7 +3,7 @@
   if (!window.IntersectionObserver) return;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  var SELECTORS = ".card, .activity-card, .statement-card, .join-item, .contact-item";
+  var SELECTORS = ".slides, .card, .activity-card, .statement-card, .join-item, .contact-item, .pill, .diff-col";
   var STAGGER_MS = 80;
 
   var io = new IntersectionObserver(

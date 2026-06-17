@@ -14,13 +14,13 @@
 
 /* 스크롤 등장: 아래서 위로 올라오며 나타남 */
 @keyframes fadeSlideUp {
-  from { opacity: 0; transform: translateY(32px); }
+  from { opacity: 0; transform: translateY(26px); }
   to   { opacity: 1; transform: translateY(0);    }
 }
 
 /* 페이지 로드 히어로 진입 */
 @keyframes heroReveal {
-  from { opacity: 0; transform: translateY(32px); }
+  from { opacity: 0; transform: translateY(22px); }
   to   { opacity: 1; transform: translateY(0);    }
 }
 
@@ -30,10 +30,9 @@
   to   { opacity: 1; transform: translateY(0);   }
 }
 
-/* 히어로 h1 플로팅 — CSS 변수로 모바일 진폭 조절 */
-@keyframes heroFloat {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(var(--float-y, -8px)); }
+@keyframes pageBorderIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 
@@ -95,25 +94,12 @@
 
 .hero,
 .page-header {
-  animation: heroReveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: heroReveal 0.75s cubic-bezier(0.25, 0.1, 0.25, 1) both;
 }
 
 
-/* =========================
-   히어로 h1 플로팅  (ease-in-out 루프)
-========================= */
-
-.hero h1 {
-  display     : inline-block; /* transform이 block 요소에도 적용되도록 */
-  animation   : heroFloat 4s ease-in-out infinite;
-  will-change : transform;
-}
-
-/* 모바일: 진폭 절반 */
-@media (max-width: 768px) {
-  .hero h1 {
-    --float-y: -4px;
-  }
+body::before {
+  animation: pageBorderIn 0.7s ease both;
 }
 
 
@@ -124,9 +110,9 @@
 
 .js main {
   opacity   : 0;
-  transform : translateY(12px);
-  transition: opacity   0.4s cubic-bezier(0, 0, 0.2, 1),
-              transform 0.4s cubic-bezier(0, 0, 0.2, 1);
+  transform : translateY(16px);
+  transition: opacity   0.55s cubic-bezier(0.25, 0.1, 0.25, 1),
+              transform 0.55s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .js main.is-page-ready {
@@ -142,9 +128,9 @@
 
 .js .scroll-reveal {
   opacity   : 0;
-  transform : translateY(32px);
-  transition: opacity   0.55s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  transform : translateY(26px);
+  transition: opacity   0.75s cubic-bezier(0.25, 0.1, 0.25, 1),
+              transform 0.75s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .js .scroll-reveal.is-visible {
@@ -159,13 +145,13 @@
 
 .card {
   transition: border-color 0.2s,
-              transform    0.25s cubic-bezier(0, 0, 0.2, 1),
-              box-shadow   0.25s cubic-bezier(0, 0, 0.2, 1);
+              transform    0.28s cubic-bezier(0.25, 0.1, 0.25, 1),
+              box-shadow   0.28s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .card:hover {
-  transform : translateY(-6px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  transform : translateY(-4px);
+  box-shadow: var(--shadow-2);
 }
 
 /* 모바일(터치): hover 눌러붙음 방지, :active로 대체 */
@@ -176,8 +162,8 @@
   }
 
   .card:active {
-    transform : translateY(-6px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    transform : translateY(-4px);
+    box-shadow: var(--shadow-2);
   }
 }
 
@@ -196,10 +182,10 @@
   width         : 100px;
   height        : 100px;
   border-radius : 50%;
-  background    : rgba(255, 255, 255, 0.35);
+  background    : color-mix(in srgb, var(--accent) 28%, transparent);
   pointer-events: none;
   transform     : translate(-50%, -50%) scale(0);
-  animation     : ripple 0.55s cubic-bezier(0, 0, 0.2, 1) forwards;
+  animation     : ripple 0.55s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
 }
 
 
@@ -238,7 +224,7 @@
 
 .toast.is-show {
   display  : block;
-  animation: toastSlideUp 0.28s cubic-bezier(0, 0, 0.2, 1) both;
+  animation: toastSlideUp 0.32s cubic-bezier(0.25, 0.1, 0.25, 1) both;
 }
 
 .toast.is-show.is-hiding {
@@ -251,11 +237,11 @@
 ========================= */
 
 .modal.is-open .modal-backdrop {
-  animation: backdropIn 0.25s cubic-bezier(0, 0, 0.2, 1) both;
+  animation: backdropIn 0.28s cubic-bezier(0.25, 0.1, 0.25, 1) both;
 }
 
 .modal.is-open .modal-dialog {
-  animation: modalIn 0.3s cubic-bezier(0, 0, 0.2, 1) both;
+  animation: modalIn 0.34s cubic-bezier(0.25, 0.1, 0.25, 1) both;
 }
 
 .modal.is-open.is-closing .modal-backdrop {
@@ -301,9 +287,8 @@
     box-shadow: none;
   }
 
-  /* 플로팅 제거 */
+  body::before,
   .hero h1 {
-    animation  : none;
-    will-change: auto;
+    animation: none;
   }
 }

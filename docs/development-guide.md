@@ -91,17 +91,23 @@ bichcheongmo/
 <link rel="stylesheet" href="./assets/css/04_modal.css" />
 <link rel="stylesheet" href="./assets/css/05_toast.css" />
 <link rel="stylesheet" href="./assets/css/06_animations.css" />
+<link rel="stylesheet" href="./assets/css/07_thumbnail_slide.css" />
 ```
 
 **JavaScript 로딩 순서 (중요):**
 ```html
 <script src="./assets/js/00_dom.js"></script>
+<script src="./assets/js/05_scroll_reveal.js" defer></script>
+<script src="./assets/js/30_disclosure.js"></script>
 <script src="./assets/js/10_toast.js"></script>
 <script src="./assets/js/20_modal.js"></script>
-<script src="./assets/js/30_disclosure.js"></script>
+<!-- page-specific data/router modules load here when needed -->
+<script src="./assets/js/99_main.js"></script>
+<script src="./assets/js/45_i18n.js"></script>
 <script src="./assets/js/40_theme.js"></script>
 <script src="./assets/js/50_mobile_menu.js"></script>
-<script src="./assets/js/99_main.js"></script>
+<script src="./assets/js/06_motion.js"></script>
+<script src="./assets/js/07_thumbnail_silde.js"></script>
 ```
 
 ### 테스트
@@ -198,9 +204,9 @@ bichcheongmo/
 
 ## Resources
 
-- **참고:** FlySkyPie의 yorha.css 참고
+- **참고:** `namari-gh-pages/`의 Namari Landing Page v1.1.0을 현재 UI 스타일과 애니메이션 기준으로 참고하며, 기존 FlySkyPie의 `yorha.css` 참고 이력도 보존합니다.
 - **프로젝트 라이선스:** GNU General Public License v3.0 or later (`GPL-3.0-or-later`)
-- **제3자 고지:** 이 프로젝트의 CSS 디자인 및 일부 구현은 FlySkyPie의 `yorha.css` 작업/fork를 참고 및 변형했습니다. 원 프로젝트 YoRHa(`metakirby5/yorha`)의 MIT 라이선스 고지는 [`../THIRD_PARTY_NOTICES.md`](../THIRD_PARTY_NOTICES.md)에 보존되어 있습니다.
+- **제3자 고지:** Namari 패키지의 MIT 표기 컴포넌트와 YoRHa(`metakirby5/yorha`)의 MIT 라이선스 고지는 [`../THIRD_PARTY_NOTICES.md`](../THIRD_PARTY_NOTICES.md)에 보존되어 있습니다.
 - **저장소:** GitHub
 
 

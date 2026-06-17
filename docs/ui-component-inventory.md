@@ -18,7 +18,7 @@
   - 테마 전환 버튼
 
 - **Container** (`container`)
-  - 최대 너비 제한 (1100px)
+  - 최대 너비 제한 (1245px)
   - 중앙 정렬
 
 ### Navigation Components
@@ -30,7 +30,11 @@
 ### Content Components
 
 - **Hero Section** (`hero`)
-  - 메인 히어로 섹션
+  - Namari 스타일의 큰 타이포그래피와 섹션 리드 문구
+
+- **Thumbnail Slide** (`slides`, `slide-track`, `slide`)
+  - 메인 페이지 상단 썸네일 자동 슬라이드
+  - JavaScript 모듈: `07_thumbnail_silde.js`
 
 - **Grid Layout** (`grid`)
   - 카드 그리드 레이아웃
@@ -65,6 +69,8 @@
 
 ## Design System
 
+현재 디자인 시스템은 `namari-gh-pages/`의 Namari Landing Page v1.1.0을 기준으로 흰 배경, 금색 포인트(`#d2b356`), 얇은 라인, 넓은 섹션 간격, fade-in reveal 애니메이션을 사용합니다. 기존 라이트/다크 테마 전환, 모바일 메뉴, 모달, 토스트, disclosure 기능은 동일한 클래스와 JavaScript 모듈로 유지됩니다.
+
 ### CSS Architecture
 
 모듈화된 CSS 구조:
@@ -87,7 +93,9 @@
 
 7. **05_toast.css** - 토스트 알림 스타일
 
-8. **06_animations.css** - 애니메이션 스타일
+8. **06_animations.css** - Namari 스타일 기반 애니메이션
+
+9. **07_thumbnail_slide.css** - 메인 썸네일 슬라이드 스타일
 
 ### JavaScript Architecture
 
@@ -99,6 +107,7 @@
 - **30_disclosure.js** - 접기/펼치기 기능
 - **40_theme.js** - 테마 전환 기능
 - **50_mobile_menu.js** - 모바일 메뉴 기능
+- **07_thumbnail_silde.js** - 메인 썸네일 자동 슬라이드
 - **99_main.js** - 메인 초기화
 
 ## State Management

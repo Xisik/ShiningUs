@@ -38,7 +38,7 @@
 
 - [README.md](../README.md) - 프로젝트 설명
 - [LICENSE](../LICENSE) - GNU General Public License v3.0 or later (`GPL-3.0-or-later`)
-- [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md) - 제3자 저작권 및 라이선스 고지
+- [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md) - Namari/YoRHa 등 제3자 저작권 및 MIT 라이선스 고지
 
 ## Getting Started
 
@@ -68,6 +68,7 @@ bichcheongmo/
 │   ├── js/                 # JavaScript 모듈
 │   ├── img/                # 이미지
 │   └── font/               # 폰트
+├── namari-gh-pages/        # Namari 템플릿 원본 참고 자료
 └── docs/                   # 문서 (이 디렉토리)
 ```
 
