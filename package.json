@@ -1,6 +1,6 @@
 {
   "name": "bichcheongmo",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "성소수자 공조 단체용 정적 사이트입니다. UI 스타일과 애니메이션은 namari-gh-pages의 Namari 템플릿을 참고하고, 기존 YoRHa 참고 고지를 보존합니다.",
   "main": "index.js",
   "directories": {

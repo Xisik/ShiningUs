@@ -183,6 +183,8 @@
     '지출내역 목록': 'Expense reports list',
     '지출내역 목록 로딩 중': 'Loading expense reports list',
     '지출내역을 불러오고 있습니다.': 'Loading expense reports.',
+    'Notion에서 지출내역 자료를 정리하고 있습니다.': 'Preparing expense reports from Notion.',
+    '잠시만 기다려주세요. 곧 최신 지출내역을 보여드릴게요.': 'Please wait a moment. The latest expense reports will appear shortly.',
     '지출내역 목록이 비어있음': 'Expense reports list is empty',
     '아직 등록된 지출내역이 없습니다.': 'There are no expense reports yet.',
     '지출내역 목록을 불러오는 중 오류가 발생했습니다.': 'An error occurred while loading the expense reports list.',

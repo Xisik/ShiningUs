@@ -130,9 +130,10 @@
       return;
     }
 
-    const bundledPayments = ui.payments && ui.payments.data && ui.payments.data.payments;
+    const bundledPayload = ui.payments && ui.payments.data;
+    const bundledPayments = bundledPayload && bundledPayload.payments;
 
-    if (Array.isArray(bundledPayments)) {
+    if (Array.isArray(bundledPayments) && bundledPayments.length > 0) {
       renderPayments(bundledPayments, container);
     }
 
@@ -150,6 +151,7 @@
       .catch(error => {
         if (Array.isArray(bundledPayments)) {
           console.warn('지출내역 JSON 로드 실패, 번들된 목록을 사용합니다:', error);
+          renderPayments(bundledPayments, container);
         } else {
           console.error('지출내역 목록 로드 실패:', error);
           showError(container);
