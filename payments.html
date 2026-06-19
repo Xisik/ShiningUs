@@ -5,10 +5,14 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' https: data:; font-src 'self' https://gcore.jsdelivr.net; connect-src 'self'; base-uri 'self'; form-action 'self' https:; object-src 'none'" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta property="og:title" content="빛청모 | 정치위원회" />
-  <meta property="og:description" content="빛청모 정치위원회 활동과 성명을 확인하세요." />
+  <meta name="description" content="빛청모의 지출내역서 PDF를 확인하고 다운로드할 수 있습니다." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="빛청모 | 지출내역" />
+  <meta property="og:description" content="빛청모의 지출내역서 PDF를 확인하고 다운로드할 수 있습니다." />
   <meta property="og:image" content="./assets/img/logo.jpg" />
-  <title>빛청모 | 정치위원회</title>
+  <meta property="og:url" content="./payments.html" />
+  <meta property="og:locale" content="ko_KR" />
+  <title>빛청모 | 지출내역</title>
 
   <link rel="icon" href="./assets/img/logo.jpg" sizes="any" />
   <link rel="stylesheet" href="./assets/css/00_tokens.css" />
@@ -32,12 +36,11 @@
         <a class="nav-link" href="./index.html">홈</a>
         <a class="nav-link" href="./about.html">단체 소개</a>
         <a class="nav-link" href="./activities.html">활동공유</a>
-        <a class="nav-link" href="./payments.html">지출내역</a>
+        <a class="nav-link" href="./poli-statements.html">성명</a>
+        <a class="nav-link is-active" href="./payments.html">지출내역</a>
         <a class="nav-link" href="./contact.html">문의하기</a>
         <a class="nav-link" href="./donate.html">후원하기</a>
         <a class="nav-link" href="./region.html">지역지부</a>
-        <a class="nav-link is-active" href="./poli.html">정치위원회</a>
-        <a class="nav-link" href="./poli-statements.html">성명</a>
       </nav>
 
       <div class="header-actions">
@@ -47,9 +50,10 @@
           data-nav-toggle
           aria-controls="siteNav"
           aria-expanded="false"
+          aria-label="메뉴 열기"
         >MENU</button>
 
-        <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false">
+        <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false" aria-label="다크 모드로 전환">
           다크 모드
         </button>
 
@@ -62,26 +66,25 @@
   </div>
 </header>
 
-
-
   <main class="container">
     <section class="page-header">
-      <h1>빛청모 정치위원회</h1>
-      <p>청소년의 정치적 권리를 선언하다</p>
+      <h1>지출내역</h1>
+      <p>
+        빛청모의 지출내역서 PDF를 확인하고 다운로드할 수 있습니다.
+      </p>
     </section>
 
-    <section class="card content">
-      <h2>우리는 침묵하지 않는다</h2>
-      <p>청소년·성소수자·노동권 의제를 중심으로 정치적 실천을 이어갑니다.</p>
-      <p class="join-column-item">
-        <a class="btn btn-primary" href="./contact.html">문의하기</a>
-      </p>
+    <section class="payments-container" id="payments-list" role="region" aria-label="지출내역 목록">
+      <div class="card content loading-state" role="status" aria-live="polite" aria-label="지출내역 목록 로딩 중">
+        <p class="loading-title">지출내역을 불러오고 있습니다.</p>
+        <p class="small">잠시만 기다려주세요.</p>
+      </div>
     </section>
   </main>
 
   <div class="toast" id="toast" aria-live="polite" aria-atomic="true"></div>
 
-  <footer class="site-footer">
+  <footer class="site-footer" role="contentinfo">
     <div class="container footer-inner">
       <div class="card footer-legal">
         <p>사업자번호 231-82-77851</p>
@@ -98,6 +101,8 @@
   <script src="./assets/js/30_disclosure.js"></script>
   <script src="./assets/js/10_toast.js"></script>
   <script src="./assets/js/20_modal.js"></script>
+  <script src="./assets/js/60_payments_data.js"></script>
+  <script src="./assets/js/80_payments_init.js"></script>
   <script src="./assets/js/99_main.js"></script>
   <script src="./assets/js/45_i18n.js"></script>
   <script src="./assets/js/40_theme.js"></script>

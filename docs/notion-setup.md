@@ -49,7 +49,7 @@
 2. Settings → Secrets and variables → Actions
 3. 다음 Secrets 추가:
    - `NOTION_API_KEY`: 노션 통합 토큰
-   - `NOTION_DATABASE_ID`: 노션 데이터베이스 ID
+   - `ACTIVITIES_DATABASE_ID`: 노션 활동내역 데이터베이스 ID
 
 ### 5. GitHub Actions 워크플로우 확인
 

@@ -414,6 +414,31 @@ button.btn {
 }
 
 /* =========================
+   Payments List
+========================= */
+.payments-container{
+  margin: 1rem 0 1.25rem 0;
+}
+
+.payment-card{
+  margin-bottom: 1rem;
+}
+
+.payment-header{
+  margin-bottom: 0.75rem;
+}
+
+.payment-title{
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  font-weight: normal;
+}
+
+.payment-download{
+  margin-top: 1rem;
+}
+
+/* =========================
    Statements List
 ========================= */
 .statement-card{
@@ -1239,6 +1264,7 @@ button.theme-toggle{
 }
 
 .activity-title,
+.payment-title,
 .statement-title{
   font-weight   : 700;
   letter-spacing: -0.01em;

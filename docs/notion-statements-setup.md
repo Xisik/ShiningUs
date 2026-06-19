@@ -66,11 +66,8 @@
 1. GitHub 저장소로 이동
 2. Settings → Secrets and variables → Actions
 3. 다음 Secret 추가:
-   - `NOTION_STATEMENTS_DATABASE_ID`: 노션 성명서 데이터베이스 ID
-   - (활동공유와 다른 통합을 사용하는 경우) `NOTION_STATEMENTS_API_KEY`: 별도 API 키
-   - (활동공유와 동일한 통합을 사용하는 경우) 기존 `NOTION_API_KEY` 사용
-
-**참고**: `NOTION_STATEMENTS_DATABASE_ID`가 설정되지 않으면 `NOTION_DATABASE_ID`를 사용합니다.
+   - `NOTION_API_KEY`: 노션 통합 API 키
+   - `STATEMENTS_DATABASE_ID`: 노션 성명서 데이터베이스 ID
 
 ### 5. 수동 테스트
 
@@ -81,12 +78,12 @@
 ```bash
 # Windows PowerShell
 $env:NOTION_API_KEY="your_api_key"
-$env:NOTION_STATEMENTS_DATABASE_ID="your_database_id"
+$env:STATEMENTS_DATABASE_ID="your_database_id"
 node scripts/debug-statements.js
 
 # Mac/Linux
 export NOTION_API_KEY="your_api_key"
-export NOTION_STATEMENTS_DATABASE_ID="your_database_id"
+export STATEMENTS_DATABASE_ID="your_database_id"
 node scripts/debug-statements.js
 ```
 
@@ -97,12 +94,12 @@ node scripts/debug-statements.js
 ```bash
 # Windows PowerShell
 $env:NOTION_API_KEY="your_api_key"
-$env:NOTION_STATEMENTS_DATABASE_ID="your_database_id"
+$env:STATEMENTS_DATABASE_ID="your_database_id"
 node scripts/sync-notion-statements.js
 
 # Mac/Linux
 export NOTION_API_KEY="your_api_key"
-export NOTION_STATEMENTS_DATABASE_ID="your_database_id"
+export STATEMENTS_DATABASE_ID="your_database_id"
 node scripts/sync-notion-statements.js
 ```
 
@@ -139,7 +136,7 @@ node scripts/sync-notion-statements.js
 
 2. **데이터베이스 ID 확인**
    - URL에서 데이터베이스 ID 추출
-   - GitHub Secrets의 `NOTION_STATEMENTS_DATABASE_ID`와 일치하는지 확인
+   - GitHub Secrets의 `STATEMENTS_DATABASE_ID`와 일치하는지 확인
    - 하이픈 포함/제외 여부 확인 (둘 다 가능)
 
 3. **디버깅 스크립트 실행**
@@ -153,7 +150,7 @@ node scripts/sync-notion-statements.js
 - GitHub Actions 로그에서 에러 메시지 확인
 - 노션 데이터베이스 필드명이 올바른지 확인
 - 필수 필드(제목, 날짜)가 모든 페이지에 있는지 확인
-- `NOTION_STATEMENTS_DATABASE_ID` Secret이 올바르게 설정되었는지 확인
+- `STATEMENTS_DATABASE_ID` Secret이 올바르게 설정되었는지 확인
 - **디버깅 스크립트 실행**: `node scripts/debug-statements.js`
 
 ### 인증 오류가 발생하는 경우

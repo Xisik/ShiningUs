@@ -53,13 +53,10 @@ jobs:
 
       - name: Sync Notion statements data
         env:
-          NOTION_API_KEY: ${{ secrets.NOTION_STATEMENTS_API_KEY || secrets.NOTION_API_KEY }}
-          NOTION_STATEMENTS_DATABASE_ID: ${{ secrets.NOTION_STATEMENTS_DATABASE_ID || secrets.NOTION_DATABASE_ID }}
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          STATEMENTS_DATABASE_ID: ${{ secrets.STATEMENTS_DATABASE_ID }}
         run: |
           # 노션 데이터를 가져와서 JSON 파일로 저장하는 스크립트 실행
-          if [ -z "$NOTION_STATEMENTS_DATABASE_ID" ]; then
-            echo "WARNING: NOTION_STATEMENTS_DATABASE_ID is not set, using NOTION_DATABASE_ID"
-          fi
           node scripts/sync-notion-statements.js
 
       - name: Commit and push statements.json and images

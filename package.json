@@ -1,12 +1,16 @@
 {
   "name": "bichcheongmo",
-  "version": "2.5.0",
+  "version": "3.0.0",
   "description": "성소수자 공조 단체용 정적 사이트입니다. UI 스타일과 애니메이션은 namari-gh-pages의 Namari 템플릿을 참고하고, 기존 YoRHa 참고 고지를 보존합니다.",
   "main": "index.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
+    "sync:activities": "node scripts/sync-notion.js",
+    "sync:statements": "node scripts/sync-notion-statements.js",
+    "sync:payments": "node scripts/sync-payments.js",
+    "prepare-pages": "node scripts/prepare-pages.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

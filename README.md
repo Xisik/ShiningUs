@@ -53,19 +53,21 @@ python -m http.server 8000
 
 ## Notion 데이터 동기화
 
-활동과 성명 데이터는 Notion API를 통해 JSON 파일로 동기화됩니다.
+활동, 성명, 지출내역 데이터는 Notion API를 통해 JSON 파일로 동기화됩니다.
 
 - 활동 데이터: `data/activities.json`
 - 성명 데이터: `data/statements.json`
+- 지출내역 데이터: `data/payments.json`
 - 활동 동기화: `node scripts/sync-notion.js`
 - 성명 동기화: `node scripts/sync-notion-statements.js`
+- 지출내역 동기화: `node scripts/sync-payments.js`
 
 필요한 환경 변수는 GitHub Actions Secrets 또는 로컬 환경 변수로 설정합니다.
 
 - `NOTION_API_KEY`
-- `NOTION_DATABASE_ID`
-- `NOTION_STATEMENTS_API_KEY`
-- `NOTION_STATEMENTS_DATABASE_ID`
+- `ACTIVITIES_DATABASE_ID`
+- `STATEMENTS_DATABASE_ID`
+- `PAYMENTS_DATABASE_ID`
 
 ## 배포
 

@@ -11,7 +11,7 @@
  *   - CNAME
  *   - LICENSE, THIRD_PARTY_NOTICES.md
  *   - HTML/CSS/JSON에서 실제 참조하는 assets/*
- *   - data/activities.json, data/statements.json
+ *   - data/activities.json, data/statements.json, data/payments.json
  *
  * 제외(미복사): scripts/, docs/, .github/, package.json, node_modules/, README,
  *              미참조 이미지/스크립트/CSS 등
@@ -102,6 +102,34 @@ function collectJsonImageRefs(relPath, collectionKey) {
   return refs;
 }
 
+function collectJsonPaymentRefs(relPath) {
+  const refs = new Set();
+  const srcPath = path.join(ROOT, relPath);
+  if (!fs.existsSync(srcPath)) return refs;
+
+  try {
+    const payload = JSON.parse(fs.readFileSync(srcPath, 'utf8'));
+    const payments = Array.isArray(payload) ? payload : (payload.payments || []);
+    for (const payment of Array.isArray(payments) ? payments : []) {
+      const urlRef = normalizeAssetPath(payment && payment.url);
+      if (urlRef) {
+        refs.add(urlRef);
+        continue;
+      }
+
+      const file = payment && payment.file;
+      if (file && !/^(?:[a-z][a-z0-9+.-]*:|\/\/|data:)/i.test(file)) {
+        const fileName = path.posix.basename(String(file).replace(/\\/g, '/'));
+        refs.add(path.posix.join('assets', 'payment', fileName));
+      }
+    }
+  } catch (error) {
+    console.warn(`  WARNING: failed to read payment refs from ${relPath}: ${error.message}`);
+  }
+
+  return refs;
+}
+
 function collectCssDependencies(assetRefs) {
   let changed = true;
   while (changed) {
@@ -155,6 +183,7 @@ function main() {
   // 공개 데이터 JSON만 선별 복사 (로컬 테스트용 *.local.json 등 제외)
   copyFile(path.join('data', 'activities.json'));
   copyFile(path.join('data', 'statements.json'));
+  copyFile(path.join('data', 'payments.json'));
 
   // 실제 참조되는 정적 자산만 복사
   const assetRefs = collectHtmlAssetRefs(htmlFiles);
@@ -162,6 +191,9 @@ function main() {
     assetRefs.add(ref);
   }
   for (const ref of collectJsonImageRefs(path.join('data', 'statements.json'), 'statements')) {
+    assetRefs.add(ref);
+  }
+  for (const ref of collectJsonPaymentRefs(path.join('data', 'payments.json'))) {
     assetRefs.add(ref);
   }
   collectCssDependencies(assetRefs);

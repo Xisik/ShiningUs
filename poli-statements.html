@@ -37,6 +37,8 @@
         <a class="nav-link" href="./index.html">홈</a>
         <a class="nav-link" href="./about.html">단체 소개</a>
         <a class="nav-link" href="./activities.html">활동공유</a>
+        <a class="nav-link is-active" href="./poli-statements.html">성명</a>
+        <a class="nav-link" href="./payments.html">지출내역</a>
         <a class="nav-link" href="./contact.html">문의하기</a>
         <a class="nav-link" href="./donate.html">후원하기</a>
         <a class="nav-link" href="./region.html">지역지부</a>
@@ -80,7 +82,10 @@
 
     <!-- Story 3.3: 스크린 리더 접근성 - 성명 목록 영역 -->
     <section id="statement-list" class="activities-container" role="region" aria-label="성명 목록">
-      <!-- 성명 목록이 여기에 동적으로 렌더링됩니다 -->
+      <div class="card content loading-state" role="status" aria-live="polite" aria-label="성명 목록 로딩 중">
+        <p class="loading-title">Notion에서 성명 자료를 정리하고 있습니다.</p>
+        <p class="small">잠시만 기다려주세요. 곧 최신 성명을 보여드릴게요.</p>
+      </div>
     </section>
 
   </main>

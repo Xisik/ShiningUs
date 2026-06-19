@@ -39,7 +39,7 @@
 
 - 정적 사이트 런타임에는 환경 변수가 없음
 - Notion 동기화 워크플로는 GitHub Actions Secrets를 사용함
-- 필요한 Secrets: `NOTION_API_KEY`, `NOTION_DATABASE_ID`, `NOTION_STATEMENTS_API_KEY`, `NOTION_STATEMENTS_DATABASE_ID`
+- 필요한 Secrets: `NOTION_API_KEY`, `ACTIVITIES_DATABASE_ID`, `STATEMENTS_DATABASE_ID`, `PAYMENTS_DATABASE_ID`
 
 ## CI/CD
 

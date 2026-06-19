@@ -1,0 +1,65 @@
+name: Sync Notion Payments
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  sync-notion-payments:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: sync-notion-payments-${{ github.ref }}
+      cancel-in-progress: true
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.2.2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Pull latest changes
+        run: |
+          git pull --rebase origin "${GITHUB_REF_NAME}" || echo "Pull failed, continuing..."
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4.4.0
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Sync Notion payments data
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          PAYMENTS_DATABASE_ID: ${{ secrets.PAYMENTS_DATABASE_ID }}
+        run: |
+          node scripts/sync-payments.js
+
+      - name: Commit and push payments data
+        run: |
+          git add data/payments.json
+          git add assets/js/60_payments_data.js
+          git add assets/payment/ 2>/dev/null || true
+
+          if ! git diff --staged --quiet; then
+            echo "Changes detected, committing..."
+            git commit -m "chore: sync payments from Notion"
+            git push origin HEAD:"${GITHUB_REF_NAME}" || (git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin HEAD:"${GITHUB_REF_NAME}")
+            echo "✓ Successfully synced and pushed changes"
+          else
+            echo "No changes to commit - payments data is up to date"
+          fi

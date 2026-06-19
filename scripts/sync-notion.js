@@ -144,7 +144,7 @@ function pruneUnreferencedActivityImages(activities) {
 
 // 환경 변수 확인
 const NOTION_API_KEY = process.env.NOTION_API_KEY;
-const NOTION_DATABASE_ID = process.env.NOTION_DATABASE_ID;
+const ACTIVITIES_DATABASE_ID = process.env.ACTIVITIES_DATABASE_ID;
 
 if (!NOTION_API_KEY) {
   console.error('ERROR: NOTION_API_KEY environment variable is not set');
@@ -152,9 +152,9 @@ if (!NOTION_API_KEY) {
   process.exit(1);
 }
 
-if (!NOTION_DATABASE_ID) {
-  console.error('ERROR: NOTION_DATABASE_ID environment variable is not set');
-  console.error('Please set NOTION_DATABASE_ID in GitHub Secrets');
+if (!ACTIVITIES_DATABASE_ID) {
+  console.error('ERROR: ACTIVITIES_DATABASE_ID environment variable is not set');
+  console.error('Please set ACTIVITIES_DATABASE_ID in GitHub Secrets');
   process.exit(1);
 }
 
@@ -173,8 +173,8 @@ async function fetchNotionData() {
     const client = new NotionClient(NOTION_API_KEY);
     
     // 데이터베이스에서 모든 페이지 가져오기
-    console.log(`Querying database: ${NOTION_DATABASE_ID.substring(0, 8)}...`);
-    const pages = await client.queryDatabase(NOTION_DATABASE_ID);
+    console.log(`Querying database: ${ACTIVITIES_DATABASE_ID.substring(0, 8)}...`);
+    const pages = await client.queryDatabase(ACTIVITIES_DATABASE_ID);
     console.log(`Found ${pages.length} pages in database`);
     
     if (pages.length === 0) {
@@ -183,7 +183,7 @@ async function fetchNotionData() {
       console.log('   다음을 확인해주세요:');
       console.log('   1. 노션 통합(Integration)이 데이터베이스에 연결되어 있는지 확인');
       console.log('   2. 데이터베이스에 최소 하나의 페이지가 있는지 확인');
-      console.log('   3. GitHub Secrets의 NOTION_DATABASE_ID가 올바른지 확인');
+      console.log('   3. GitHub Secrets의 ACTIVITIES_DATABASE_ID가 올바른지 확인');
       console.log('   4. 데이터베이스 URL에서 ID 확인: https://www.notion.so/.../{database_id}?v=...');
       console.log('');
     }
@@ -338,7 +338,7 @@ async function main() {
   
   try {
     console.log('Starting Notion sync...');
-    console.log(`NOTION_DATABASE_ID: ${NOTION_DATABASE_ID.substring(0, 8)}...`);
+    console.log(`ACTIVITIES_DATABASE_ID: ${ACTIVITIES_DATABASE_ID.substring(0, 8)}...`);
     
     // 노션에서 데이터 가져오기
     activities = await fetchNotionData();

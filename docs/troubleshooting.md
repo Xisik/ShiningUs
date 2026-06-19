@@ -75,16 +75,16 @@
 ```bash
 # Windows PowerShell
 $env:NOTION_API_KEY="your_api_key"
-$env:NOTION_DATABASE_ID="your_database_id"
+$env:ACTIVITIES_DATABASE_ID="your_database_id"
 node scripts/debug-notion.js
 
 # Windows CMD
 set NOTION_API_KEY=your_api_key
-set NOTION_DATABASE_ID=your_database_id
+set ACTIVITIES_DATABASE_ID=your_database_id
 node scripts/debug-notion.js
 
 # Mac/Linux
-NOTION_API_KEY=your_api_key NOTION_DATABASE_ID=your_database_id node scripts/debug-notion.js
+NOTION_API_KEY=your_api_key ACTIVITIES_DATABASE_ID=your_database_id node scripts/debug-notion.js
 ```
 
 이 스크립트는 다음을 확인합니다:
@@ -101,7 +101,7 @@ NOTION_API_KEY=your_api_key NOTION_DATABASE_ID=your_database_id node scripts/deb
 1. 노션 데이터베이스에 최소 하나의 페이지가 있는지 확인
 2. 노션 통합(Integration)이 데이터베이스에 연결되어 있는지 확인
    - 노션 데이터베이스 → "연결" → 통합 선택
-3. GitHub Secrets의 `NOTION_DATABASE_ID`가 올바른지 확인
+3. GitHub Secrets의 `ACTIVITIES_DATABASE_ID`가 올바른지 확인
    - 데이터베이스 URL에서 ID 추출: `https://www.notion.so/.../{database_id}?v=...`
 
 #### 문제: "활동이 건너뛰어졌습니다: 필수 필드 누락"
@@ -169,10 +169,8 @@ NOTION_API_KEY=your_api_key NOTION_DATABASE_ID=your_database_id node scripts/deb
 | Secret 이름 | 설명 |
 |------------|------|
 | `NOTION_API_KEY` | 노션 통합 토큰 (활동공유와 동일한 통합 사용 가능) |
-| `NOTION_STATEMENTS_DATABASE_ID` | **성명서 전용** 노션 데이터베이스 ID |
+| `STATEMENTS_DATABASE_ID` | 노션 성명서 데이터베이스 ID |
 
-- `NOTION_STATEMENTS_DATABASE_ID`가 없으면 `NOTION_DATABASE_ID`(활동공유용 DB)를 쓰게 됩니다.  
-  **성명서 전용 DB를 쓰려면 반드시 `NOTION_STATEMENTS_DATABASE_ID`를 추가하세요.**
 - 데이터베이스 ID는 노션 DB 페이지 URL에서 확인:  
   `https://www.notion.so/.../{이 부분이 database_id}?v=...`
 
@@ -182,7 +180,7 @@ NOTION_API_KEY=your_api_key NOTION_DATABASE_ID=your_database_id node scripts/deb
 2. **"Sync Notion Statements"** 워크플로우 선택
 3. 최근 실행이 **성공(녹색)** 인지 확인
 4. 실패했다면 로그에서 다음 확인:
-   - `NOTION_API_KEY` / `NOTION_STATEMENTS_DATABASE_ID` 누락 → Secrets 설정
+   - `NOTION_API_KEY` / `STATEMENTS_DATABASE_ID` 누락 → Secrets 설정
    - `Could not find database` → 노션에서 통합 연결(아래 3번)
    - `Found 0 pages` → DB에 페이지가 없거나, 통합이 연결되지 않음
    - `Successfully transformed 0 statements` → 페이지는 있지만 필수 필드(제목/날짜) 누락
@@ -215,7 +213,7 @@ NOTION_API_KEY=your_api_key NOTION_DATABASE_ID=your_database_id node scripts/deb
 ```bash
 # Windows PowerShell
 $env:NOTION_API_KEY="your_api_key"
-$env:NOTION_STATEMENTS_DATABASE_ID="your_database_id"
+$env:STATEMENTS_DATABASE_ID="your_database_id"
 node scripts/debug-statements.js
 ```
 

@@ -10,7 +10,7 @@ const NotionClient = require('./notion-client');
 
 // 환경 변수 확인
 const NOTION_API_KEY = process.env.NOTION_API_KEY;
-const NOTION_DATABASE_ID = process.env.NOTION_DATABASE_ID;
+const ACTIVITIES_DATABASE_ID = process.env.ACTIVITIES_DATABASE_ID;
 
 if (!NOTION_API_KEY) {
   console.error('❌ ERROR: NOTION_API_KEY environment variable is not set');
@@ -20,18 +20,18 @@ if (!NOTION_API_KEY) {
   process.exit(1);
 }
 
-if (!NOTION_DATABASE_ID) {
-  console.error('❌ ERROR: NOTION_DATABASE_ID environment variable is not set');
+if (!ACTIVITIES_DATABASE_ID) {
+  console.error('❌ ERROR: ACTIVITIES_DATABASE_ID environment variable is not set');
   console.error('   로컬에서 실행하려면:');
-  console.error('   Windows: set NOTION_DATABASE_ID=your_id && node scripts/debug-notion.js');
-  console.error('   Mac/Linux: NOTION_DATABASE_ID=your_id node scripts/debug-notion.js');
+  console.error('   Windows: set ACTIVITIES_DATABASE_ID=your_id && node scripts/debug-notion.js');
+  console.error('   Mac/Linux: ACTIVITIES_DATABASE_ID=your_id node scripts/debug-notion.js');
   process.exit(1);
 }
 
 async function debugNotionDatabase() {
   try {
     console.log('🔍 노션 데이터베이스 디버깅 시작...\n');
-    console.log(`📋 데이터베이스 ID: ${NOTION_DATABASE_ID.substring(0, 8)}...`);
+    console.log(`📋 데이터베이스 ID: ${ACTIVITIES_DATABASE_ID.substring(0, 8)}...`);
     console.log('🔑 API 키: (설정됨)\n');
 
     // 노션 클라이언트 생성
@@ -39,7 +39,7 @@ async function debugNotionDatabase() {
     
     // 데이터베이스에서 모든 페이지 가져오기
     console.log('📥 데이터베이스에서 페이지 가져오는 중...');
-    const pages = await client.queryDatabase(NOTION_DATABASE_ID);
+    const pages = await client.queryDatabase(ACTIVITIES_DATABASE_ID);
     console.log(`✅ 총 ${pages.length}개의 페이지를 찾았습니다.\n`);
 
     if (pages.length === 0) {
@@ -47,7 +47,7 @@ async function debugNotionDatabase() {
       console.log('   다음을 확인해주세요:');
       console.log('   1. 노션 데이터베이스에 최소 하나의 페이지가 있는지 확인');
       console.log('   2. 노션 통합(Integration)이 데이터베이스에 연결되어 있는지 확인');
-      console.log('   3. GitHub Secrets의 NOTION_DATABASE_ID가 올바른지 확인');
+      console.log('   3. GitHub Secrets의 ACTIVITIES_DATABASE_ID가 올바른지 확인');
       return;
     }
 

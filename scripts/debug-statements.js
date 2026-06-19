@@ -7,23 +7,23 @@
 
 const NotionClient = require('./notion-client');
 
-const NOTION_API_KEY = process.env.NOTION_STATEMENTS_API_KEY || process.env.NOTION_API_KEY;
-const NOTION_STATEMENTS_DATABASE_ID = process.env.NOTION_STATEMENTS_DATABASE_ID || process.env.NOTION_DATABASE_ID;
+const NOTION_API_KEY = process.env.NOTION_API_KEY;
+const STATEMENTS_DATABASE_ID = process.env.STATEMENTS_DATABASE_ID;
 
 if (!NOTION_API_KEY) {
-  console.error('ERROR: Notion API key is not set. Set NOTION_STATEMENTS_API_KEY or NOTION_API_KEY.');
+  console.error('ERROR: Notion API key is not set. Set NOTION_API_KEY.');
   process.exit(1);
 }
 
-if (!NOTION_STATEMENTS_DATABASE_ID) {
-  console.error('ERROR: NOTION_STATEMENTS_DATABASE_ID environment variable is not set');
+if (!STATEMENTS_DATABASE_ID) {
+  console.error('ERROR: STATEMENTS_DATABASE_ID environment variable is not set');
   process.exit(1);
 }
 
 async function debugDatabase() {
   try {
     console.log('=== 노션 성명서 데이터베이스 디버깅 ===\n');
-    console.log(`Database ID: ${NOTION_STATEMENTS_DATABASE_ID}`);
+    console.log(`Database ID: ${STATEMENTS_DATABASE_ID}`);
     console.log('API Key: (설정됨)\n');
     
     const client = new NotionClient(NOTION_API_KEY);
@@ -31,7 +31,7 @@ async function debugDatabase() {
     // 데이터베이스 정보 가져오기 시도
     console.log('1. 데이터베이스 정보 조회 시도...');
     try {
-      const formattedId = NOTION_STATEMENTS_DATABASE_ID.replace(/-/g, '');
+      const formattedId = STATEMENTS_DATABASE_ID.replace(/-/g, '');
       const dbInfo = await client.request(`/databases/${formattedId}`, {
         method: 'GET'
       });
@@ -43,7 +43,7 @@ async function debugDatabase() {
       
       // 페이지 쿼리 시도
       console.log('\n2. 페이지 쿼리 시도...');
-      const pages = await client.queryDatabase(NOTION_STATEMENTS_DATABASE_ID);
+      const pages = await client.queryDatabase(STATEMENTS_DATABASE_ID);
       console.log(`✓ 페이지 쿼리 성공!`);
       console.log(`  페이지 개수: ${pages.length}`);
       
