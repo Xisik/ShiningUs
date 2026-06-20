@@ -31,3 +31,6 @@ Thumbs.db
 *.log
 npm-debug.log*
 
+# Security exports and audit artifacts
+organization_security_overview_alerts_*.csv
+
