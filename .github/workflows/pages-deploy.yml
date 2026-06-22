@@ -47,13 +47,20 @@ jobs:
       - name: Prepare site artifact
         run: node scripts/prepare-pages.js      # 배포 범위 최소화: _site/만 배포
 
+      - name: Set Google Analytics ID
+        env:
+          GA_MEASUREMENT_ID: ${{ secrets.ANALYTICS_API_KEY }}
+        run: |
+          if [ -z "$GA_MEASUREMENT_ID" ]; then
+            echo "Google Analytics measurement ID secret is not configured." >&2
+            exit 1
+          fi
+          sed -i "s/REPLACE_ME_GA_ID/${GA_MEASUREMENT_ID}/g" _site/assets/js/01_analytics.js
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3.0.1
         with:
           path: '_site'    # 보안: scripts/, docs/, .github/ 등 비공개 파일 제외
-
-      - name: Set Google Analytics ID
-        run: sed -i "s/REPLACE_ME_GA_ID/${{ secrets.ANALYTICS_API_URL }}/g" assets/js/01_analytics.js
 
       - name: Deploy to GitHub Pages
         id: deployment
