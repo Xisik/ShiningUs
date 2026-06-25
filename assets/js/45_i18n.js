@@ -221,7 +221,11 @@
     '사업자번호 231-82-77851': 'Business registration no. 231-82-77851',
     '본 단체는 관할 세무서에 등록된 임의단체로써 고유사업 외의 수익 사업을 영위하지 않습니다': 'This organization is a registered unincorporated association and does not conduct profit-making activities outside its stated purposes.',
     '제3자 라이선스 고지': 'Third-Party Notices',
-    '© 빛청모': '© Bichcheongmo'
+    '© 빛청모': '© Bichcheongmo',
+'성소수자 의제, 청소년 의제에 대해 더욱 깊이있게 알아보고 이해할 수 있습니다.' : 'You can gain a deeper understanding of issues concerning LGBTQ+ individuals and youth.',
+'다양한 사람들과 함께 활동하며 청소년이나 성소수자 이외의 소수자 집단에 대해 자세히 알 수 있습니다.': 'By engaging in activities with a diverse group of people, you can learn more about minority groups beyond just youth or the LGBTQ+ community.',
+'청소년 성소수자 이외의 다른 의제(청소년 노동권, 여성인권, 비인간 동물, 기후정의 등등)들을 잘 알 수 있습니다.': 'You can gain insight into various other issues, such as youth labor rights, women\'s rights, non-human animals, and climate justice.',
+'회원 모집의 목적': 'The purpose of recruiting members'
   };
 
   const enToKo = Object.fromEntries(Object.entries(koToEn).map(([ko, en]) => [normalize(en), ko]));

@@ -1392,3 +1392,22 @@ button.theme-toggle{
     padding      : 0.6rem;
   }
 }
+
+.kofi-center {
+  text-align: center;
+  margin-top: 32px;
+}
+
+.kofi-mini-button {
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
+  text-decoration: none;
+}
+
+.kofi-mini-button img {
+  height: 52px;
+  width: auto;
+  border: 0;
+  display: block;
+}
