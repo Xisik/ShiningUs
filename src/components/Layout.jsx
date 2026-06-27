@@ -30,6 +30,19 @@ export function Layout({ activePath, children }) {
               <img className="logo" src="./assets/img/logo.jpg" alt={t('brand')} />
             </a>
 
+            <nav className={`nav${menuOpen ? ' is-open' : ''}`} id="siteNav" aria-label="Primary menu">
+              {navItems.map(([path, key]) => (
+                  <a
+                      key={path}
+                      className={`nav-link${activePath === path ? ' is-active' : ''}`}
+                      href={toHash(path)}
+                      onClick={() => setMenuOpen(false)}
+                  >
+                    {t(key)}
+                  </a>
+              ))}
+            </nav>
+
             <div className="header-actions">
               <button
                 type="button"
@@ -72,18 +85,6 @@ export function Layout({ activePath, children }) {
               </div>
             </div>
           </div>
-          <nav className={`nav${menuOpen ? ' is-open' : ''}`} id="siteNav" aria-label="Primary menu">
-            {navItems.map(([path, key]) => (
-                <a
-                    key={path}
-                    className={`nav-link${activePath === path ? ' is-active' : ''}`}
-                    href={toHash(path)}
-                    onClick={() => setMenuOpen(false)}
-                >
-                  {t(key)}
-                </a>
-            ))}
-          </nav>
         </div>
       </header>
 

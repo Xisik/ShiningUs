@@ -169,123 +169,7 @@ button.region-branch-header:focus-visible {
   }
 }
 
-@media (min-width: 641px) {
-  .header-bar {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    align-items: center;
-    column-gap: clamp(0.5rem, 1.2vw, 1rem);
-  }
-
-  .brand-link {
-    order: 1;
-  }
-
-  .nav {
-    order: 2;
-    flex-basis: auto;
-    flex-wrap: nowrap;
-    justify-content: center;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scrollbar-width: none;
-  }
-
-  .nav::-webkit-scrollbar {
-    display: none;
-  }
-
-  .nav-link {
-    flex: 0 0 auto;
-    white-space: nowrap;
-  }
-
-  .header-actions {
-    order: 3;
-    justify-self: end;
-    margin-left: 0;
-  }
-}
-
-@media (min-width: 641px) and (max-width: 1100px) {
-  .header-bar {
-    --header-control-size: clamp(2.5rem, 4.3vw, 3rem);
-  }
-
-  .brand-link {
-    inline-size: var(--header-control-size);
-    block-size: var(--header-control-size);
-  }
-
-  button.theme-toggle,
-  .language-switch {
-    block-size: var(--header-control-size);
-  }
-
-  button.theme-toggle,
-  .language-option {
-    inline-size: var(--header-control-size);
-  }
-
-  .nav-link {
-    padding-inline: clamp(0.42rem, 0.8vw, 0.65rem);
-    font-size: clamp(0.66rem, 1.1vw, 0.76rem);
-    letter-spacing: 0.04em;
-  }
-}
-
 @media (max-width: 640px) {
-  .header-bar {
-    --header-control-size: 2rem;
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    align-items: center;
-    column-gap: 0.5rem;
-  }
-
-  .brand-link {
-    justify-self: start;
-    inline-size: var(--header-control-size);
-    block-size: var(--header-control-size);
-  }
-
-  .header-actions {
-    justify-self: start;
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 0.25rem;
-    max-width: 100%;
-    margin-left: 0;
-  }
-
-  button.menu-toggle,
-  button.theme-toggle,
-  .language-switch {
-    block-size: var(--header-control-size);
-  }
-
-  button.menu-toggle,
-  button.theme-toggle {
-    inline-size: var(--header-control-size);
-  }
-
-  button.menu-toggle {
-    inline-size: 2.55rem;
-    font-size: 0.72rem;
-    letter-spacing: 0;
-  }
-
-  .language-option {
-    inline-size: 1.65rem;
-    block-size: var(--header-control-size);
-    font-size: 0.62rem;
-    letter-spacing: 0;
-  }
-
-  .nav {
-    grid-column: 1 / -1;
-  }
-
   .region-branches {
     padding-inline: 1rem;
   }
@@ -326,6 +210,7 @@ button.region-branch-header:focus-visible {
 }
 
 /* Final header behavior: controls stay square, menu starts before text clipping. */
+.site-header,
 .site-header .header-bar {
   --header-control-size: 2.35rem;
 }
@@ -366,16 +251,26 @@ button.region-branch-header:focus-visible {
   letter-spacing: 0;
 }
 
-@media (min-width: 1441px) {
+@media (min-width: 1041px) {
   .site-header .container {
     width: min(var(--container-max), calc(100% - var(--container-gutter) - var(--container-gutter)));
   }
 
   .site-header .header-bar {
+    --header-side-width: calc((var(--header-control-size) * 3) + 0.75rem);
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-columns:
+      var(--header-side-width)
+      minmax(0, 1fr)
+      var(--header-side-width);
     align-items: center;
-    column-gap: clamp(2rem, 2.4vw, 2.75rem);
+    column-gap: clamp(1rem, 1.8vw, 1.75rem);
+    inline-size: 100%;
+  }
+
+  .site-header .brand-link {
+    grid-column: 1;
+    justify-self: start;
   }
 
   .site-header button.menu-toggle {
@@ -383,11 +278,12 @@ button.region-branch-header:focus-visible {
   }
 
   .site-header .nav {
-    width: 100%;
-    top: 0;
-    position: absolute;
-
-    order: 2;
+    grid-column: 2;
+    justify-self: center;
+    inline-size: max-content;
+    max-inline-size: 100%;
+    min-inline-size: 0;
+    position: static;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -401,17 +297,19 @@ button.region-branch-header:focus-visible {
 
   .site-header .nav-link {
     flex: 0 0 auto;
+    padding-inline: clamp(0.42rem, 0.62vw, 0.75rem);
+    font-size: clamp(0.68rem, 0.72vw, 0.78rem);
     white-space: nowrap;
   }
 
   .site-header .header-actions {
-    order: 3;
+    grid-column: 3;
     justify-self: end;
     margin-left: 0;
   }
 }
 
-@media (max-width: 1440px) {
+@media (max-width: 1040px) {
   .site-header {
     overflow: hidden;
   }

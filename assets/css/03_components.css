@@ -140,8 +140,8 @@
   background-image: none;
 }
 
-/* 모바일: nav-link 카드 스타일 */
-@media (max-width: 640px){
+/* Collapsed nav: nav-link card style */
+@media (max-width: 1040px){
   .nav-link{
     display         : block;
     width           : 100%;
@@ -1325,11 +1325,7 @@ button.theme-toggle{
   block-size : auto;
 }
 
-@media (max-width: 640px){
-  body{
-    padding: 0;
-  }
-
+@media (max-width: 1040px){
   .header-bar{
     --header-control-size: 2.75rem;
     gap: 0.5rem;
@@ -1341,21 +1337,6 @@ button.theme-toggle{
 
   .language-option{
     inline-size: 2.15rem;
-  }
-
-  .btn{
-    width: 100%;
-    min-width: 0;
-  }
-
-  .hero p,
-  .page-header p{
-    word-break: break-all;
-    overflow-wrap: anywhere;
-  }
-
-  body::before{
-    display: none;
   }
 
   .nav{
@@ -1373,6 +1354,27 @@ button.theme-toggle{
     color           : var(--accent-ink);
     background-color: var(--accent);
     border-color    : var(--accent);
+  }
+}
+
+@media (max-width: 640px){
+  body{
+    padding: 0;
+  }
+
+  .btn{
+    width: 100%;
+    min-width: 0;
+  }
+
+  .hero p,
+  .page-header p{
+    word-break: break-all;
+    overflow-wrap: anywhere;
+  }
+
+  body::before{
+    display: none;
   }
 
   .quick-links{

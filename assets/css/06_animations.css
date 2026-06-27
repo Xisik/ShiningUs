@@ -211,7 +211,7 @@ body::before {
    모바일 nav 아이템 순차 진입  (ease-in-out)
 ========================= */
 
-@media (max-width: 640px) {
+@media (max-width: 1040px) {
   .nav.is-open .nav-link {
     animation: navItemReveal 0.28s cubic-bezier(0.4, 0, 0.2, 1) both;
   }

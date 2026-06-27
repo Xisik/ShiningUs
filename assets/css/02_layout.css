@@ -42,19 +42,7 @@ button.menu-toggle{
   display: none;
 }
 
-@media (max-width: 920px) and (min-width: 641px){
-  .header-bar{
-    flex-wrap: wrap;
-  }
-
-  .nav{
-    order     : 3;
-    flex-basis: 100%;
-    justify-content: center;
-  }
-}
-
-@media (max-width: 640px){
+@media (max-width: 1040px){
   .container{
     width         : 100%;
     padding-inline: var(--container-gutter);
@@ -101,7 +89,7 @@ button.menu-toggle{
   }
 }
 
-@media (min-width: 641px){
+@media (min-width: 1041px){
   .nav{
     max-height: none;
     opacity   : 1;
@@ -145,7 +133,7 @@ main.container > section{
 ========================= */
 .grid{
   display              : grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-card-min)), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-card-min)), 2fr));
   gap                  : var(--card-gap);
   margin               : 0;
 }
@@ -153,7 +141,7 @@ main.container > section{
 .activities-container,
 .payments-container{
   display              : grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-card-wide-min)), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-card-wide-min)), 1.5fr));
   gap                  : var(--card-gap);
   margin               : 0 0 1.25rem 0;
   align-items          : stretch;
