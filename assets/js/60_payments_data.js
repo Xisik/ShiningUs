@@ -6,7 +6,7 @@
   ui.payments = ui.payments || {};
   ui.payments.data = {
   "_metadata": {
-    "lastUpdated": "2026-06-29T11:26:57.586Z",
+    "lastUpdated": "2026-06-29T14:56:30.324Z",
     "syncStatus": "success",
     "errorMessage": null,
     "paymentsCount": 1,
