@@ -213,6 +213,19 @@ button.region-branch-header:focus-visible {
 .site-header,
 .site-header .header-bar {
   --header-control-size: 2.35rem;
+  --header-unit: calc(var(--header-control-size) / 4);
+  --header-gap: clamp(var(--header-unit), 1vw, calc(var(--header-unit) * 1.5));
+  --header-nav-gap: calc(var(--header-gap) * 0.75);
+  --header-nav-item-gap: calc(var(--header-nav-gap) * 0.75);
+  --header-side-width: calc((var(--header-control-size) * 3) + var(--header-gap));
+  --header-padding-block: var(--header-gap);
+  --header-open-padding-block: var(--header-gap);
+  --header-link-padding-inline: calc(var(--header-unit) * 1.25);
+  --header-link-padding-block-start: calc(var(--header-unit) * 2.5);
+  --header-link-padding-block-end: calc(var(--header-unit) * 2.25);
+  --header-mobile-link-padding-block: calc(var(--header-unit) * 1.5);
+  --header-mobile-link-padding-inline: calc(var(--header-unit) * 1.75);
+  --header-underline-offset: calc(var(--header-unit) * 1.75);
 }
 
 .site-header .header-bar {
@@ -271,7 +284,7 @@ button.region-branch-header:focus-visible {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 0.75rem;
+  gap: var(--header-gap);
   min-width: 0;
 }
 
@@ -317,7 +330,10 @@ button.region-branch-header:focus-visible {
   position: relative;
   box-sizing: border-box;
   text-decoration: none;
-  padding: 1.55rem 0.75rem 1.35rem;
+  padding:
+    var(--header-link-padding-block-start)
+    var(--header-link-padding-inline)
+    var(--header-link-padding-block-end);
   color: var(--tx-1, var(--text-primary));
   font-size: 0.78rem;
   font-weight: 700;
@@ -329,9 +345,9 @@ button.region-branch-header:focus-visible {
 .site-header .nav-link::after {
   content: '';
   position: absolute;
-  bottom: 1.05rem;
-  left: 0.75rem;
-  right: 0.75rem;
+  bottom: var(--header-underline-offset);
+  left: var(--header-link-padding-inline);
+  right: var(--header-link-padding-inline);
   height: 2px;
   background: var(--accent);
   transform: scaleX(0);
@@ -355,14 +371,13 @@ button.region-branch-header:focus-visible {
   }
 
   .site-header .header-bar {
-    --header-side-width: calc((var(--header-control-size) * 3) + 0.75rem);
     display: grid;
     grid-template-columns:
       var(--header-side-width)
       minmax(0, 1fr)
       var(--header-side-width);
     align-items: center;
-    column-gap: clamp(1rem, 1.8vw, 1.75rem);
+    column-gap: calc(var(--header-gap) * 2);
     inline-size: 100%;
   }
 
@@ -386,7 +401,7 @@ button.region-branch-header:focus-visible {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: center;
-    gap: 0.65rem;
+    gap: var(--header-nav-gap);
     max-height: none;
     opacity: 1;
     overflow: visible;
@@ -395,7 +410,11 @@ button.region-branch-header:focus-visible {
 
   .site-header .nav-link {
     flex: 0 0 auto;
-    padding-inline: clamp(0.42rem, 0.62vw, 0.75rem);
+    padding-inline: clamp(
+      calc(var(--header-link-padding-inline) * 0.6),
+      0.62vw,
+      var(--header-link-padding-inline)
+    );
     font-size: clamp(0.68rem, 0.72vw, 0.78rem);
     white-space: nowrap;
   }
@@ -409,7 +428,8 @@ button.region-branch-header:focus-visible {
 
 @media (max-width: 1040px) {
   .site-header {
-    overflow: hidden;
+    position: relative;
+    overflow: visible;
   }
 
   .site-header .container {
@@ -417,33 +437,30 @@ button.region-branch-header:focus-visible {
     width: 100%;
     max-width: 100%;
     margin-inline: auto;
-  }
-
-  .site-header {
-    position: static;
+    overflow: visible;
   }
 
   .site-header .header-bar {
-    display: grid;
-    grid-template-columns: minmax(0, auto) max-content;
-    justify-content: space-between;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
+    justify-content: space-between;
     inline-size: 100%;
     max-inline-size: 100%;
-    column-gap: 0.6rem;
-    row-gap: 0;
+    gap: 0 var(--header-gap);
+    padding-block: var(--header-padding-block);
   }
 
   .site-header .brand-link {
-    justify-self: start;
     order: 1;
+    flex: 0 0 var(--header-control-size);
   }
 
   .site-header .header-actions {
     order: 2;
-    justify-self: end;
-    inline-size: calc((var(--header-control-size) * 4) + (0.75rem * 3));
-    margin-left: 0;
+    flex: 0 0 auto;
+    margin-left: auto;
   }
 
   .site-header button.menu-toggle {
@@ -451,29 +468,45 @@ button.region-branch-header:focus-visible {
   }
 
   .site-header .nav {
-    order: 3;
-    grid-column: 1 / -1;
-    display: none;
+    position: absolute;
+    top: calc(100% + var(--header-gap));
+    left: 0;
+    right: 0;
+    z-index: 30;
+    display: flex;
     flex-direction: column;
     align-items: stretch;
     inline-size: 100%;
     max-inline-size: 100%;
     min-inline-size: 0;
-    gap: 0.35rem;
+    gap: var(--header-nav-item-gap);
     contain: inline-size;
-    overflow: hidden;
-    max-height: 0;
+    overflow: visible;
     opacity: 0;
-    padding: 0;
+    visibility: hidden;
+    pointer-events: none;
+    clip-path: inset(0 0 100% 0);
+    padding: var(--header-open-padding-block);
     margin: 0;
-    transition: max-height 220ms ease, opacity 160ms ease, padding 220ms ease;
+    background-color: var(--bg-0, var(--surface));
+    border: 1px solid var(--bd-1, var(--line));
+    border-radius: var(--r, 6px);
+    box-shadow: var(--shadow-1);
+    transition:
+      clip-path 220ms ease,
+      opacity 160ms ease,
+      visibility 0s linear 220ms;
   }
 
   .site-header .nav.is-open {
-    display: flex;
-    max-height: 760px;
     opacity: 1;
-    padding: 0.85rem var(--container-gutter) 0.95rem;
+    visibility: visible;
+    pointer-events: auto;
+    clip-path: inset(0);
+    transition:
+      clip-path 220ms ease,
+      opacity 160ms ease,
+      visibility 0s linear 0s;
   }
 
   .site-header .nav-link {
@@ -481,7 +514,7 @@ button.region-branch-header:focus-visible {
     width: 100%;
     box-sizing: border-box;
     text-align: center;
-    padding: 0.85rem 1rem;
+    padding: var(--header-mobile-link-padding-block) var(--header-mobile-link-padding-inline);
     white-space: normal;
     background-color: var(--bg-0, var(--surface));
     border: 1px solid var(--bd-1, var(--line));
