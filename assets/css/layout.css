@@ -1,6 +1,6 @@
-/* assets/css/02_layout.css
+/* assets/css/layout.css
    Layout primitives: containers, page flow, responsive grids, header/footer layout.
-   Component visuals are in 03_components.css.
+   Component visuals are in components.css.
 */
 
 .container{
@@ -27,20 +27,7 @@
   display: none;
 }
 
-.header-bar{
-  min-height: 4.25rem;
-}
 
-.header-actions{
-  margin-left: auto;
-  display    : flex;
-  align-items: center;
-  gap        : 0.5rem;
-}
-
-button.menu-toggle{
-  display: none;
-}
 
 @media (max-width: 1040px){
   .container{
@@ -50,50 +37,6 @@ button.menu-toggle{
 
   .site-header{
     position: static;
-  }
-
-  .header-bar{
-    flex-wrap  : wrap;
-    align-items: flex-start;
-    justify-content: space-between;
-  }
-
-  .header-actions{
-    margin-left: 0;
-  }
-
-  button.menu-toggle,
-  .menu-toggle{
-    display: inline-flex;
-  }
-
-  .nav{
-    flex-basis     : 100%;
-    width          : 100%;
-    order          : 3;
-    flex-direction : column;
-    align-items    : center;
-    gap            : 0.35rem;
-    overflow       : hidden;
-    max-height     : 0;
-    opacity        : 0;
-    padding        : 0;
-    margin         : 0;
-    transition     : max-height 220ms ease, opacity 160ms ease, padding 220ms ease;
-  }
-
-  .nav.is-open{
-    max-height: 640px;
-    opacity   : 1;
-    padding   : 0.6rem 0 0 0;
-  }
-}
-
-@media (min-width: 1041px){
-  .nav{
-    max-height: none;
-    opacity   : 1;
-    overflow  : visible;
   }
 }
 

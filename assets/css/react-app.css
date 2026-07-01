@@ -209,10 +209,38 @@ button.region-branch-header:focus-visible {
   }
 }
 
-/* Final header behavior: controls stay square, menu starts before text clipping. */
+/* Header/navigation behavior lives here to avoid cross-file cascade conflicts. */
 .site-header,
 .site-header .header-bar {
   --header-control-size: 2.35rem;
+}
+
+.site-header .header-bar {
+  min-height: 4.25rem;
+  padding: 0;
+  background-color: transparent;
+}
+
+.site-header .brand-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding-left: 0;
+  border: 1px solid var(--bd-1, var(--line));
+  border-radius: var(--r, 3px);
+  overflow: hidden;
+  background-color: transparent;
+}
+
+.site-header .logo {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  object-fit: cover;
 }
 
 .site-header .brand-link,
@@ -227,10 +255,16 @@ button.region-branch-header:focus-visible {
 }
 
 .site-header .language-switch {
+  display: inline-flex;
+  align-items: center;
   block-size: var(--header-control-size);
   inline-size: calc(var(--header-control-size) * 2);
   min-inline-size: calc(var(--header-control-size) * 2);
   flex: 0 0 calc(var(--header-control-size) * 2);
+  border: 1px solid var(--bd-1, var(--line));
+  border-radius: var(--r, 3px);
+  overflow: hidden;
+  background-color: transparent;
 }
 
 .site-header .header-actions {
@@ -247,8 +281,72 @@ button.region-branch-header:focus-visible {
 }
 
 .site-header .language-option {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--tx-1, var(--text-primary));
   font-size: 0.66rem;
+  font-weight: 700;
   letter-spacing: 0;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.site-header .language-option + .language-option {
+  border-left: 1px solid var(--bd-1, var(--line));
+}
+
+.site-header .language-option::before,
+.site-header .language-option::after {
+  display: none;
+}
+
+.site-header .language-option:hover,
+.site-header .language-option:focus-visible,
+.site-header .language-option.is-active {
+  color: var(--accent-ink);
+  background-color: var(--accent);
+}
+
+.site-header .nav {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.site-header .nav-link {
+  position: relative;
+  box-sizing: border-box;
+  text-decoration: none;
+  padding: 1.55rem 0.75rem 1.35rem;
+  color: var(--tx-1, var(--text-primary));
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+}
+
+.site-header .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 1.05rem;
+  left: 0.75rem;
+  right: 0.75rem;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.2s ease;
+}
+
+.site-header .nav-link:hover,
+.site-header .nav-link.is-active {
+  color: var(--accent);
+}
+
+.site-header .nav-link:hover::after,
+.site-header .nav-link.is-active::after {
+  transform: scaleX(1);
 }
 
 @media (min-width: 1041px) {
@@ -318,7 +416,6 @@ button.region-branch-header:focus-visible {
     box-sizing: border-box;
     width: 100%;
     max-width: 100%;
-    padding-inline: var(--container-gutter);
     margin-inline: auto;
   }
 
@@ -376,12 +473,13 @@ button.region-branch-header:focus-visible {
     display: flex;
     max-height: 760px;
     opacity: 1;
-    padding: 0.6rem 0 0 0;
+    padding: 0.85rem var(--container-gutter) 0.95rem;
   }
 
   .site-header .nav-link {
     display: block;
     width: 100%;
+    box-sizing: border-box;
     text-align: center;
     padding: 0.85rem 1rem;
     white-space: normal;

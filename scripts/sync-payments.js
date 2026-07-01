@@ -17,7 +17,7 @@ const {
 const ROOT = path.join(__dirname, '..');
 const PAYMENT_DIR = path.join(ROOT, 'assets', 'payment');
 const DATA_PATH = path.join(ROOT, 'data', 'payments.json');
-const JS_PATH = path.join(ROOT, 'assets', 'js', '60_payments_data.js');
+const JS_PATH = path.join(ROOT, 'assets', 'js', 'payments-data.js');
 const GENERATED_PAYMENT_RE = /^[0-9a-f-]{32,36}\.pdf$/i;
 const ALLOWED_DOWNLOAD_HOSTS = ['amazonaws.com', 'notion.so', 'notion-static.com', 'notion.com'];
 

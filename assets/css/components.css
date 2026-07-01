@@ -1,179 +1,9 @@
-/* assets/css/03_components.css
+/* assets/css/components.css
    Components and visuals: header bar/panel, nav links, cards, buttons (anchor),
    join blocks, info-box toggle, pills, contact list, etc.
 */
 
-/* =========================
-   Header (logo + nav + actions) visuals
-========================= */
-.header-bar{
-  display        : flex;
-  align-items    : center;
-  gap            : 0 1rem;
-  background-color: transparent;
-  padding        : 0.5rem 0;
-}
-
-.brand-link{
-  display        : inline-flex;
-  align-items    : center;
-  text-decoration: none;
-  padding-left   : 0.45rem;
-}
-
-.logo{
-  width        : 3.0rem;
-  height       : 3.0rem;
-  object-fit   : cover;
-  display      : block;
-  border       : 1px solid var(--bd-1, var(--line));
-  border-radius: var(--r, 6px);
-}
-
-/* Nav visuals (layout behavior is in 02_layout.css) */
-.nav{
-  padding: 0;
-  margin : 0;
-}
-
-.nav-link{
-  position       : relative;
-  text-decoration: none;
-  padding        : 0.35rem 0.45rem;
-  font-size      : 0.85rem;
-  font-weight    : 500;
-  color          : var(--tx-1, var(--text-shadow));
-  letter-spacing : 0.02rem;
-  transition     : color 0.2s;
-}
-
 /* 프라이드 그라디언트 언더라인 */
-.nav-link::after{
-  content   : '';
-  position  : absolute;
-  bottom    : 0;
-  left      : 0.45rem;
-  right     : 0.45rem;
-  height    : 2px;
-  background: var(--accent-ribbon);
-  transform : scaleX(0);
-  /* transition은 06_animations.css에서 ease-in-out으로 업그레이드 */
-  transition: transform 0.2s ease;
-}
-
-.nav-link:hover{
-  color: var(--text-primary);
-}
-
-.nav-link:hover::after,
-.nav-link.is-active::after{
-  transform: scaleX(1);
-}
-
-.nav-link.is-active{
-  color: var(--text-primary);
-}
-
-.language-switch{
-  display      : inline-flex;
-  align-items  : center;
-  border       : 1px solid var(--bd-2, var(--line));
-  border-radius: var(--r, 6px);
-  overflow     : hidden;
-  block-size   : 3rem;
-  background   : var(--bg-1, var(--surface));
-}
-
-.language-option{
-  inline-size   : 3rem;
-  block-size    : 3rem;
-  aspect-ratio  : auto;
-  border        : 0;
-  border-radius : 0;
-  background    : transparent;
-  color         : var(--tx-1, var(--text-shadow));
-  font-size     : 0.72rem;
-  font-weight   : 700;
-  letter-spacing: 0;
-  transition    : background-color 0.2s, color 0.2s;
-}
-
-.language-option + .language-option{
-  border-left: 1px solid var(--bd-1, var(--line));
-}
-
-.language-option::before,
-.language-option::after{
-  display: none;
-}
-
-.language-option:hover,
-.language-option:focus-visible{
-  color           : var(--text-primary);
-  background-color: var(--bg-2, var(--surface-strong));
-}
-
-.language-option.is-active{
-  color           : var(--bg-0);
-  background-color: var(--tx-0);
-  background-image: none;
-}
-
-:root[data-theme="light"] .language-switch{
-  border-color    : var(--bd-1, var(--line));
-  background-color: var(--bg-2, var(--surface));
-}
-
-:root[data-theme="light"] .language-option{
-  color: var(--tx-2, var(--text-shadow));
-}
-
-:root[data-theme="light"] .language-option:hover,
-:root[data-theme="light"] .language-option:focus-visible{
-  color           : var(--tx-0, var(--text-primary));
-  background-color: var(--bg-1, var(--surface));
-}
-
-:root[data-theme="light"] .language-option.is-active{
-  color           : var(--bg-1);
-  background-color: var(--tx-0);
-  background-image: none;
-}
-
-/* Collapsed nav: nav-link card style */
-@media (max-width: 1040px){
-  .nav-link{
-    display         : block;
-    width           : 100%;
-    text-align      : center;
-    padding         : 0.75rem 1rem;
-    background-color: var(--bg-1, var(--surface));
-    border          : 1px solid var(--bd-1, var(--line));
-    border-radius   : var(--r, 6px);
-    transition      : background-color 0.2s, border-color 0.2s;
-  }
-
-  .nav-link::after{ display: none; }
-
-  .nav-link:active{
-    background-color: var(--bg-2, var(--surface-strong));
-    border-color    : var(--bd-2, var(--text-shadow));
-  }
-
-  @media (hover: hover) {
-    .nav-link:hover{
-      background-color: var(--bg-2, var(--surface-strong));
-      border-color    : var(--bd-2, var(--text-shadow));
-    }
-  }
-
-  .nav-link.is-active{
-    background-color: var(--bg-2, var(--surface-strong));
-    border-color    : var(--bd-2, var(--text-shadow));
-    color           : var(--text-primary);
-  }
-}
-
 /* =========================
    Card
 ========================= */
@@ -186,7 +16,7 @@
   border-radius   : var(--r, 6px);
   box-shadow      : none;
 
-  /* transition은 06_animations.css에서 확장 정의 */
+  /* transition is extended in animations.css. */
   transition      : border-color 0.2s;
 }
 
@@ -1057,117 +887,6 @@ button.btn {
   }
 }
 
-/* =========================
-   Namari-inspired visual layer
-========================= */
-.header-bar{
-  padding: 0;
-  --header-control-size: 3.2rem;
-}
-
-.brand-link{
-  padding-left: 0;
-  inline-size : var(--header-control-size);
-  block-size  : var(--header-control-size);
-  display     : inline-flex;
-  align-items : center;
-  justify-content: center;
-  border      : 1px solid var(--bd-1, var(--line));
-  border-radius: var(--r, 3px);
-  overflow    : hidden;
-  background-color: transparent;
-}
-
-.logo{
-  width        : 100%;
-  height       : 100%;
-  border       : 0;
-  border-radius: 0;
-  box-shadow   : none;
-  object-fit   : cover;
-}
-
-button.menu-toggle,
-button.theme-toggle{
-  inline-size : var(--header-control-size);
-  block-size  : var(--header-control-size);
-  aspect-ratio: 1 / 1;
-}
-
-.nav{
-  display    : flex;
-  align-items: center;
-  gap        : 0.25rem;
-}
-
-.nav-link{
-  padding        : 1.55rem 0.75rem 1.35rem;
-  color          : var(--tx-1, var(--text-primary));
-  font-size      : 0.78rem;
-  font-weight    : 700;
-  letter-spacing : 0.08em;
-  text-transform : uppercase;
-}
-
-.nav-link::after{
-  bottom          : 1.05rem;
-  left            : 0.75rem;
-  right           : 0.75rem;
-  height          : 2px;
-  background      : var(--accent);
-  transform-origin: left center;
-}
-
-.nav-link:hover,
-.nav-link.is-active{
-  color: var(--accent);
-}
-
-.language-switch{
-  block-size      : var(--header-control-size);
-  background-color: transparent;
-  border-color    : var(--bd-1, var(--line));
-  border-radius   : var(--r, 3px);
-}
-
-.language-option{
-  inline-size   : var(--header-control-size);
-  block-size    : var(--header-control-size);
-  aspect-ratio  : 1 / 1;
-  color         : var(--tx-1, var(--text-primary));
-  font-size     : 0.68rem;
-  font-weight   : 700;
-  letter-spacing: 0.08em;
-}
-
-.language-option:hover,
-.language-option:focus-visible,
-.language-option.is-active{
-  color           : var(--accent-ink);
-  background-color: var(--accent);
-}
-
-:root[data-theme="light"] .language-switch,
-:root[data-theme="dark"] .language-switch{
-  border-color    : var(--bd-1, var(--line));
-  background-color: transparent;
-}
-
-:root[data-theme="light"] .language-option,
-:root[data-theme="dark"] .language-option{
-  color: var(--tx-1, var(--text-primary));
-}
-
-:root[data-theme="light"] .language-option:hover,
-:root[data-theme="light"] .language-option:focus-visible,
-:root[data-theme="light"] .language-option.is-active,
-:root[data-theme="dark"] .language-option:hover,
-:root[data-theme="dark"] .language-option:focus-visible,
-:root[data-theme="dark"] .language-option.is-active{
-  color           : var(--accent-ink);
-  background-color: var(--accent);
-}
-
 .card,
 .join-item,
 .join-footer,
@@ -1325,38 +1044,6 @@ button.theme-toggle{
   block-size : auto;
 }
 
-@media (max-width: 1040px){
-  .header-bar{
-    --header-control-size: 2.75rem;
-    gap: 0.5rem;
-  }
-
-  .header-actions{
-    gap: 0.35rem;
-  }
-
-  .language-option{
-    inline-size: 2.15rem;
-  }
-
-  .nav{
-    gap: 0.35rem;
-  }
-
-  .nav-link{
-    padding         : 0.85rem 1rem;
-    background-color: var(--bg-0, var(--surface));
-    border-color    : var(--bd-1, var(--line));
-  }
-
-  .nav-link:hover,
-  .nav-link.is-active{
-    color           : var(--accent-ink);
-    background-color: var(--accent);
-    border-color    : var(--accent);
-  }
-}
-
 @media (max-width: 640px){
   body{
     padding: 0;
@@ -1444,20 +1131,6 @@ button.theme-toggle{
 /* =========================
    Responsive grid harmonization
 ========================= */
-.header-bar,
-.nav,
-.header-actions{
-  min-width: 0;
-}
-
-.nav{
-  flex-wrap: wrap;
-}
-
-.header-actions{
-  flex-shrink: 0;
-}
-
 .quick-links{
   display              : grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));

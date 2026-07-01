@@ -188,7 +188,7 @@
   function loadStatementsData() {
     const { fetchStatementsJson, normalizeStatementsPayload } = ui.statements.data || {};
     
-    // 정규화 함수가 있으면 사용 (60_statements_data.js에서 제공)
+    // 정규화 함수가 있으면 사용 (statements-data.js에서 제공)
     if (fetchStatementsJson) {
       return fetchStatementsJson()
         .catch(error => {

@@ -177,7 +177,7 @@
   function loadActivitiesData() {
     const { fetchActivitiesJson, normalizeActivitiesPayload } = ui.activities.data || {};
     
-    // 정규화 함수가 있으면 사용 (60_activities_data.js에서 제공)
+    // 정규화 함수가 있으면 사용 (activities-data.js에서 제공)
     if (fetchActivitiesJson) {
       return fetchActivitiesJson()
         .catch(error => {
