@@ -114,8 +114,18 @@ button.region-branch-header:focus-visible {
 }
 
 .region-branch-name {
+  display: block;
   line-height: 1.45;
-  overflow-wrap: anywhere;
+  white-space: nowrap;
+  overflow-x: auto;
+  text-overflow: clip;
+  word-break: keep-all;
+  overflow-wrap: normal;
+  scrollbar-width: none;
+}
+
+.region-branch-name::-webkit-scrollbar {
+  display: none;
 }
 
 .region-branch-state {
@@ -606,6 +616,65 @@ button.region-branch-header:focus-visible {
 .region-branch-card {
   inline-size: 100%;
   max-inline-size: 100%;
+}
+
+/* Keep all heading levels writable and readable on a single line. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.activity-title,
+.payment-title,
+.statement-title,
+.activity-detail-title,
+.statement-detail-title,
+.modal-title,
+.join-item h2,
+.join-item h3,
+.join-column-item h2,
+.join-column-item h3,
+.region-branch-name {
+  max-inline-size: 100%;
+  white-space: nowrap;
+  overflow-x: auto;
+  text-overflow: clip;
+  text-wrap: nowrap;
+  word-break: keep-all;
+  overflow-wrap: normal;
+  scrollbar-width: none;
+}
+
+h1::-webkit-scrollbar,
+h2::-webkit-scrollbar,
+h3::-webkit-scrollbar,
+h4::-webkit-scrollbar,
+h5::-webkit-scrollbar,
+h6::-webkit-scrollbar,
+.activity-title::-webkit-scrollbar,
+.payment-title::-webkit-scrollbar,
+.statement-title::-webkit-scrollbar,
+.activity-detail-title::-webkit-scrollbar,
+.statement-detail-title::-webkit-scrollbar,
+.modal-title::-webkit-scrollbar,
+.join-item h2::-webkit-scrollbar,
+.join-item h3::-webkit-scrollbar,
+.join-column-item h2::-webkit-scrollbar,
+.join-column-item h3::-webkit-scrollbar,
+.region-branch-name::-webkit-scrollbar {
+  display: none;
+}
+
+.card .activity-title,
+.card .payment-title,
+.card .statement-title {
+  font-size: clamp(0.95rem, 2vw, 1.25rem);
+}
+
+.activity-detail .activity-detail-title,
+.statement-detail .statement-detail-title {
+  font-size: clamp(0.95rem, 2vw, 2rem);
 }
 
 .site-header .container {

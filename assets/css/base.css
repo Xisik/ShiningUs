@@ -73,27 +73,23 @@ mark {
 }
 
 h1 {
-  font-size     : clamp(2.6rem, 7vw, 5.6rem);
+  font-size     : clamp(1.7rem, 7vw, 5.6rem);
   font-weight   : 800;
   text-transform: uppercase;
   letter-spacing: -0.03em;
   line-height   : 0.95;
   margin        : 0 0 1rem 0;
-  text-wrap     : balance;
-  overflow-wrap : anywhere;
 }
 
 h2 {
   position      : relative;
-  font-size     : clamp(1.65rem, 3vw, 2.35rem);
+  font-size     : clamp(1.15rem, 3vw, 2.35rem);
   font-weight   : 700;
   border        : none;
   padding       : 0 0 1.35rem 0;
   margin        : 0 0 1.5rem 0;
   line-height   : 1.18;
   letter-spacing: -0.02em;
-  text-wrap     : balance;
-  overflow-wrap : anywhere;
 }
 
 h2::after {
@@ -109,8 +105,31 @@ h3, h4, h5, h6 {
   font-weight   : 700;
   letter-spacing: 0;
   margin: 0 0 0.75rem 0;
-  text-wrap     : balance;
-  overflow-wrap : anywhere;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  max-inline-size: 100%;
+  white-space    : nowrap;
+  overflow-x     : auto;
+  text-overflow  : clip;
+  text-wrap      : nowrap;
+  word-break     : keep-all;
+  overflow-wrap  : normal;
+  scrollbar-width: none;
+}
+
+h1::-webkit-scrollbar,
+h2::-webkit-scrollbar,
+h3::-webkit-scrollbar,
+h4::-webkit-scrollbar,
+h5::-webkit-scrollbar,
+h6::-webkit-scrollbar {
+  display: none;
 }
 
 blockquote {

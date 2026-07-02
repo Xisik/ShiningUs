@@ -176,7 +176,7 @@ main.container > section{
   grid-area: quick;
 }
 
-@media (max-width: 960px), (max-aspect-ratio: 4 / 5){
+@media (max-width: 1120px), (max-aspect-ratio: 4 / 5){
   .index_main_grid{
     padding-top: 0;
   }
@@ -219,6 +219,7 @@ main.container > section{
 }
 
 .donate-container-grid > .page-header{
+  grid-column: 1 / -1;
   padding: clamp(1.5rem, 4vw, 3rem) 0;
 }
 
