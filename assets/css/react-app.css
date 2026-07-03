@@ -703,6 +703,12 @@ button.region-branch-header:focus-visible {
   inline-size: 100%;
 }
 
+@media (min-width: 860px) {
+  .feedback-form {
+    inline-size: calc(100% - 1rem);
+  }
+}
+
 .feedback-field {
   display: grid;
   grid-template-columns: minmax(0, 1fr);

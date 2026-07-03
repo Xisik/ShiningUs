@@ -1,6 +1,6 @@
 {
   "name": "bichcheongmo",
-  "version": "6.2.1",
+  "version": "6.2.2",
   "description": "성소수자 공조 단체용 정적 사이트입니다.",
   "main": "index.js",
   "directories": {
