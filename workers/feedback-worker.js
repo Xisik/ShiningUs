@@ -94,7 +94,8 @@ async function getAccessToken(env) {
     body
   });
   if (!response.ok) {
-    throw new Error(`Google token request failed: ${response.status}`);
+    const errorText = await response.text();
+    throw new Error(`Google token request failed: ${response.status} - ${errorText}`);
   }
   const data = await response.json();
   return data.access_token;
@@ -143,7 +144,8 @@ async function appendFeedback(env, payload) {
     })
   });
   if (!response.ok) {
-    throw new Error(`Google Sheets append failed: ${response.status}`);
+    const errorText = await response.text();
+    throw new Error(`Google Sheets append failed: ${response.status} - ${errorText}`);
   }
 }
 
@@ -190,7 +192,8 @@ export default {
     try {
       await appendFeedback(env, payload);
       return json({ ok: true }, 200, corsHeaders);
-    } catch {
+    } catch (err) {
+      console.error('Feedback save error:', err);
       return json({ ok: false, error: 'Failed to save feedback.' }, 502, corsHeaders);
     }
   }

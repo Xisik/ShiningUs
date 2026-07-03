@@ -45,3 +45,5 @@ key.json
 *.sqlite
 *.sqlite-wal
 *.sqlite-shm
+docs/
+AGENTS.md
