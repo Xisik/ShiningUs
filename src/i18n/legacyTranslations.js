@@ -101,32 +101,42 @@ const normalizedLegacyKoToEn = new Map(
   Array.from(legacyKoToEn, ([ko, en]) => [normalizeText(ko), en])
 );
 
-function translateText(value, language) {
+export function translateText(value, language) {
   if (language !== 'en') return value;
   const translated = normalizedLegacyKoToEn.get(normalizeText(value));
   return translated || value;
 }
 
 export function translateLegacyHtml(html, language) {
-  if (language !== 'en' || typeof DOMParser === 'undefined') return html;
+  if (typeof DOMParser === 'undefined') return html;
 
   const doc = new DOMParser().parseFromString(`<template>${html}</template>`, 'text/html');
   const template = doc.querySelector('template');
   if (!template) return html;
 
-  const walker = doc.createTreeWalker(template.content, NodeFilter.SHOW_TEXT);
-  const textNodes = [];
-  while (walker.nextNode()) textNodes.push(walker.currentNode);
+  const headings = template.content.querySelectorAll('h1, h2, h3, h4, h5, h6, .region-branch-name');
+  headings.forEach((el) => {
+    const rawText = el.textContent || '';
+    if (!el.getAttribute('data-ko-text')) {
+      el.setAttribute('data-ko-text', rawText.trim());
+    }
+  });
 
-  for (const node of textNodes) {
-    const translated = translateText(node.nodeValue, language);
-    if (translated !== node.nodeValue) node.nodeValue = translated;
-  }
+  if (language === 'en') {
+    const walker = doc.createTreeWalker(template.content, NodeFilter.SHOW_TEXT);
+    const textNodes = [];
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
 
-  for (const element of template.content.querySelectorAll('[aria-label], [alt], [title]')) {
-    for (const attr of ['aria-label', 'alt', 'title']) {
-      if (!element.hasAttribute(attr)) continue;
-      element.setAttribute(attr, translateText(element.getAttribute(attr), language));
+    for (const node of textNodes) {
+      const translated = translateText(node.nodeValue, language);
+      if (translated !== node.nodeValue) node.nodeValue = translated;
+    }
+
+    for (const element of template.content.querySelectorAll('[aria-label], [alt], [title]')) {
+      for (const attr of ['aria-label', 'alt', 'title']) {
+        if (!element.hasAttribute(attr)) continue;
+        element.setAttribute(attr, translateText(element.getAttribute(attr), language));
+      }
     }
   }
 

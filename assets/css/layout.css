@@ -58,10 +58,14 @@ main.container{
 
 .hero p,
 .page-header p{
+  margin-inline: 0;
+  padding-inline: 0;
   max-width  : var(--container-readable);
   color      : var(--tx-2, var(--text-shadow));
   font-size  : clamp(1rem, 1.6vw, 1.15rem);
   font-weight: 300;
+  text-align : left;
+  text-indent: 0;
 }
 
 main.container > .card,
@@ -132,15 +136,18 @@ main.container > section{
   display              : grid;
   grid-template-columns: minmax(0, 0.85fr) minmax(20rem, 1.15fr);
   grid-template-areas  :
+    "title slides"
     "hero slides"
     "buttons buttons"
     "quick quick";
-  grid-template-rows   : minmax(24rem, auto) auto auto;
+  grid-template-rows   : auto auto auto auto;
   align-items          : center;
-  gap                  : clamp(1.5rem, 4vw, 4rem);
+  column-gap           : clamp(1.5rem, 4vw, 4rem);
+  row-gap              : clamp(0.6rem, 2vw, 1.25rem);
 }
 
 .index_main_grid > .main-content,
+.index_main_grid .hero-title,
 .index_main_grid .slides,
 .index_main_grid .hero,
 .index_main_grid .grid,
@@ -148,28 +155,34 @@ main.container > section{
   min-width: 0;
 }
 
+.index_main_grid .hero-title{
+  grid-area    : title;
+  margin       : clamp(1.5rem, 4vw, 3.5rem) 0 0 0;
+  font-size    : clamp(2.25rem, 7vw, 5.6rem);
+  align-self   : end;
+  justify-self : stretch;
+}
+
 .index_main_grid .slides{
   grid-area   : slides;
   width       : 100%;
   max-width   : min(100%, 52rem);
+  align-self   : center;
   justify-self: end;
 }
 
 .index_main_grid .hero{
   grid-area    : hero;
+  align-self   : start;
   margin-bottom: 0;
   min-height   : 0;
-  padding      : clamp(2rem, 5vw, 4rem) 0;
-}
-
-.index_main_grid .hero h1{
-  margin-bottom: 0.5rem;
+  padding      : 0 0 clamp(1.5rem, 5vw, 4rem) 0;
 }
 
 .index_main_grid .grid{
   grid-area             : buttons;
   grid-template-columns : repeat(3, minmax(0, 1fr));
-  margin-top            : clamp(1.25rem, 5vh, 3.5rem);
+  margin-top            : clamp(0.75rem, 3vh, 2rem);
 }
 
 .index_main_grid .quick-links{
@@ -184,6 +197,7 @@ main.container > section{
   .index_main_grid > .main-content{
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas  :
+      "title"
       "hero"
       "slides"
       "buttons"
@@ -199,7 +213,12 @@ main.container > section{
   }
 
   .index_main_grid .hero{
-    padding: clamp(2rem, 8vw, 3.5rem) 0 0 0;
+    padding: 0;
+  }
+
+  .index_main_grid .hero-title{
+    margin-top: clamp(2rem, 8vw, 3.5rem);
+    font-size : clamp(2rem, 11vw, 4.25rem);
   }
 
   .index_main_grid .grid{

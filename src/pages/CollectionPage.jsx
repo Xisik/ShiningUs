@@ -47,6 +47,25 @@ function DetailImage({ item }) {
   );
 }
 
+function CollectionItem({ item, config, language, t }) {
+  return (
+    <article className="card activity-card">
+      <header className="activity-header">
+        <h2 className="activity-title">
+          <a className="activity-link" href={toHash(`${config.route}/${item.slug}`)}>
+            {item.title}
+          </a>
+        </h2>
+        {item.date && <time className="activity-date">{formatDate(item.date, language === 'en' ? 'en-US' : 'ko-KR')}</time>}
+      </header>
+      {item.summary && <p className="activity-summary">{item.summary}</p>}
+      <a className="btn btn-primary" href={toHash(`${config.route}/${item.slug}`)}>
+        {t('readMore')}
+      </a>
+    </article>
+  );
+}
+
 function CollectionList({ config, items }) {
   const { t, language } = useLanguage();
   const title = t(config.titleKey) || config.title;
@@ -64,20 +83,13 @@ function CollectionList({ config, items }) {
   return (
     <section className="activities-container" role="region" aria-label={title}>
       {items.map((item, index) => (
-        <article className="card activity-card" key={`${item.slug}-${index}`}>
-          <header className="activity-header">
-            <h2 className="activity-title">
-              <a className="activity-link" href={toHash(`${config.route}/${item.slug}`)}>
-                {item.title}
-              </a>
-            </h2>
-            {item.date && <time className="activity-date">{formatDate(item.date, language === 'en' ? 'en-US' : 'ko-KR')}</time>}
-          </header>
-          {item.summary && <p className="activity-summary">{item.summary}</p>}
-          <a className="btn btn-primary" href={toHash(`${config.route}/${item.slug}`)}>
-            {t('readMore')}
-          </a>
-        </article>
+        <CollectionItem
+          key={`${item.slug}-${index}`}
+          item={item}
+          config={config}
+          language={language}
+          t={t}
+        />
       ))}
     </section>
   );

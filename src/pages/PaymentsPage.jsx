@@ -23,6 +23,26 @@ function normalizePaymentUrl(url) {
   return `./assets/payment/${url.split(/[\\/]/).pop()}`;
 }
 
+function PaymentItem({ payment, language, t }) {
+  return (
+    <article className="card payment-card">
+      <header className="payment-header">
+        <h2 className="payment-title">{payment.title}</h2>
+        {payment.date && <time className="payment-date">{formatDate(payment.date, language === 'en' ? 'en-US' : 'ko-KR')}</time>}
+      </header>
+      {payment.summary && <p>{payment.summary}</p>}
+      <a
+        className="btn btn-primary payment-download"
+        href={normalizePaymentUrl(payment.url)}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {t('download')}
+      </a>
+    </article>
+  );
+}
+
 export function PaymentsPage() {
   const { t, language } = useLanguage();
   const normalize = useCallback(normalizePayments, []);
@@ -60,21 +80,12 @@ export function PaymentsPage() {
         )}
 
         {status === 'success' && data.map((payment) => (
-          <article className="card payment-card" key={`${payment.title}-${payment.url}`}>
-            <header className="payment-header">
-              <h2 className="payment-title">{payment.title}</h2>
-              {payment.date && <time className="payment-date">{formatDate(payment.date, language === 'en' ? 'en-US' : 'ko-KR')}</time>}
-            </header>
-            {payment.summary && <p>{payment.summary}</p>}
-            <a
-              className="btn btn-primary payment-download"
-              href={normalizePaymentUrl(payment.url)}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {t('download')}
-            </a>
-          </article>
+          <PaymentItem
+            key={`${payment.title}-${payment.url}`}
+            payment={payment}
+            language={language}
+            t={t}
+          />
         ))}
       </section>
     </main>

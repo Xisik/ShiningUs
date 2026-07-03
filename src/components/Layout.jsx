@@ -21,6 +21,12 @@ export function Layout({ activePath, children }) {
   const { theme, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
 
+
+  useEffect(() => {
+    document.documentElement.lang = language;
+    document.documentElement.dataset.language = language;
+  }, [language]);
+
   useEffect(() => {
     if (!menuOpen) {
       document.body.classList.remove('nav-open');

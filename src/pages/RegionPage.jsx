@@ -30,6 +30,47 @@ function translateContactLabel(label, t) {
   return nameKey ? `${t('representative')} ${t(nameKey)}` : `${t('representative')} ${representative[1]}`;
 }
 
+function RegionBranchCard({ branch, isOpen, openId, setOpenId, t }) {
+  const panelId = `branch-${branch.id}`;
+  const rawTitle = t(branchNameKeys[branch.id]) || branch.name;
+
+  return (
+    <article className="region-branch-card">
+      <button
+        type="button"
+        className="region-branch-header"
+        aria-expanded={isOpen}
+        aria-controls={panelId}
+        onClick={() => setOpenId(isOpen ? null : branch.id)}
+      >
+        <span className="region-branch-name">{rawTitle}</span>
+        <span className="region-branch-state" aria-hidden="true">
+          {isOpen ? '-' : '+'}
+        </span>
+      </button>
+
+      <div className="region-branch-links" aria-label={`${branch.name} SNS`}>
+        {branch.links.map((link) => (
+          <a className="link" href={link.href} target="_blank" rel="noopener noreferrer" key={link.href}>
+            {translateLinkLabel(link.label, t)}
+          </a>
+        ))}
+      </div>
+
+      <div className={`region-branch-panel${isOpen ? ' is-open' : ''}`} id={panelId} hidden={!isOpen}>
+        <div className="region-contact-list">
+          {branch.contacts.map((contact) => (
+            <div className="region-contact-item" key={`${contact.label}-${contact.value}`}>
+              <span>{translateContactLabel(contact.label, t)}</span>
+              <span>{contact.value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </article>
+  );
+}
+
 export function RegionPage() {
   const { t } = useLanguage();
   const [openId, setOpenId] = useState(null);
@@ -47,46 +88,16 @@ export function RegionPage() {
         <h2 id="regionBranchTitle">{t('regionBranchList')}</h2>
 
         <div className="region-branch-grid">
-          {branches.map((branch) => {
-            const isOpen = openId === branch.id;
-            const panelId = `branch-${branch.id}`;
-
-            return (
-              <article className="region-branch-card" key={branch.id}>
-                <button
-                  type="button"
-                  className="region-branch-header"
-                  aria-expanded={isOpen}
-                  aria-controls={panelId}
-                  onClick={() => setOpenId(isOpen ? null : branch.id)}
-                >
-                  <span className="region-branch-name">{t(branchNameKeys[branch.id]) || branch.name}</span>
-                  <span className="region-branch-state" aria-hidden="true">
-                    {isOpen ? '-' : '+'}
-                  </span>
-                </button>
-
-                <div className="region-branch-links" aria-label={`${branch.name} SNS`}>
-                  {branch.links.map((link) => (
-                    <a className="link" href={link.href} target="_blank" rel="noopener noreferrer" key={link.href}>
-                      {translateLinkLabel(link.label, t)}
-                    </a>
-                  ))}
-                </div>
-
-                <div className={`region-branch-panel${isOpen ? ' is-open' : ''}`} id={panelId} hidden={!isOpen}>
-                  <div className="region-contact-list">
-                    {branch.contacts.map((contact) => (
-                      <div className="region-contact-item" key={`${contact.label}-${contact.value}`}>
-                        <span>{translateContactLabel(contact.label, t)}</span>
-                        <span>{contact.value}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </article>
-            );
-          })}
+          {branches.map((branch) => (
+            <RegionBranchCard
+              key={branch.id}
+              branch={branch}
+              isOpen={openId === branch.id}
+              openId={openId}
+              setOpenId={setOpenId}
+              t={t}
+            />
+          ))}
         </div>
       </section>
     </main>

@@ -79,6 +79,8 @@ export function LegacyPage({ html, pageKey }) {
     return () => window.clearInterval(timer);
   }, [pageKey, language]);
 
+
+
   return (
     <div
       ref={rootRef}

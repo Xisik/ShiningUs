@@ -64,7 +64,7 @@ dd,
 figcaption,
 .content {
   text-wrap    : pretty;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 mark {
@@ -73,15 +73,17 @@ mark {
 }
 
 h1 {
+  --fit-heading-min: 15;
   font-size     : clamp(1.7rem, 7vw, 5.6rem);
   font-weight   : 800;
   text-transform: uppercase;
   letter-spacing: -0.03em;
-  line-height   : 0.95;
+  line-height   : 1.08;
   margin        : 0 0 1rem 0;
 }
 
 h2 {
+  --fit-heading-min: 14;
   position      : relative;
   font-size     : clamp(1.15rem, 3vw, 2.35rem);
   font-weight   : 700;
@@ -102,6 +104,7 @@ h2::after {
 }
 
 h3, h4, h5, h6 {
+  --fit-heading-min: 13;
   font-weight   : 700;
   letter-spacing: 0;
   margin: 0 0 0.75rem 0;
@@ -113,23 +116,16 @@ h3,
 h4,
 h5,
 h6 {
+  display        : block;
+  inline-size    : 100%;
   max-inline-size: 100%;
-  white-space    : nowrap;
-  overflow-x     : auto;
-  text-overflow  : clip;
-  text-wrap      : nowrap;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  padding-inline : 0;
+  white-space    : normal;
+  text-wrap      : balance;
   word-break     : keep-all;
-  overflow-wrap  : normal;
-  scrollbar-width: none;
-}
-
-h1::-webkit-scrollbar,
-h2::-webkit-scrollbar,
-h3::-webkit-scrollbar,
-h4::-webkit-scrollbar,
-h5::-webkit-scrollbar,
-h6::-webkit-scrollbar {
-  display: none;
+  overflow-wrap  : break-word;
 }
 
 blockquote {

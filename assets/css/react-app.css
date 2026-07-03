@@ -48,6 +48,27 @@
   white-space: nowrap;
 }
 
+.hero > h1,
+.page-header > h1,
+.hero > p,
+.page-header > p {
+  display: block;
+  inline-size: 100%;
+  margin-inline: 0;
+  padding-inline: 0;
+  text-align: left;
+  text-indent: 0;
+}
+
+.hero > h1,
+.page-header > h1 {
+  justify-self: start;
+  align-self: start;
+  inline-size: 100%;
+  margin-inline-start: 0;
+  font-size: clamp(2.25rem, 8vw, 5.6rem);
+}
+
 .region-page {
   display: grid;
   gap: var(--section-gap);
@@ -115,17 +136,13 @@ button.region-branch-header:focus-visible {
 
 .region-branch-name {
   display: block;
+  inline-size: 100%;
+  margin-inline-start: 0;
   line-height: 1.45;
-  white-space: nowrap;
-  overflow-x: auto;
-  text-overflow: clip;
+  white-space: normal;
+  text-wrap: balance;
   word-break: keep-all;
-  overflow-wrap: normal;
-  scrollbar-width: none;
-}
-
-.region-branch-name::-webkit-scrollbar {
-  display: none;
+  overflow-wrap: break-word;
 }
 
 .region-branch-state {
@@ -185,7 +202,7 @@ button.region-branch-header:focus-visible {
 
 @media (max-width: 640px) {
   .region-branches {
-    padding-inline: 1rem;
+    padding-inline: 0.85rem;
   }
 
   .region-branch-grid {
@@ -199,7 +216,7 @@ button.region-branch-header:focus-visible {
   button.region-branch-header {
     grid-template-columns: minmax(0, 1fr) 1.5rem;
     gap: 0.5rem;
-    inline-size: calc(100% - 2rem);
+    inline-size: 100%;
   }
 
   .region-branch-state {
@@ -383,7 +400,7 @@ button.region-branch-header:focus-visible {
   transform: scaleX(1);
 }
 
-@media (min-width: 1041px) {
+@media (min-width: 1440px) {
   .site-header .container {
     width: min(var(--container-max), calc(100% - var(--container-gutter) - var(--container-gutter)));
   }
@@ -444,7 +461,7 @@ button.region-branch-header:focus-visible {
   }
 }
 
-@media (max-width: 1040px) {
+@media (max-width: 1439px) {
   body.nav-open {
     block-size: 100dvh;
     overflow: hidden;
@@ -466,6 +483,7 @@ button.region-branch-header:focus-visible {
     max-width: 100%;
     margin-inline: auto;
     overflow: visible;
+    padding-inline: var(--container-gutter);
   }
 
   .site-header .header-bar {
@@ -618,7 +636,7 @@ button.region-branch-header:focus-visible {
   max-inline-size: 100%;
 }
 
-/* Keep all heading levels writable and readable on a single line. */
+/* Keep all heading levels writable and readable with balanced lines. */
 h1,
 h2,
 h3,
@@ -636,34 +654,16 @@ h6,
 .join-column-item h2,
 .join-column-item h3,
 .region-branch-name {
+  display: block;
+  inline-size: 100%;
   max-inline-size: 100%;
-  white-space: nowrap;
-  overflow-x: auto;
-  text-overflow: clip;
-  text-wrap: nowrap;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  padding-inline: 0;
+  white-space: normal;
+  text-wrap: balance;
   word-break: keep-all;
-  overflow-wrap: normal;
-  scrollbar-width: none;
-}
-
-h1::-webkit-scrollbar,
-h2::-webkit-scrollbar,
-h3::-webkit-scrollbar,
-h4::-webkit-scrollbar,
-h5::-webkit-scrollbar,
-h6::-webkit-scrollbar,
-.activity-title::-webkit-scrollbar,
-.payment-title::-webkit-scrollbar,
-.statement-title::-webkit-scrollbar,
-.activity-detail-title::-webkit-scrollbar,
-.statement-detail-title::-webkit-scrollbar,
-.modal-title::-webkit-scrollbar,
-.join-item h2::-webkit-scrollbar,
-.join-item h3::-webkit-scrollbar,
-.join-column-item h2::-webkit-scrollbar,
-.join-column-item h3::-webkit-scrollbar,
-.region-branch-name::-webkit-scrollbar {
-  display: none;
+  overflow-wrap: break-word;
 }
 
 .card .activity-title,
@@ -680,3 +680,20 @@ h6::-webkit-scrollbar,
 .site-header .container {
   position: relative;
 }
+
+/* Prevent unnatural word-wrapping of the hero title */
+.index_main_grid .hero-title {
+  white-space: nowrap;
+}
+
+/* Adjust font size for English version of the main title to prevent overflow */
+[data-language="en"] .index_main_grid .hero-title {
+  font-size: clamp(2rem, 8.5vw, 4.25rem);
+}
+
+@media (min-width: 1120px) {
+  [data-language="en"] .index_main_grid .hero-title {
+    font-size: clamp(2.5rem, 4.8vw, 4.8rem);
+  }
+}
+

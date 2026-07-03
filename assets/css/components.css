@@ -446,7 +446,7 @@ button.btn {
 .join-item,
 .contact-item,
 .footer-legal{
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 .activity-detail-body h1,
@@ -1056,8 +1056,8 @@ button.btn {
 
   .hero p,
   .page-header p{
-    word-break: break-all;
-    overflow-wrap: anywhere;
+    word-break: normal;
+    overflow-wrap: break-word;
   }
 
   body::before{
@@ -1073,7 +1073,7 @@ button.btn {
   }
 
   .card{
-    padding: 1.25rem;
+    padding: 0.85rem;
   }
 
   .activity-detail,
