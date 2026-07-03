@@ -767,9 +767,18 @@ button.region-branch-header:focus-visible {
   color: var(--accent);
 }
 
+.feedback-form button {
+  font-size: 0.78rem;
+}
+
 .feedback-form button[disabled] {
   cursor: not-allowed;
   opacity: 0.55;
+  font-weight: 400;
+}
+
+.feedback-form button:not([disabled]) {
+  font-weight: 700;
 }
 
 /* Keep all heading levels writable and readable with balanced lines. */
