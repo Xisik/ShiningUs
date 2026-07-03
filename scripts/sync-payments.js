@@ -65,7 +65,7 @@ function isPaymentPublished(properties) {
   ]);
 
   if (!publishedProperty) {
-    return true;
+    return false;
   }
 
   if (publishedProperty.type === 'checkbox') {
@@ -136,7 +136,9 @@ function downloadPaymentPdf(fileUrl, fileName) {
     fileName,
     publicPath: `./assets/payment/${fileName}`,
     allowedHosts: ALLOWED_DOWNLOAD_HOSTS,
+    allowedContentTypes: ['application/pdf'],
     label: `payment PDF ${fileName}`,
+    maxBytes: 20 * 1024 * 1024,
     timeoutMs: 30000
   });
 }
@@ -154,6 +156,18 @@ function pruneUnreferencedPaymentFiles(payments) {
     referencedFileNames: referenced,
     label: 'payment PDF'
   });
+}
+
+function readExistingPayments() {
+  if (!fs.existsSync(DATA_PATH)) return [];
+
+  try {
+    const existingData = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
+    return Array.isArray(existingData.payments) ? existingData.payments : [];
+  } catch (error) {
+    console.warn(`WARNING: Failed to read existing payments fallback: ${error.message}`);
+    return [];
+  }
 }
 
 async function transformPaymentPage(page) {
@@ -174,18 +188,17 @@ async function transformPaymentPage(page) {
 
   const localFileName = getGeneratedPaymentFileName(page.id);
   const downloadedUrl = await downloadPaymentPdf(pdfFile.url, localFileName);
-  const isExternal = pdfFile.sourceType === 'external';
 
-  if (!downloadedUrl && !isExternal) {
+  if (!downloadedUrl) {
     console.warn(`  WARNING: Skipping payment because Notion PDF could not be saved: ${pdfFile.name}`);
     return null;
   }
 
   return {
     title: getTitle(properties, pdfFile),
-    file: downloadedUrl ? localFileName : null,
+    file: localFileName,
     fileName: pdfFile.name,
-    url: downloadedUrl || pdfFile.url,
+    url: downloadedUrl,
     date: getPaymentDate(properties),
     createdAt: page.created_time,
     id: page.id,
@@ -259,6 +272,7 @@ async function syncPayments() {
     syncStatus = 'error';
     errorMessage = error.message;
     console.error('ERROR: Payment sync failed:', error.message);
+    payments = readExistingPayments();
   } finally {
     pruneUnreferencedPaymentFiles(payments);
     writePaymentsData(payments, {

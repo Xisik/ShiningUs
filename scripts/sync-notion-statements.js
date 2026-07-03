@@ -21,6 +21,7 @@ const {
 const GENERATED_IMAGE_RE = /^[0-9a-f-]{32,36}\.(avif|gif|jpe?g|png|webp)$/i;
 const ALLOWED_IMAGE_HOSTS = ['amazonaws.com', 'notion.so', 'notion-static.com', 'notion.com'];
 const STATEMENT_IMAGE_DIR = path.join(__dirname, '..', 'assets', 'img', 'statements');
+const STATEMENTS_DATA_PATH = path.join(__dirname, '..', 'data', 'statements.json');
 
 async function downloadAndSaveImage(imageUrl, statementId) {
   if (!imageUrl) return null;
@@ -39,7 +40,9 @@ async function downloadAndSaveImage(imageUrl, statementId) {
     fileName: filename,
     publicPath: `./assets/img/statements/${filename}`,
     allowedHosts: ALLOWED_IMAGE_HOSTS,
+    allowedContentTypes: ['image'],
     label: `statement image ${statementId}`,
+    maxBytes: 10 * 1024 * 1024,
     timeoutMs: 15000
   });
 }
@@ -57,6 +60,18 @@ function pruneUnreferencedStatementImages(statements) {
     referencedFileNames: getReferencedPublicFileNames(statements, '/assets/img/statements/', 'image'),
     label: 'statement image'
   });
+}
+
+function readExistingStatements() {
+  if (!fs.existsSync(STATEMENTS_DATA_PATH)) return [];
+
+  try {
+    const existingData = JSON.parse(fs.readFileSync(STATEMENTS_DATA_PATH, 'utf8'));
+    return Array.isArray(existingData.statements) ? existingData.statements : [];
+  } catch (error) {
+    console.warn(`WARNING: Failed to read existing statements fallback: ${error.message}`);
+    return [];
+  }
 }
 
 // 환경 변수 확인
@@ -205,8 +220,7 @@ async function fetchNotionData() {
  * @param {Object} [metadata] - 메타데이터 (마지막 업데이트 시각, 에러 정보 등)
  */
 function saveStatementsData(statements, metadata = {}) {
-  const dataDir = path.join(__dirname, '..', 'data');
-  const dataPath = path.join(dataDir, 'statements.json');
+  const dataDir = path.dirname(STATEMENTS_DATA_PATH);
   
   // data 디렉토리가 없으면 생성
   if (!fs.existsSync(dataDir)) {
@@ -227,12 +241,12 @@ function saveStatementsData(statements, metadata = {}) {
   
   // JSON 파일로 저장
   fs.writeFileSync(
-    dataPath,
+    STATEMENTS_DATA_PATH,
     JSON.stringify(dataToSave, null, 2),
     'utf8'
   );
-  
-  console.log(`SUCCESS: Saved ${dataToSave.statements.length} statements to ${dataPath}`);
+
+  console.log(`SUCCESS: Saved ${dataToSave.statements.length} statements to ${STATEMENTS_DATA_PATH}`);
   if (metadata.syncStatus === 'partial' || metadata.syncStatus === 'error') {
     console.log(`WARNING: Sync completed with status: ${metadata.syncStatus}`);
     if (metadata.errorMessage) {
@@ -281,9 +295,9 @@ async function main() {
     
     console.error('ERROR: Notion sync failed:', error.message);
     console.error('  Stack:', error.stack);
-    
-    // 보안: 실패 시 캐시를 재사용하지 않고 빈 JSON으로 덮어쓴다.
-    statements = [];
+
+    // 전체 API/환경 오류에서는 기존 공개 JSON을 보존해 일시 장애로 인한 백화를 막는다.
+    statements = readExistingStatements();
   } finally {
     pruneUnreferencedStatementImages(statements);
 

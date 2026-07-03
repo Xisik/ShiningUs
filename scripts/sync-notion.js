@@ -21,6 +21,7 @@ const {
 const GENERATED_IMAGE_RE = /^[0-9a-f-]{32,36}\.(avif|gif|jpe?g|png|webp)$/i;
 const ALLOWED_IMAGE_HOSTS = ['amazonaws.com', 'notion.so', 'notion-static.com', 'notion.com'];
 const ACTIVITY_IMAGE_DIR = path.join(__dirname, '..', 'assets', 'img', 'activities');
+const ACTIVITIES_DATA_PATH = path.join(__dirname, '..', 'data', 'activities.json');
 
 async function downloadAndSaveImage(imageUrl, activityId) {
   if (!imageUrl) return null;
@@ -39,7 +40,9 @@ async function downloadAndSaveImage(imageUrl, activityId) {
     fileName: filename,
     publicPath: `./assets/img/activities/${filename}`,
     allowedHosts: ALLOWED_IMAGE_HOSTS,
+    allowedContentTypes: ['image'],
     label: `activity image ${activityId}`,
+    maxBytes: 10 * 1024 * 1024,
     timeoutMs: 15000
   });
 }
@@ -57,6 +60,18 @@ function pruneUnreferencedActivityImages(activities) {
     referencedFileNames: getReferencedPublicFileNames(activities, '/assets/img/activities/', 'image'),
     label: 'activity image'
   });
+}
+
+function readExistingActivities() {
+  if (!fs.existsSync(ACTIVITIES_DATA_PATH)) return [];
+
+  try {
+    const existingData = JSON.parse(fs.readFileSync(ACTIVITIES_DATA_PATH, 'utf8'));
+    return Array.isArray(existingData.activities) ? existingData.activities : [];
+  } catch (error) {
+    console.warn(`WARNING: Failed to read existing activities fallback: ${error.message}`);
+    return [];
+  }
 }
 
 // 환경 변수 확인
@@ -205,8 +220,7 @@ async function fetchNotionData() {
  * @param {Object} [metadata] - 메타데이터 (마지막 업데이트 시각, 에러 정보 등)
  */
 function saveActivitiesData(activities, metadata = {}) {
-  const dataDir = path.join(__dirname, '..', 'data');
-  const dataPath = path.join(dataDir, 'activities.json');
+  const dataDir = path.dirname(ACTIVITIES_DATA_PATH);
   
   // data 디렉토리가 없으면 생성
   if (!fs.existsSync(dataDir)) {
@@ -227,12 +241,12 @@ function saveActivitiesData(activities, metadata = {}) {
   
   // JSON 파일로 저장
   fs.writeFileSync(
-    dataPath,
+    ACTIVITIES_DATA_PATH,
     JSON.stringify(dataToSave, null, 2),
     'utf8'
   );
   
-  console.log(`SUCCESS: Saved ${dataToSave.activities.length} activities to ${dataPath}`);
+  console.log(`SUCCESS: Saved ${dataToSave.activities.length} activities to ${ACTIVITIES_DATA_PATH}`);
   if (metadata.syncStatus === 'partial' || metadata.syncStatus === 'error') {
     console.log(`WARNING: Sync completed with status: ${metadata.syncStatus}`);
     if (metadata.errorMessage) {
@@ -282,8 +296,8 @@ async function main() {
     console.error('ERROR: Notion sync failed:', error.message);
     console.error('  Stack:', error.stack);
     
-    // 보안: 실패 시 캐시를 재사용하지 않고 빈 JSON으로 덮어쓴다.
-    activities = [];
+    // 전체 API/환경 오류에서는 기존 공개 JSON을 보존해 일시 장애로 인한 백화를 막는다.
+    activities = readExistingActivities();
   } finally {
     pruneUnreferencedActivityImages(activities);
 

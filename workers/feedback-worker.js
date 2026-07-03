@@ -1,6 +1,8 @@
 const ALLOWED_TYPES = new Set(['siteError', 'contentFix', 'accessibility', 'other']);
 const SHEETS_SCOPE = 'https://www.googleapis.com/auth/spreadsheets';
 const TOKEN_URL = 'https://oauth2.googleapis.com/token';
+const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+const DEFAULT_RATE_LIMIT_WINDOW_SECONDS = 60;
 
 function json(data, status, corsHeaders = {}) {
   return new Response(JSON.stringify(data), {
@@ -39,6 +41,13 @@ function base64UrlEncode(input) {
   let binary = '';
   for (const byte of bytes) binary += String.fromCharCode(byte);
   return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+}
+
+async function sha256Hex(value) {
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value));
+  return Array.from(new Uint8Array(digest))
+    .map((byte) => byte.toString(16).padStart(2, '0'))
+    .join('');
 }
 
 function pemToArrayBuffer(pem) {
@@ -103,15 +112,69 @@ async function getAccessToken(env) {
 
 function validatePayload(payload) {
   if (!payload || typeof payload !== 'object') return 'Invalid payload.';
-  if (!('type' in payload) || !('message' in payload)) {
-    return 'Missing required fields: type and message.';
+  if (!('type' in payload) || !('message' in payload) || !('turnstileToken' in payload)) {
+    return 'Missing required fields: type, message, and turnstileToken.';
   }
   const type = String(payload.type || '');
   const message = String(payload.message || '').trim();
+  const turnstileToken = String(payload.turnstileToken || '').trim();
   if (!ALLOWED_TYPES.has(type)) return 'Invalid feedback type.';
   if (message.length < 5) return 'Message is too short.';
   if (message.length > 2000) return 'Message is too long.';
+  if (!turnstileToken) return 'Security check is required.';
   return '';
+}
+
+async function verifyTurnstile(env, token, remoteIp) {
+  if (!env.TURNSTILE_SECRET_KEY) {
+    throw new Error('TURNSTILE_SECRET_KEY is not configured.');
+  }
+
+  const body = new URLSearchParams({
+    secret: env.TURNSTILE_SECRET_KEY,
+    response: token
+  });
+  if (remoteIp) body.set('remoteip', remoteIp);
+
+  const response = await fetch(TURNSTILE_VERIFY_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body
+  });
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Turnstile verification failed: ${response.status} - ${errorText}`);
+  }
+
+  const data = await response.json();
+  return data.success === true;
+}
+
+function getClientIp(request) {
+  return request.headers.get('CF-Connecting-IP') || request.headers.get('X-Forwarded-For') || '';
+}
+
+function getRateLimitWindowSeconds(env) {
+  const value = Number.parseInt(env.RATE_LIMIT_WINDOW_SECONDS || '', 10);
+  return Number.isFinite(value) && value > 0 ? value : DEFAULT_RATE_LIMIT_WINDOW_SECONDS;
+}
+
+async function checkFeedbackRateLimit(request, env) {
+  if (!env.FEEDBACK_RATE_LIMIT) {
+    throw new Error('FEEDBACK_RATE_LIMIT KV binding is not configured.');
+  }
+
+  const clientIp = getClientIp(request);
+  const clientKey = clientIp || request.headers.get('User-Agent') || 'unknown';
+  const key = `feedback:${await sha256Hex(clientKey)}`;
+  const existing = await env.FEEDBACK_RATE_LIMIT.get(key);
+  if (existing) return false;
+
+  const windowSeconds = getRateLimitWindowSeconds(env);
+  await env.FEEDBACK_RATE_LIMIT.put(key, String(Date.now()), {
+    expirationTtl: windowSeconds
+  });
+  return true;
 }
 
 function sanitizeFormula(value) {
@@ -190,6 +253,20 @@ export default {
     }
 
     try {
+      const rateLimitOk = await checkFeedbackRateLimit(request, env);
+      if (!rateLimitOk) {
+        return json({ ok: false, error: 'Too many requests.' }, 429, corsHeaders);
+      }
+
+      const turnstileOk = await verifyTurnstile(
+        env,
+        String(payload.turnstileToken || '').trim(),
+        getClientIp(request)
+      );
+      if (!turnstileOk) {
+        return json({ ok: false, error: 'Security check failed.' }, 403, corsHeaders);
+      }
+
       await appendFeedback(env, payload);
       return json({ ok: true }, 200, corsHeaders);
     } catch (err) {
