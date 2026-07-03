@@ -697,7 +697,7 @@ button.region-branch-header:focus-visible {
 }
 
 .feedback-page {
-  max-inline-size: min(var(--container-readable), calc(100% - var(--container-gutter) - var(--container-gutter)));
+  max-inline-size: min(var(--container-max), calc(100% - var(--container-gutter) - var(--container-gutter)));
 }
 
 .feedback-form {
