@@ -45,24 +45,6 @@
    @keyframes — EASE-OUT
 ========================= */
 
-/* 토스트 등장 */
-@keyframes toastSlideUp {
-  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
-  to   { opacity: 1; transform: translateX(-50%) translateY(0);    }
-}
-
-/* 모달 다이얼로그 등장 */
-@keyframes modalIn {
-  from { opacity: 0; transform: translateY(-14px) scale(0.98); }
-  to   { opacity: 1; transform: translateY(0)     scale(1);    }
-}
-
-/* 모달 백드롭 등장 */
-@keyframes backdropIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
 /* 버튼 Ripple */
 @keyframes ripple {
   0%   { transform: translate(-50%, -50%) scale(0); opacity: 0.4; }
@@ -73,25 +55,6 @@
 /* =========================
    @keyframes — EASE-IN
 ========================= */
-
-/* 토스트 퇴장 */
-@keyframes toastFadeOut {
-  from { opacity: 1; transform: translateX(-50%) translateY(0);    }
-  to   { opacity: 0; transform: translateX(-50%) translateY(6px);  }
-}
-
-/* 모달 다이얼로그 닫힘 */
-@keyframes modalOut {
-  from { opacity: 1; transform: translateY(0)    scale(1);    }
-  to   { opacity: 0; transform: translateY(6px)  scale(0.98); }
-}
-
-/* 모달 백드롭 닫힘 */
-@keyframes backdropOut {
-  from { opacity: 1; }
-  to   { opacity: 0; }
-}
-
 
 /* =========================
    히어로 / 페이지 헤더  (overshoot)
@@ -216,41 +179,6 @@ body::before {
     animation: navItemReveal 0.18s cubic-bezier(0.4, 0, 0.2, 1) both;
   }
 }
-
-/* =========================
-   토스트  (ease-out 등장 / ease-in 퇴장)
-========================= */
-
-.toast.is-show {
-  display  : block;
-  animation: toastSlideUp 0.32s cubic-bezier(0.25, 0.1, 0.25, 1) both;
-}
-
-.toast.is-show.is-hiding {
-  animation: toastFadeOut 0.22s cubic-bezier(0.4, 0, 1, 1) both;
-}
-
-
-/* =========================
-   모달  (ease-out 등장 / ease-in 퇴장)
-========================= */
-
-.modal.is-open .modal-backdrop {
-  animation: backdropIn 0.28s cubic-bezier(0.25, 0.1, 0.25, 1) both;
-}
-
-.modal.is-open .modal-dialog {
-  animation: modalIn 0.34s cubic-bezier(0.25, 0.1, 0.25, 1) both;
-}
-
-.modal.is-open.is-closing .modal-backdrop {
-  animation: backdropOut 0.2s cubic-bezier(0.4, 0, 1, 1) both;
-}
-
-.modal.is-open.is-closing .modal-dialog {
-  animation: modalOut 0.2s cubic-bezier(0.4, 0, 1, 1) both;
-}
-
 
 /* =========================
    prefers-reduced-motion — 모든 모션 비활성

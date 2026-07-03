@@ -1,34 +1,34 @@
 import { useEffect } from 'react';
 import { Layout } from './components/Layout.jsx';
-import { LegacyRoute } from './pages/LegacyRoute.jsx';
 import { CollectionPage } from './pages/CollectionPage.jsx';
+import { FeedbackPage } from './pages/FeedbackPage.jsx';
 import { PaymentsPage } from './pages/PaymentsPage.jsx';
 import { RegionPage } from './pages/RegionPage.jsx';
+import { AboutPage, ContactPage, DonatePage, HomePage, PoliPage } from './pages/StaticPages.jsx';
 import { LanguageProvider } from './state/LanguageContext.jsx';
 import { ThemeProvider } from './state/ThemeContext.jsx';
 import { useHashRoute } from './router/useHashRoute.js';
 
-const legacyPages = {
-  '/': 'home',
-  '/about': 'about',
-  '/contact': 'contact',
-  '/donate': 'donate',
-  '/poli': 'poli'
-};
-
 const pageTitles = {
-  '/': '빛청모 | Bichcheongmo',
+  '/': '빛청모 | Shining Us',
   '/about': '단체 소개 | About',
   '/activities': '활동공유 | Activities',
   '/statements': '성명 | Statements',
   '/payments': '지출내역 | Expense Reports',
   '/contact': '문의하기 | Contact',
+  '/feedback': '피드백 | Feedback',
   '/donate': '후원하기 | Donate',
   '/region': '지역 지부 | Regional Branches',
   '/poli': '정치위원회 | Political Committee'
 };
 
 function resolvePage(route) {
+  if (route.path === '/') {
+    return <HomePage />;
+  }
+  if (route.path === '/about') {
+    return <AboutPage />;
+  }
   if (route.path === '/activities') {
     return <CollectionPage type="activities" slug={route.params.slug} />;
   }
@@ -38,10 +38,22 @@ function resolvePage(route) {
   if (route.path === '/payments') {
     return <PaymentsPage />;
   }
+  if (route.path === '/contact') {
+    return <ContactPage />;
+  }
+  if (route.path === '/feedback') {
+    return <FeedbackPage />;
+  }
+  if (route.path === '/donate') {
+    return <DonatePage />;
+  }
   if (route.path === '/region') {
     return <RegionPage />;
   }
-  return <LegacyRoute pageKey={legacyPages[route.path] || legacyPages['/']} />;
+  if (route.path === '/poli') {
+    return <PoliPage />;
+  }
+  return <HomePage />;
 }
 
 export default function App() {

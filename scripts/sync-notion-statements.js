@@ -10,41 +10,20 @@
 
 const fs = require('fs');
 const path = require('path');
-const https = require('https');
-const http = require('http');
 const NotionClient = require('./notion-client');
 const { transformNotionPage } = require('./notion-transformer');
+const {
+  downloadRemoteFile,
+  getReferencedPublicFileNames,
+  pruneUnreferencedFiles
+} = require('./notion-file-utils');
 
 const GENERATED_IMAGE_RE = /^[0-9a-f-]{32,36}\.(avif|gif|jpe?g|png|webp)$/i;
-
-/**
- * Notion S3 임시 URL에서 이미지를 다운로드하고 정적 파일로 저장
- */
-// 보안: 이미지 다운로드를 허용된 호스트로 제한 (SSRF 완화)
 const ALLOWED_IMAGE_HOSTS = ['amazonaws.com', 'notion.so', 'notion-static.com', 'notion.com'];
+const STATEMENT_IMAGE_DIR = path.join(__dirname, '..', 'assets', 'img', 'statements');
 
-function isAllowedImageHost(urlStr) {
-  try {
-    const host = new URL(urlStr).hostname.toLowerCase();
-    return ALLOWED_IMAGE_HOSTS.some((h) => host === h || host.endsWith('.' + h));
-  } catch {
-    return false;
-  }
-}
-
-async function downloadAndSaveImage(imageUrl, statementId, redirectsLeft = 3) {
+async function downloadAndSaveImage(imageUrl, statementId) {
   if (!imageUrl) return null;
-
-  // 보안: 허용되지 않은 호스트는 다운로드하지 않는다 (SSRF 방지)
-  if (!isAllowedImageHost(imageUrl)) {
-    console.warn(`  WARNING: Image host not allowed, skipping for ${statementId}: ${imageUrl}`);
-    return null;
-  }
-
-  const imagesDir = path.join(__dirname, '..', 'assets', 'img', 'statements');
-  if (!fs.existsSync(imagesDir)) {
-    fs.mkdirSync(imagesDir, { recursive: true });
-  }
 
   let ext = '.jpg';
   try {
@@ -54,49 +33,14 @@ async function downloadAndSaveImage(imageUrl, statementId, redirectsLeft = 3) {
   } catch {}
 
   const filename = `${statementId}${ext}`;
-  const localPath = path.join(imagesDir, filename);
-  const publicPath = `./assets/img/statements/${filename}`;
-
-  return new Promise((resolve) => {
-    const protocol = imageUrl.startsWith('https') ? https : http;
-    const request = protocol.get(imageUrl, (res) => {
-      if (res.statusCode === 301 || res.statusCode === 302) {
-        // 리다이렉트 처리 (최대 3회 제한 + 호스트 재검증은 재귀 호출 내부에서 수행)
-        if (redirectsLeft <= 0) {
-          console.warn(`  WARNING: Too many redirects for statement ${statementId}`);
-          resolve(null);
-          return;
-        }
-        downloadAndSaveImage(res.headers.location, statementId, redirectsLeft - 1).then(resolve);
-        return;
-      }
-      if (res.statusCode !== 200) {
-        console.warn(`  WARNING: Image download failed (status ${res.statusCode}) for statement ${statementId}`);
-        resolve(null);
-        return;
-      }
-      const file = fs.createWriteStream(localPath);
-      res.pipe(file);
-      file.on('finish', () => {
-        file.close();
-        console.log(`  ✓ Image saved: ${filename}`);
-        resolve(publicPath);
-      });
-      file.on('error', (err) => {
-        fs.unlink(localPath, () => {});
-        console.warn(`  WARNING: Failed to save image for statement ${statementId}: ${err.message}`);
-        resolve(null);
-      });
-    });
-    request.on('error', (err) => {
-      console.warn(`  WARNING: Image download error for statement ${statementId}: ${err.message}`);
-      resolve(null);
-    });
-    request.setTimeout(15000, () => {
-      request.destroy();
-      console.warn(`  WARNING: Image download timed out for statement ${statementId}`);
-      resolve(null);
-    });
+  return downloadRemoteFile({
+    url: imageUrl,
+    outputDir: STATEMENT_IMAGE_DIR,
+    fileName: filename,
+    publicPath: `./assets/img/statements/${filename}`,
+    allowedHosts: ALLOWED_IMAGE_HOSTS,
+    label: `statement image ${statementId}`,
+    timeoutMs: 15000
   });
 }
 
@@ -107,45 +51,25 @@ async function downloadAndSaveImage(imageUrl, statementId, redirectsLeft = 3) {
  * @param {Array<Object>} statements - 저장될 공개 성명 배열
  */
 function pruneUnreferencedStatementImages(statements) {
-  const imagesDir = path.join(__dirname, '..', 'assets', 'img', 'statements');
-  if (!fs.existsSync(imagesDir)) return;
-
-  const referenced = new Set();
-  for (const statement of Array.isArray(statements) ? statements : []) {
-    if (!statement || typeof statement.image !== 'string') continue;
-    try {
-      const imageUrl = new URL(statement.image, 'https://www.bichcheongmo.org/');
-      if (imageUrl.pathname.includes('/assets/img/statements/')) {
-        referenced.add(path.basename(imageUrl.pathname));
-      }
-    } catch {
-      // URL로 해석되지 않는 값은 정리 기준에 포함하지 않는다.
-    }
-  }
-
-  for (const entry of fs.readdirSync(imagesDir, { withFileTypes: true })) {
-    if (!entry.isFile() || !GENERATED_IMAGE_RE.test(entry.name) || referenced.has(entry.name)) {
-      continue;
-    }
-    fs.unlinkSync(path.join(imagesDir, entry.name));
-    console.log(`  - Removed unreferenced statement image: ${entry.name}`);
-  }
+  pruneUnreferencedFiles({
+    dir: STATEMENT_IMAGE_DIR,
+    generatedFilePattern: GENERATED_IMAGE_RE,
+    referencedFileNames: getReferencedPublicFileNames(statements, '/assets/img/statements/', 'image'),
+    label: 'statement image'
+  });
 }
 
 // 환경 변수 확인
 const NOTION_API_KEY = process.env.NOTION_API_KEY;
 const STATEMENTS_DATABASE_ID = process.env.STATEMENTS_DATABASE_ID;
 
-if (!NOTION_API_KEY) {
-  console.error('ERROR: Notion API key is not set');
-  console.error('Please set NOTION_API_KEY in GitHub Secrets');
-  process.exit(1);
-}
-
-if (!STATEMENTS_DATABASE_ID) {
-  console.error('ERROR: STATEMENTS_DATABASE_ID environment variable is not set');
-  console.error('Please set STATEMENTS_DATABASE_ID in GitHub Secrets');
-  process.exit(1);
+function validateEnvironment() {
+  if (!NOTION_API_KEY) {
+    throw new Error('NOTION_API_KEY environment variable is not set');
+  }
+  if (!STATEMENTS_DATABASE_ID) {
+    throw new Error('STATEMENTS_DATABASE_ID environment variable is not set');
+  }
 }
 
 /**
@@ -157,6 +81,7 @@ if (!STATEMENTS_DATABASE_ID) {
  */
 async function fetchNotionData() {
   try {
+    validateEnvironment();
     console.log('Connecting to Notion API...');
     
     // 노션 클라이언트 생성
@@ -328,6 +253,7 @@ async function main() {
   
   try {
     console.log('Starting Notion sync for statements...');
+    validateEnvironment();
     console.log(`STATEMENTS_DATABASE_ID: ${STATEMENTS_DATABASE_ID.substring(0, 8)}...`);
     
     // 노션에서 데이터 가져오기

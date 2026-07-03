@@ -10,46 +10,21 @@
 
 const fs = require('fs');
 const path = require('path');
-const https = require('https');
-const http = require('http');
 const NotionClient = require('./notion-client');
 const { transformNotionPage } = require('./notion-transformer');
+const {
+  downloadRemoteFile,
+  getReferencedPublicFileNames,
+  pruneUnreferencedFiles
+} = require('./notion-file-utils');
 
 const GENERATED_IMAGE_RE = /^[0-9a-f-]{32,36}\.(avif|gif|jpe?g|png|webp)$/i;
-
-/**
- * Notion S3 임시 URL에서 이미지를 다운로드하고 정적 파일로 저장
- * @param {string} imageUrl - S3 서명 URL
- * @param {string} activityId - 활동 ID (파일명 생성용)
- * @returns {Promise<string|null>} 저장된 로컬 경로 또는 null
- */
-// 보안: 이미지 다운로드를 허용된 호스트로 제한 (SSRF 완화)
 const ALLOWED_IMAGE_HOSTS = ['amazonaws.com', 'notion.so', 'notion-static.com', 'notion.com'];
+const ACTIVITY_IMAGE_DIR = path.join(__dirname, '..', 'assets', 'img', 'activities');
 
-function isAllowedImageHost(urlStr) {
-  try {
-    const host = new URL(urlStr).hostname.toLowerCase();
-    return ALLOWED_IMAGE_HOSTS.some((h) => host === h || host.endsWith('.' + h));
-  } catch {
-    return false;
-  }
-}
-
-async function downloadAndSaveImage(imageUrl, activityId, redirectsLeft = 3) {
+async function downloadAndSaveImage(imageUrl, activityId) {
   if (!imageUrl) return null;
 
-  // 보안: 허용되지 않은 호스트는 다운로드하지 않는다 (SSRF 방지)
-  if (!isAllowedImageHost(imageUrl)) {
-    console.warn(`  WARNING: Image host not allowed, skipping for ${activityId}: ${imageUrl}`);
-    return null;
-  }
-
-  const imagesDir = path.join(__dirname, '..', 'assets', 'img', 'activities');
-  if (!fs.existsSync(imagesDir)) {
-    fs.mkdirSync(imagesDir, { recursive: true });
-  }
-
-  // URL에서 원본 파일명 추출, 없으면 ID 기반으로 생성
   let ext = '.jpg';
   try {
     const urlPath = new URL(imageUrl).pathname;
@@ -58,55 +33,14 @@ async function downloadAndSaveImage(imageUrl, activityId, redirectsLeft = 3) {
   } catch {}
 
   const filename = `${activityId}${ext}`;
-  const localPath = path.join(imagesDir, filename);
-  const publicPath = `./assets/img/activities/${filename}`;
-
-  // 이미 다운로드된 파일이 있으면 재다운로드 생략 (멱등성)
-  if (fs.existsSync(localPath)) {
-    console.log(`  ↩ Image already exists, skipping: ${filename}`);
-    return Promise.resolve(publicPath);
-  }
-
-  return new Promise((resolve) => {
-    const protocol = imageUrl.startsWith('https') ? https : http;
-    const request = protocol.get(imageUrl, (res) => {
-      if (res.statusCode === 301 || res.statusCode === 302) {
-        // 리다이렉트 처리 (최대 3회 제한 + 호스트 재검증은 재귀 호출 내부에서 수행)
-        if (redirectsLeft <= 0) {
-          console.warn(`  WARNING: Too many redirects for activity ${activityId}`);
-          resolve(null);
-          return;
-        }
-        downloadAndSaveImage(res.headers.location, activityId, redirectsLeft - 1).then(resolve);
-        return;
-      }
-      if (res.statusCode !== 200) {
-        console.warn(`  WARNING: Image download failed (status ${res.statusCode}) for activity ${activityId}`);
-        resolve(null);
-        return;
-      }
-      const file = fs.createWriteStream(localPath);
-      res.pipe(file);
-      file.on('finish', () => {
-        file.close();
-        console.log(`  ✓ Image saved: ${filename}`);
-        resolve(publicPath);
-      });
-      file.on('error', (err) => {
-        fs.unlink(localPath, () => {});
-        console.warn(`  WARNING: Failed to save image for activity ${activityId}: ${err.message}`);
-        resolve(null);
-      });
-    });
-    request.on('error', (err) => {
-      console.warn(`  WARNING: Image download error for activity ${activityId}: ${err.message}`);
-      resolve(null);
-    });
-    request.setTimeout(15000, () => {
-      request.destroy();
-      console.warn(`  WARNING: Image download timed out for activity ${activityId}`);
-      resolve(null);
-    });
+  return downloadRemoteFile({
+    url: imageUrl,
+    outputDir: ACTIVITY_IMAGE_DIR,
+    fileName: filename,
+    publicPath: `./assets/img/activities/${filename}`,
+    allowedHosts: ALLOWED_IMAGE_HOSTS,
+    label: `activity image ${activityId}`,
+    timeoutMs: 15000
   });
 }
 
@@ -117,45 +51,25 @@ async function downloadAndSaveImage(imageUrl, activityId, redirectsLeft = 3) {
  * @param {Array<Object>} activities - 저장될 공개 활동 배열
  */
 function pruneUnreferencedActivityImages(activities) {
-  const imagesDir = path.join(__dirname, '..', 'assets', 'img', 'activities');
-  if (!fs.existsSync(imagesDir)) return;
-
-  const referenced = new Set();
-  for (const activity of Array.isArray(activities) ? activities : []) {
-    if (!activity || typeof activity.image !== 'string') continue;
-    try {
-      const imageUrl = new URL(activity.image, 'https://www.bichcheongmo.org/');
-      if (imageUrl.pathname.includes('/assets/img/activities/')) {
-        referenced.add(path.basename(imageUrl.pathname));
-      }
-    } catch {
-      // URL로 해석되지 않는 값은 정리 기준에 포함하지 않는다.
-    }
-  }
-
-  for (const entry of fs.readdirSync(imagesDir, { withFileTypes: true })) {
-    if (!entry.isFile() || !GENERATED_IMAGE_RE.test(entry.name) || referenced.has(entry.name)) {
-      continue;
-    }
-    fs.unlinkSync(path.join(imagesDir, entry.name));
-    console.log(`  - Removed unreferenced activity image: ${entry.name}`);
-  }
+  pruneUnreferencedFiles({
+    dir: ACTIVITY_IMAGE_DIR,
+    generatedFilePattern: GENERATED_IMAGE_RE,
+    referencedFileNames: getReferencedPublicFileNames(activities, '/assets/img/activities/', 'image'),
+    label: 'activity image'
+  });
 }
 
 // 환경 변수 확인
 const NOTION_API_KEY = process.env.NOTION_API_KEY;
 const ACTIVITIES_DATABASE_ID = process.env.ACTIVITIES_DATABASE_ID;
 
-if (!NOTION_API_KEY) {
-  console.error('ERROR: NOTION_API_KEY environment variable is not set');
-  console.error('Please set NOTION_API_KEY in GitHub Secrets');
-  process.exit(1);
-}
-
-if (!ACTIVITIES_DATABASE_ID) {
-  console.error('ERROR: ACTIVITIES_DATABASE_ID environment variable is not set');
-  console.error('Please set ACTIVITIES_DATABASE_ID in GitHub Secrets');
-  process.exit(1);
+function validateEnvironment() {
+  if (!NOTION_API_KEY) {
+    throw new Error('NOTION_API_KEY environment variable is not set');
+  }
+  if (!ACTIVITIES_DATABASE_ID) {
+    throw new Error('ACTIVITIES_DATABASE_ID environment variable is not set');
+  }
 }
 
 /**
@@ -167,6 +81,7 @@ if (!ACTIVITIES_DATABASE_ID) {
  */
 async function fetchNotionData() {
   try {
+    validateEnvironment();
     console.log('Connecting to Notion API...');
     
     // 노션 클라이언트 생성
@@ -338,6 +253,7 @@ async function main() {
   
   try {
     console.log('Starting Notion sync...');
+    validateEnvironment();
     console.log(`ACTIVITIES_DATABASE_ID: ${ACTIVITIES_DATABASE_ID.substring(0, 8)}...`);
     
     // 노션에서 데이터 가져오기
@@ -398,4 +314,3 @@ if (require.main === module) {
 }
 
 module.exports = { fetchNotionData, saveActivitiesData };
-

@@ -81,14 +81,16 @@
   transition: width 0.2s ease-out;
 }
 
-.btn:hover{
-  background-color: transparent;
-  color           : var(--text-secondary);
-  border-color    : var(--bd-2, var(--text-shadow));
-  box-shadow      : none;
-}
+@media (hover: hover) {
+  .btn:hover{
+    background-color: transparent;
+    color           : var(--text-secondary);
+    border-color    : var(--bd-2, var(--text-shadow));
+    box-shadow      : none;
+  }
 
-.btn:hover::after{ width: 100%; }
+  .btn:hover::after{ width: 100%; }
+}
 
 .btn:active{ color: var(--text-primary); }
 
@@ -156,10 +158,12 @@ button.btn {
   transition      : border-color 0.2s, color 0.2s;
 }
 
-.pill:hover{
-  border-color: var(--bd-2, var(--text-shadow));
-  color       : var(--text-primary);
-  box-shadow  : none;
+@media (hover: hover) {
+  .pill:hover{
+    border-color: var(--bd-2, var(--text-shadow));
+    color       : var(--text-primary);
+    box-shadow  : none;
+  }
 }
 
 /* =========================
@@ -593,7 +597,7 @@ button.btn {
   cursor         : pointer;
 }
 
-.branch-header[role="button"]:focus{
+.branch-header[role="button"]:focus-visible{
   outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
@@ -823,12 +827,75 @@ button.btn {
   padding         : 0 0.7rem;
 }
 
+button.member-toggle{
+  display              : grid;
+  grid-template-columns: minmax(0, 1fr) 1.75rem;
+  align-items          : center;
+  gap                  : 0.75rem;
+  inline-size          : calc(100% + 1.4rem);
+  margin-inline        : -0.7rem;
+  padding              : 0.75rem 0.7rem;
+  block-size           : auto;
+  aspect-ratio         : auto;
+  min-block-size       : 3rem;
+  overflow             : visible;
+  white-space          : normal;
+  border               : 0;
+  background           : transparent;
+  color                : var(--tx-1, var(--text-primary));
+  font-family          : inherit;
+  font-size            : 0.95rem;
+  font-weight          : 700;
+  letter-spacing       : 0;
+  text-align           : left;
+  border-radius        : calc(var(--r, 6px) - 1px);
+  transition           : background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.member-toggle-label{
+  min-inline-size: 0;
+}
+
+.member-toggle-icon{
+  display        : inline-grid;
+  place-items    : center;
+  inline-size    : 1.75rem;
+  block-size     : 1.75rem;
+  border         : 1px solid var(--bd-1, var(--line));
+  border-radius  : var(--r, 3px);
+  font-family    : '0xProto Nerd Font', sans-serif;
+  font-size      : 1rem;
+  line-height    : 1;
+  transition     : border-color 0.2s;
+}
+
+@media (hover: hover) {
+  .member-toggle:hover {
+    background-color: var(--accent);
+    color           : var(--accent-ink);
+  }
+  .member-toggle:hover .member-toggle-icon {
+    border-color: var(--accent-ink);
+  }
+}
+
+.member-toggle:focus-visible{
+  background-color: var(--accent);
+  color           : var(--accent-ink);
+  outline       : 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.member-toggle:focus-visible .member-toggle-icon {
+  border-color: var(--accent-ink);
+}
+
 /* info-box: closed has no padding; open has padding */
 .info-box{
-  margin-top   : 0.75rem;
+  margin-top   : 0;
 
   background-color: var(--bg-1, var(--surface));
-  border          : 1px solid var(--bd-1, var(--line));
+  border          : 1px solid transparent;
   border-radius   : var(--r, 6px);
   box-shadow      : none;
 
@@ -843,7 +910,9 @@ button.btn {
 .info-box.is-open{
   max-height   : 1200px;
   opacity      : 1;
+  margin-top   : 0.75rem;
   margin-bottom: 0.75rem;
+  border-color : var(--bd-1, var(--line));
   padding      : 0.9rem; /* open: padding visible */
 }
 
@@ -907,11 +976,13 @@ button.btn {
   display: none;
 }
 
-.card:hover,
-.join-item:hover,
-.contact-item:hover,
-.pill:hover{
-  border-color: var(--accent);
+@media (hover: hover) {
+  .card:hover,
+  .join-item:hover,
+  .contact-item:hover,
+  .pill:hover{
+    border-color: var(--accent);
+  }
 }
 
 .card h2{
@@ -936,9 +1007,11 @@ button.btn {
   background-color: var(--accent);
 }
 
-.btn:hover{
-  color       : var(--accent-ink);
-  border-color: var(--accent);
+@media (hover: hover) {
+  .btn:hover{
+    color       : var(--accent-ink);
+    border-color: var(--accent);
+  }
 }
 
 .btn-primary{
@@ -947,8 +1020,10 @@ button.btn {
   color           : var(--tx-0, var(--text-primary));
 }
 
-.btn-primary:hover{
-  color: var(--accent-ink);
+@media (hover: hover) {
+  .btn-primary:hover{
+    color: var(--accent-ink);
+  }
 }
 
 .link{
@@ -958,8 +1033,10 @@ button.btn {
   text-decoration: none;
 }
 
-.link:hover{
-  color: var(--accent);
+@media (hover: hover) {
+  .link:hover{
+    color: var(--accent);
+  }
 }
 
 .quick-links{
@@ -978,8 +1055,10 @@ button.btn {
   text-transform  : uppercase;
 }
 
-.pill:hover{
-  color: var(--accent);
+@media (hover: hover) {
+  .pill:hover{
+    color: var(--accent);
+  }
 }
 
 .activity-title,
@@ -991,11 +1070,13 @@ button.btn {
   line-height   : 1.35;
 }
 
-.activity-link:hover,
-.statement-link:hover,
-.activity-detail-body a:hover,
-.statement-detail-body a:hover{
-  color: var(--accent);
+@media (hover: hover) {
+  .activity-link:hover,
+  .statement-link:hover,
+  .activity-detail-body a:hover,
+  .statement-detail-body a:hover{
+    color: var(--accent);
+  }
 }
 
 .activity-category,
@@ -1007,7 +1088,6 @@ button.btn {
   overflow-wrap   : anywhere;
 }
 
-.modal-title::after,
 .join-item h2::after,
 .join-item h3::after{
   display: none;

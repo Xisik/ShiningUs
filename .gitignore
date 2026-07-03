@@ -8,6 +8,7 @@ dist/
 # Environment variables
 .env
 .env.local
+workers/wrangler.toml
 
 # Notion API keys (절대 커밋하지 마세요!)
 *.key
@@ -35,3 +36,12 @@ npm-debug.log*
 # Security exports and audit artifacts
 organization_security_overview_alerts_*.csv
 
+.wrangler/
+.env*
+.dev.vars
+feedback-key.json
+key.json
+*service-account*.json
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm

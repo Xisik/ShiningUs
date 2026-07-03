@@ -52,7 +52,6 @@ jobs:
       - name: Commit and push payments data
         run: |
           git add data/payments.json
-          git add assets/js/payments-data.js
           git add assets/payment/ 2>/dev/null || true
 
           if ! git diff --staged --quiet; then

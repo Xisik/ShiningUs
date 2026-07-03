@@ -166,7 +166,7 @@ main.container > section{
 .index_main_grid .slides{
   grid-area   : slides;
   width       : 100%;
-  max-width   : min(100%, 52rem);
+  max-width   : min(100%, 64rem);
   align-self   : center;
   justify-self: end;
 }

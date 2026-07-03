@@ -5,19 +5,20 @@
 
 const fs = require('fs');
 const path = require('path');
-const https = require('https');
-const http = require('http');
 const NotionClient = require('./notion-client');
 const {
   extractText,
   extractDate,
   extractPublishStateName
 } = require('./notion-transformer');
+const {
+  downloadRemoteFile,
+  pruneUnreferencedFiles
+} = require('./notion-file-utils');
 
 const ROOT = path.join(__dirname, '..');
 const PAYMENT_DIR = path.join(ROOT, 'assets', 'payment');
 const DATA_PATH = path.join(ROOT, 'data', 'payments.json');
-const JS_PATH = path.join(ROOT, 'assets', 'js', 'payments-data.js');
 const GENERATED_PAYMENT_RE = /^[0-9a-f-]{32,36}\.pdf$/i;
 const ALLOWED_DOWNLOAD_HOSTS = ['amazonaws.com', 'notion.so', 'notion-static.com', 'notion.com'];
 
@@ -124,89 +125,35 @@ function extractPaymentFile(properties) {
   return null;
 }
 
-function isAllowedDownloadHost(urlStr) {
-  try {
-    const host = new URL(urlStr).hostname.toLowerCase();
-    return ALLOWED_DOWNLOAD_HOSTS.some(allowed => host === allowed || host.endsWith(`.${allowed}`));
-  } catch {
-    return false;
-  }
-}
-
 function getGeneratedPaymentFileName(pageId) {
   return `${pageId}.pdf`;
 }
 
-function downloadPaymentPdf(fileUrl, fileName, redirectsLeft = 3) {
-  if (!isAllowedDownloadHost(fileUrl)) {
-    return Promise.resolve(null);
-  }
-
-  fs.mkdirSync(PAYMENT_DIR, { recursive: true });
-  const localPath = path.join(PAYMENT_DIR, fileName);
-  const publicPath = `./assets/payment/${fileName}`;
-
-  return new Promise((resolve) => {
-    const protocol = fileUrl.startsWith('https') ? https : http;
-    const request = protocol.get(fileUrl, (res) => {
-      if (res.statusCode === 301 || res.statusCode === 302) {
-        if (redirectsLeft <= 0 || !res.headers.location) {
-          console.warn(`  WARNING: Too many redirects for payment PDF: ${fileName}`);
-          resolve(null);
-          return;
-        }
-        downloadPaymentPdf(res.headers.location, fileName, redirectsLeft - 1).then(resolve);
-        return;
-      }
-
-      if (res.statusCode !== 200) {
-        console.warn(`  WARNING: PDF download failed (status ${res.statusCode}) for ${fileName}`);
-        resolve(null);
-        return;
-      }
-
-      const output = fs.createWriteStream(localPath);
-      res.pipe(output);
-      output.on('finish', () => {
-        output.close();
-        console.log(`  ✓ PDF saved: ${fileName}`);
-        resolve(publicPath);
-      });
-      output.on('error', (error) => {
-        fs.unlink(localPath, () => {});
-        console.warn(`  WARNING: Failed to save payment PDF ${fileName}: ${error.message}`);
-        resolve(null);
-      });
-    });
-
-    request.on('error', (error) => {
-      console.warn(`  WARNING: PDF download error for ${fileName}: ${error.message}`);
-      resolve(null);
-    });
-    request.setTimeout(30000, () => {
-      request.destroy();
-      console.warn(`  WARNING: PDF download timed out for ${fileName}`);
-      resolve(null);
-    });
+function downloadPaymentPdf(fileUrl, fileName) {
+  return downloadRemoteFile({
+    url: fileUrl,
+    outputDir: PAYMENT_DIR,
+    fileName,
+    publicPath: `./assets/payment/${fileName}`,
+    allowedHosts: ALLOWED_DOWNLOAD_HOSTS,
+    label: `payment PDF ${fileName}`,
+    timeoutMs: 30000
   });
 }
 
 function pruneUnreferencedPaymentFiles(payments) {
-  if (!fs.existsSync(PAYMENT_DIR)) return;
-
   const referenced = new Set(
     (Array.isArray(payments) ? payments : [])
       .map(payment => payment && payment.file)
       .filter(Boolean)
   );
 
-  for (const entry of fs.readdirSync(PAYMENT_DIR, { withFileTypes: true })) {
-    if (!entry.isFile() || !GENERATED_PAYMENT_RE.test(entry.name) || referenced.has(entry.name)) {
-      continue;
-    }
-    fs.unlinkSync(path.join(PAYMENT_DIR, entry.name));
-    console.log(`  - Removed unreferenced payment PDF: ${entry.name}`);
-  }
+  pruneUnreferencedFiles({
+    dir: PAYMENT_DIR,
+    generatedFilePattern: GENERATED_PAYMENT_RE,
+    referencedFileNames: referenced,
+    label: 'payment PDF'
+  });
 }
 
 async function transformPaymentPage(page) {
@@ -292,17 +239,6 @@ function writePaymentsData(payments, metadata = {}) {
 
   fs.mkdirSync(path.dirname(DATA_PATH), { recursive: true });
   fs.writeFileSync(DATA_PATH, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
-
-  fs.mkdirSync(path.dirname(JS_PATH), { recursive: true });
-  fs.writeFileSync(JS_PATH, `(function () {
-  'use strict';
-
-  const ui = window.__ui || (window.__ui = {});
-
-  ui.payments = ui.payments || {};
-  ui.payments.data = ${JSON.stringify(payload, null, 2)};
-})();
-`, 'utf8');
 
   console.log(`SUCCESS: Saved ${payload.payments.length} payments to ${DATA_PATH}`);
 }

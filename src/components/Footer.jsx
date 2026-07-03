@@ -10,7 +10,7 @@ export function Footer() {
         <div className="card footer-legal">
           <p>
             {isEnglish
-              ? '\u00A9 Bichcheongmo (Business registration number 231-82-77851)'
+              ? '\u00A9 Shining Us (Business registration number 231-82-77851)'
               : '\u00A9 \uBE5B\uCCAD\uBAA8 (\uC0AC\uC5C5\uC790\uBC88\uD638 231-82-77851)'}
           </p>
           <p>Shining Us, LGBTQ Youth</p>

@@ -1,0 +1,8 @@
+name = "bichcheongmo-feedback"
+main = "feedback-worker.js"
+compatibility_date = "2026-07-03"
+
+[vars]
+SPREADSHEET_ID = "1m32msKTv3uKjNA1IB5ngKolPDvINZiAB5jNGMlQVsOw"
+SHEET_NAME = "Feedback"
+ALLOWED_ORIGIN = "https://example.com"

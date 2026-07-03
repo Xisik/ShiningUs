@@ -1,8 +1,81 @@
 @font-face {
-    font-family: 'Cafe24SurroundAir';
-    src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
-    font-weight: normal;
-    font-display: swap;
+  font-family: '0xProto Nerd Font';
+  src: url('https://pub-08e762d31c574ecb9d495cef09f3262b.r2.dev/0xProto/0xProtoNerdFont-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Paperlogy';
+  src: url('https://pub-08e762d31c574ecb9d495cef09f3262b.r2.dev/Paperlogy/Paperlogy-1Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Paperlogy';
+  src: url('https://pub-08e762d31c574ecb9d495cef09f3262b.r2.dev/Paperlogy/Paperlogy-2ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Paperlogy';
+  src: url('https://pub-08e762d31c574ecb9d495cef09f3262b.r2.dev/Paperlogy/Paperlogy-3Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Paperlogy';
+  src: url('https://pub-08e762d31c574ecb9d495cef09f3262b.r2.dev/Paperlogy/Paperlogy-4Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Paperlogy';
+  src: url('https://pub-08e762d31c574ecb9d495cef09f3262b.r2.dev/Paperlogy/Paperlogy-5Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Paperlogy';
+  src: url('https://pub-08e762d31c574ecb9d495cef09f3262b.r2.dev/Paperlogy/Paperlogy-6SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Paperlogy';
+  src: url('https://pub-08e762d31c574ecb9d495cef09f3262b.r2.dev/Paperlogy/Paperlogy-7Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Paperlogy';
+  src: url('https://pub-08e762d31c574ecb9d495cef09f3262b.r2.dev/Paperlogy/Paperlogy-8ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Paperlogy';
+  src: url('https://pub-08e762d31c574ecb9d495cef09f3262b.r2.dev/Paperlogy/Paperlogy-9Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
 }
 
 html {
@@ -12,7 +85,7 @@ html {
 
 body {
   background-color: var(--main-bg-color);
-  font-family     : 'Cafe24SurroundAir', 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans KR', sans-serif;
+  font-family     : 'Paperlogy', sans-serif;
   letter-spacing  : 0.01rem;
   font-weight     : 400;
   color           : var(--text-primary);
@@ -52,8 +125,10 @@ a {
   transition     : color 0.25s ease, opacity 0.25s ease;
 }
 
-a:hover {
-  color: var(--accent);
+@media (hover: hover) {
+  a:hover {
+    color: var(--accent);
+  }
 }
 
 p { margin: 0 0 1rem 0; }
