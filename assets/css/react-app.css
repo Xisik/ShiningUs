@@ -696,10 +696,6 @@ button.region-branch-header:focus-visible {
   max-inline-size: 100%;
 }
 
-.feedback-page {
-  max-inline-size: min(var(--container-max), calc(100% - var(--container-gutter) - var(--container-gutter)));
-}
-
 .feedback-form {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
