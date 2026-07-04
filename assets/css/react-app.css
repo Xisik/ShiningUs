@@ -755,7 +755,13 @@ button.region-branch-header:focus-visible {
 }
 
 .feedback-turnstile {
+  inline-size: 100%;
   min-block-size: 65px;
+}
+
+.feedback-turnstile iframe {
+  inline-size: 100% !important;
+  max-inline-size: 100%;
 }
 
 .feedback-notice {

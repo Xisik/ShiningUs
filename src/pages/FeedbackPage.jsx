@@ -111,6 +111,7 @@ export function FeedbackPage() {
 
     turnstileWidgetId.current = window.turnstile.render(turnstileRef.current, {
       sitekey: turnstileSiteKey,
+      size: 'flexible',
       callback: (token) => setTurnstileToken(token),
       'expired-callback': () => setTurnstileToken(''),
       'error-callback': () => setTurnstileToken('')
