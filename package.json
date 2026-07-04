@@ -1,6 +1,6 @@
 {
-  "name": "bichcheongmo",
-  "version": "6.2.3",
+  "name": "shiningus",
+  "version": "7.0.0",
   "description": "성소수자 공조 단체용 정적 사이트입니다.",
   "main": "index.js",
   "directories": {
@@ -20,15 +20,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Xisik/bichcheongmo.git"
+    "url": "git+https://github.com/Xisik/ShiningUs.git"
   },
   "keywords": [],
   "author": "Xisik",
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/Xisik/bichcheongmo/issues"
+    "url": "https://github.com/Xisik/ShiningUs/issues"
   },
-  "homepage": "https://github.com/Xisik/bichcheongmo#readme",
+  "homepage": "https://github.com/Xisik/ShiningUs#readme",
   "dependencies": {
     "@notionhq/client": "^5.6.0",
     "react": "^19.2.7",

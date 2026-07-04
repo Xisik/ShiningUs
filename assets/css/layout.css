@@ -115,12 +115,6 @@ main.container > section{
   align-items          : start;
 }
 
-@media (min-width: 860px){
-  .footer-inner{
-    grid-template-columns: minmax(0, 1fr) auto;
-  }
-}
-
 .footer-legal{
   width: 100%;
 }

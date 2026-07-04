@@ -48,7 +48,7 @@ export function PaymentsPage() {
   const normalize = useCallback(normalizePayments, []);
   const { status, data, error } = useJsonResource(
     './data/payments.json',
-    'bichcheongmo:payments-json:v2',
+    'shiningus:payments-json:v2',
     normalize
   );
 

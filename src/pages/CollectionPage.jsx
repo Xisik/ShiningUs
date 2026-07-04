@@ -143,7 +143,7 @@ export function CollectionPage({ type, slug }) {
   const normalize = useCallback((payload) => normalizeCollection(payload, type), [type]);
   const { status, data, error, cached } = useJsonResource(
     config.dataUrl,
-    `bichcheongmo:${type}-json:v2`,
+    `shiningus:${type}-json:v2`,
     normalize
   );
   const items = useMemo(() => data?.items || [], [data]);

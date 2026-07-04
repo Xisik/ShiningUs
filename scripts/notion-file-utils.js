@@ -155,7 +155,7 @@ function getReferencedPublicFileNames(items, publicPathPart, fieldName) {
   for (const item of Array.isArray(items) ? items : []) {
     if (!item || typeof item[fieldName] !== 'string') continue;
     try {
-      const url = new URL(item[fieldName], 'https://www.bichcheongmo.org/');
+      const url = new URL(item[fieldName], 'https://shiningus.org/');
       if (url.pathname.includes(publicPathPart)) {
         referenced.add(path.basename(url.pathname));
       }
