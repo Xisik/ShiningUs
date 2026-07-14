@@ -48,6 +48,7 @@ async function convert(inputPath) {
 }
 
 async function main() {
+  fs.rmSync(OUT_ROOT, { recursive: true, force: true });
   fs.mkdirSync(OUT_ROOT, { recursive: true });
   const inputs = walk(IMG_ROOT);
   for (const inputPath of inputs) {

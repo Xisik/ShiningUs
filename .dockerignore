@@ -1,0 +1,9 @@
+.git
+.github
+.agent
+node_modules
+dist
+assets/img/generated
+.env*
+*.log
+AGENTS.md

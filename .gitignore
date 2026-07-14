@@ -5,6 +5,9 @@ node_modules/
 _site/
 dist/
 
+# Generated responsive image derivatives
+assets/img/generated/
+
 # Environment variables
 .env
 .env.local
@@ -47,3 +50,4 @@ key.json
 *.sqlite-shm
 docs/
 AGENTS.md
+.agent/
