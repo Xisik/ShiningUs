@@ -8,7 +8,6 @@ const htmlRouteMap = {
   'poli-statements.html': '/statements',
   'payments.html': '/payments',
   'contact.html': '/contact',
-  'feedback.html': '/feedback',
   'donate.html': '/donate',
   'poli.html': '/poli',
   'region.html': '/region'

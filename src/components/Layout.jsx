@@ -13,8 +13,7 @@ const navItems = [
   ['/poli', 'poli', '\uf24e'],
   ['/payments', 'payments', '\uf09d'],
   ['/donate', 'donate', '\uf004'],
-  ['/contact', 'contact', '\uf0e0'],
-  ['/feedback', 'feedback', '\uf075']
+  ['/contact', 'contact', '\uf0e0']
 ];
 
 export function Layout({ activePath, children }) {

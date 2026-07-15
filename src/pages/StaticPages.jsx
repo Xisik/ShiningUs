@@ -58,11 +58,6 @@ const text = {
     donationUses: ['커뮤니티 모임 및 행사 운영', '홍보용 굿즈 제작', '퀴어 관련 행사 부스 운영'],
     recurringDonation: '정기 후원',
     oneTimeDonation: '일시 후원',
-    developerDonateTitle: '개발자 후원하기(별도)',
-    developerDonateDescription: '본 후원은 대한민국 민법 제554조에 따른 증여계약의 성격을 가지며, 후원자의 의사에 따라 개발자 개인에게 무상으로 제공되는 재산입니다. 후원금은 빛나는우리청소년성소수자모임에 대한 기부금이나 회비가 아니며, 단체의 재산 또는 회계에 편입되지 않습니다. 후원금은 홈페이지 개발, 유지보수, 서버 운영, 보안 관리 및 기타 기술적 활동을 수행하는 개발자 개인에게 직접 귀속되며, 대한민국 민법에 따라 개발자 개인의 재산으로 관리됩니다. 본 후원은 단체에 대한 후원과 법적으로 구분되며, 단체에 대한 기부 또는 후원을 희망하는 경우에는 별도의 빛나는우리청소년성소수자모임 후원 경로를 이용하여 주시기 바랍니다.',
-    developerUseIntro: '개발자 후원금은 다음과 같은 활동에 사용됩니다:',
-    developerUses: ['사이트 수정 및 유지 보수비', '빛청모 산하 타 사이트 운영', '그 외의 개인 개발을 위한 자금'],
-    developerDonation: '개발자 후원',
     poliTitle: '빛청모 정치위원회',
     poliDescription: '청소년의 정치적 권리를 선언하다',
     poliCardTitle: '우리는 침묵하지 않는다',
@@ -123,11 +118,6 @@ const text = {
     donationUses: ['Operating community gatherings and events', 'Creating promotional goods', 'Running booths at queer-related events'],
     recurringDonation: 'Recurring Donation',
     oneTimeDonation: 'One-Time Donation',
-    developerDonateTitle: 'Support the Developer (Separate)',
-    developerDonateDescription: 'This support is a gift agreement under Article 554 of the Civil Act of the Republic of Korea. It is property provided free of charge to the individual developer according to the donor’s intent. These funds are not donations or membership dues for Shining Us, LGBTQ Youth, and are not included in the organization’s property or accounting. They belong directly to the individual developer who performs website development, maintenance, server operation, security management, and other technical work, and are managed as the developer’s personal property under Korean civil law. This support is legally separate from donations to the organization. If you wish to donate to the organization, please use the separate Shining Us donation channel.',
-    developerUseIntro: 'Developer support is used for the following activities:',
-    developerUses: ['Website updates and maintenance costs', 'Operation of other Shining Us-related sites', 'Other personal development costs'],
-    developerDonation: 'Support the Developer',
     poliTitle: 'Shining Us Political Committee',
     poliDescription: 'Declaring the political rights of youth',
     poliCardTitle: 'We Will Not Be Silent',
@@ -184,7 +174,7 @@ export function HomePage() {
                   <picture>
                     <source
                       type="image/webp"
-                      srcSet={`./assets/img/generated/${name}-360.webp 360w, ./assets/img/generated/${name}-720.webp 720w`}
+                      srcSet={`./assets/img/generated/${name}-360.webp 360w, ./assets/img/generated/${name}-720.webp 720w, ./assets/img/generated/${name}-1080.webp 1080w, ./assets/img/generated/${name}-1440.webp 1440w`}
                       sizes="(max-width: 960px) 100vw, 52rem"
                     />
                     <img
@@ -348,21 +338,6 @@ export function DonatePage() {
         <div className="join-column-item">
           <a href="https://link.donationbox.co.kr/donationBoxList.jsp?campaignuid=RKs7J0yqsW" className="btn btn-primary" target="_blank" rel="noopener noreferrer">{t.recurringDonation}</a>
           <a href="https://aq.gy/f/FOYjM" className="btn btn-primary" target="_blank" rel="noopener noreferrer">{t.oneTimeDonation}</a>
-        </div>
-      </section>
-
-      <section className="page-header">
-        <h1>{t.developerDonateTitle}</h1>
-        <p>{t.developerDonateDescription}</p>
-      </section>
-
-      <section className="card content">
-        <h2>{t.waysToDonate}</h2>
-        <p>{t.developerUseIntro}</p>
-        <List items={t.developerUses} />
-        <hr />
-        <div className="join-column-item">
-          <a href="https://ko-fi.com/B8C82214VE" className="btn btn-primary" target="_blank" rel="noopener noreferrer">{t.developerDonation}</a>
         </div>
       </section>
     </main>

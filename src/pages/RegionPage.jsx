@@ -30,7 +30,7 @@ function translateContactLabel(label, t) {
   return nameKey ? `${t('representative')} ${t(nameKey)}` : `${t('representative')} ${representative[1]}`;
 }
 
-function RegionBranchCard({ branch, isOpen, openId, setOpenId, t }) {
+function RegionBranchCard({ branch, isOpen, setOpenIds, t }) {
   const panelId = `branch-${branch.id}`;
   const rawTitle = t(branchNameKeys[branch.id]) || branch.name;
 
@@ -41,7 +41,11 @@ function RegionBranchCard({ branch, isOpen, openId, setOpenId, t }) {
         className="region-branch-header"
         aria-expanded={isOpen}
         aria-controls={panelId}
-        onClick={() => setOpenId(isOpen ? null : branch.id)}
+        onClick={() => setOpenIds((current) => (
+          current.includes(branch.id)
+            ? current.filter((id) => id !== branch.id)
+            : [...current, branch.id]
+        ))}
       >
         <span className="region-branch-name">{rawTitle}</span>
         <span className="region-branch-state" aria-hidden="true">
@@ -73,7 +77,7 @@ function RegionBranchCard({ branch, isOpen, openId, setOpenId, t }) {
 
 export function RegionPage() {
   const { t } = useLanguage();
-  const [openId, setOpenId] = useState(null);
+  const [openIds, setOpenIds] = useState([]);
 
   return (
     <main className="container region-page">
@@ -92,9 +96,8 @@ export function RegionPage() {
             <RegionBranchCard
               key={branch.id}
               branch={branch}
-              isOpen={openId === branch.id}
-              openId={openId}
-              setOpenId={setOpenId}
+              isOpen={openIds.includes(branch.id)}
+              setOpenIds={setOpenIds}
               t={t}
             />
           ))}
