@@ -756,6 +756,415 @@ h6,
   }
 }
 
+/* Organization overview and hierarchy */
+.organization-page {
+  display: grid;
+  gap: var(--section-gap);
+}
+
+.organization-overview-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin: 0 0 var(--section-gap);
+  border-block-start: 1px solid var(--bd-1, var(--line));
+}
+
+.organization-overview-item {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.35fr) minmax(0, 1fr);
+  gap: 0.75rem;
+  align-content: start;
+  min-width: 0;
+  padding: 0.9rem;
+  border-block-end: 1px solid var(--bd-1, var(--line));
+}
+
+.organization-overview-item:nth-child(odd) {
+  border-inline-end: 1px solid var(--bd-1, var(--line));
+}
+
+.organization-overview-item dt,
+.organization-branch dt {
+  color: var(--tx-2, var(--text-shadow));
+  font-weight: 700;
+}
+
+.organization-overview-item dd,
+.organization-branch dd {
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.organization-business-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem 2rem;
+  margin-block-end: 1.5rem;
+}
+
+.organization-bylaws-link {
+  display: block;
+  inline-size: 100%;
+  min-inline-size: 0;
+}
+
+.organization-structure > p {
+  max-inline-size: 74rem;
+}
+
+.organization-chart {
+  --organization-tree-line: var(--bd-2, var(--accent));
+  --organization-tree-line-width: 2px;
+  --organization-tree-gap: clamp(1.5rem, 4vw, 2.5rem);
+  --organization-tree-sub-gap: 1.25rem;
+  --organization-tree-row-gap: 0.6rem;
+  --organization-tree-rail-indent: 1rem;
+  --organization-tree-anchor: 1.25rem;
+  margin-block-start: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.organization-tree-root {
+  max-inline-size: 52rem;
+  margin-inline: auto;
+}
+
+.organization-tree-branch-group {
+  position: relative;
+  isolation: isolate;
+  min-inline-size: 0;
+  padding-block-start: var(--organization-tree-gap);
+}
+
+.organization-tree-connectors {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: visible;
+  color: var(--organization-tree-line);
+  pointer-events: none;
+}
+
+.organization-tree-connectors path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: var(--organization-tree-line-width);
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  shape-rendering: crispEdges;
+}
+
+.organization-tree-child-list {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--card-gap);
+  min-inline-size: 0;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.organization-tree-child {
+  position: relative;
+  min-inline-size: 0;
+  list-style: none;
+}
+
+.organization-node {
+  position: relative;
+  z-index: 1;
+  min-inline-size: 0;
+  padding: clamp(1rem, 2vw, 1.35rem);
+  background: var(--bg-2);
+  border: 1px solid var(--bd-1, var(--line));
+  border-block-start: 0.25rem solid var(--accent);
+  border-radius: var(--r, 3px);
+}
+
+.organization-node h3 {
+  margin-block-start: 0;
+}
+
+.organization-node > p {
+  margin-block-end: 1rem;
+}
+
+.organization-node > p:last-child {
+  margin-block-end: 0;
+}
+
+.organization-tree-single > .organization-tree-child-list {
+  max-inline-size: none;
+  margin-inline: auto;
+}
+
+.organization-tree-board > .organization-tree-child-list > .organization-tree-child > .organization-node {
+  max-inline-size: 52rem;
+  margin-inline: auto;
+}
+
+.organization-tree-split > .organization-tree-child-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.organization-tree-divisions > .organization-tree-child-list {
+  align-items: stretch;
+  max-inline-size: 90rem;
+  margin-inline: auto;
+}
+
+.organization-tree-division-item,
+.organization-tree-headquarters-item {
+  z-index: 1;
+  display: flex;
+}
+
+.organization-division {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.organization-secretariat {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+}
+
+.organization-role-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.organization-role-list li {
+  display: grid;
+  gap: 0.2rem;
+  align-content: start;
+  min-inline-size: 0;
+  padding: 0.7rem;
+  background: var(--bg-1, var(--surface));
+  border: 1px solid var(--bd-0, var(--line));
+  border-radius: var(--r, 3px);
+}
+
+.organization-role-list span {
+  overflow-wrap: anywhere;
+}
+
+.organization-tree-headquarters {
+  --organization-tree-gap: 1.25rem;
+  block-size: 100%;
+  min-block-size: 0;
+}
+
+.organization-tree-headquarters > .organization-tree-child-list {
+  align-items: stretch;
+  block-size: 100%;
+}
+
+.organization-headquarters {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  inline-size: 100%;
+  min-inline-size: 0;
+  padding: 0.85rem;
+  background: var(--bg-1, var(--surface));
+  border: 1px solid var(--bd-0, var(--line));
+  border-radius: var(--r, 3px);
+}
+
+.organization-headquarters h4 {
+  margin-block-start: 0;
+  overflow-wrap: normal;
+  hyphens: none;
+}
+
+.organization-tree-rail {
+  --organization-tree-gap: var(--organization-tree-sub-gap);
+  --organization-tree-rail-indent: 1rem;
+  --organization-tree-row-gap: 0.55rem;
+  --organization-tree-anchor: 1.15rem;
+  padding-inline-start: calc(2 * var(--organization-tree-rail-indent));
+}
+
+.organization-tree-rail > .organization-tree-child-list {
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--organization-tree-row-gap);
+}
+
+.organization-tree-teams {
+  block-size: 100%;
+  min-block-size: 0;
+}
+
+.organization-tree-teams > .organization-tree-child-list {
+  grid-auto-rows: minmax(0, 1fr);
+  block-size: 100%;
+}
+
+.organization-team {
+  display: grid;
+  align-content: center;
+  block-size: 100%;
+  min-block-size: 2.3rem;
+  padding: 0.7rem;
+  background: var(--bg-1, var(--surface));
+  border: 1px solid var(--bd-0, var(--line));
+  border-radius: var(--r, 3px);
+}
+
+.organization-branch {
+  min-inline-size: 0;
+  padding: 0.85rem;
+  background: var(--bg-1, var(--surface));
+  border: 1px solid var(--bd-0, var(--line));
+  border-radius: var(--r, 3px);
+}
+
+.organization-branch h4 {
+  margin-block-start: 0;
+}
+
+.organization-branch dl {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+}
+
+.organization-branch dl > div {
+  display: grid;
+  grid-template-columns: minmax(5rem, max-content) minmax(0, 1fr);
+  gap: 0.75rem;
+}
+
+.organization-contact-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.organization-contact-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: center;
+  min-width: 0;
+  padding: 0.85rem;
+  background: var(--bg-2);
+  border: 1px solid var(--bd-1, var(--line));
+  border-radius: var(--r, 3px);
+}
+
+.organization-contact-item span,
+.organization-contact-item a {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.organization-contact-item a {
+  text-align: right;
+}
+
+@media (max-width: 1199px) {
+  .organization-tree-divisions {
+    --organization-tree-gap: 1.5rem;
+    --organization-tree-row-gap: var(--card-gap);
+    --organization-tree-rail-indent: 1rem;
+    --organization-tree-anchor: 1.5rem;
+    padding-inline-start: calc(2 * var(--organization-tree-rail-indent));
+  }
+
+  .organization-tree-divisions > .organization-tree-child-list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--organization-tree-row-gap);
+    max-inline-size: none;
+  }
+
+  .organization-tree-division-item {
+    display: block;
+  }
+
+  .organization-division {
+    block-size: auto;
+  }
+
+  .organization-secretariat {
+    grid-template-rows: auto auto auto;
+  }
+
+  .organization-tree-headquarters,
+  .organization-tree-headquarters > .organization-tree-child-list {
+    block-size: auto;
+  }
+}
+
+@media (max-width: 840px) {
+  .organization-overview-list,
+  .organization-business-list,
+  .organization-contact-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .organization-overview-item:nth-child(odd) {
+    border-inline-end: 0;
+  }
+}
+
+@media (max-width: 719px) {
+  .organization-overview-item,
+  .organization-contact-item,
+  .organization-branch dl > div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .organization-contact-item {
+    gap: 0.25rem;
+  }
+
+  .organization-contact-item a {
+    text-align: left;
+  }
+
+  .organization-role-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .organization-tree-headquarters {
+    --organization-tree-gap: 1.25rem;
+    --organization-tree-row-gap: 1rem;
+    --organization-tree-rail-indent: 0.85rem;
+    --organization-tree-anchor: 1.35rem;
+    block-size: auto;
+    padding-inline-start: calc(2 * var(--organization-tree-rail-indent));
+  }
+
+  .organization-tree-headquarters > .organization-tree-child-list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--organization-tree-row-gap);
+    block-size: auto;
+  }
+
+  .organization-tree-headquarters-item {
+    display: block;
+  }
+
+  .organization-tree-teams,
+  .organization-tree-teams > .organization-tree-child-list {
+    block-size: auto;
+  }
+
+  .organization-tree-teams > .organization-tree-child-list {
+    grid-auto-rows: auto;
+  }
+}
+
 /* 누른 잔상(포커스 링) 제거 */
 button:focus:not(:focus-visible),
 a:focus:not(:focus-visible),

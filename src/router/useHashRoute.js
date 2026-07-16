@@ -9,7 +9,7 @@ const htmlRouteMap = {
   'payments.html': '/payments',
   'contact.html': '/contact',
   'donate.html': '/donate',
-  'poli.html': '/poli',
+  'organization.html': '/organization',
   'region.html': '/region'
 };
 

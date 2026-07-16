@@ -14,7 +14,7 @@ const REDIRECTS = [
   ['donate.html', '/donate', '후원하기 | Donate'],
   ['payments.html', '/payments', '지출내역 | Expense Reports'],
   ['poli-statements.html', '/statements', '성명 | Statements'],
-  ['poli.html', '/poli', '정치위원회 | Political Committee'],
+  ['organization.html', '/organization', '조직도 | Organization Structure'],
   ['region.html', '/region', '지역 지부 | Regional Branches']
 ];
 

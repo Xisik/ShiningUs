@@ -10,7 +10,7 @@ const navItems = [
   ['/activities', 'activities', '\uf073'],
   ['/statements', 'statements', '\uf15c'],
   ['/region', 'region', '\uf0ac'],
-  ['/poli', 'poli', '\uf24e'],
+  ['/organization', 'organization', '\uf0e8'],
   ['/payments', 'payments', '\uf09d'],
   ['/donate', 'donate', '\uf004'],
   ['/contact', 'contact', '\uf0e0']

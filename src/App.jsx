@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { Layout } from './components/Layout.jsx';
 import { CollectionPage } from './pages/CollectionPage.jsx';
+import { OrganizationPage } from './pages/OrganizationPage.jsx';
 import { PaymentsPage } from './pages/PaymentsPage.jsx';
 import { RegionPage } from './pages/RegionPage.jsx';
-import { AboutPage, ContactPage, DonatePage, HomePage, PoliPage } from './pages/StaticPages.jsx';
+import { AboutPage, ContactPage, DonatePage, HomePage } from './pages/StaticPages.jsx';
 import { LanguageProvider } from './state/LanguageContext.jsx';
 import { ThemeProvider } from './state/ThemeContext.jsx';
 import { useHashRoute } from './router/useHashRoute.js';
@@ -17,7 +18,7 @@ const pageTitles = {
   '/contact': '문의하기 | Contact',
   '/donate': '후원하기 | Donate',
   '/region': '지역 지부 | Regional Branches',
-  '/poli': '정치위원회 | Political Committee'
+  '/organization': '조직도 | Organization Structure'
 };
 
 function resolvePage(route) {
@@ -45,8 +46,8 @@ function resolvePage(route) {
   if (route.path === '/region') {
     return <RegionPage />;
   }
-  if (route.path === '/poli') {
-    return <PoliPage />;
+  if (route.path === '/organization') {
+    return <OrganizationPage />;
   }
   return <HomePage />;
 }

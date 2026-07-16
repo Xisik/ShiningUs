@@ -45,10 +45,9 @@ const text = {
       ['대표메일', 'jenaeon3@gmail.com'],
       ['사무국 웨이브팀 / 홍보소통팀', 'shinelgbtqkr@naver.com'],
       ['사무국 기획조직팀 / 운영지원팀', 'shinelgbtqkr@proton.me'],
-      ['정치위원회', 'shinelgbtqpoli@proton.me'],
       ['전남광주통합특별시지부', 'ysgrainbow@gmail.com'],
       ['일반문의', '070-7953-8302'],
-      ['대표 박서영', '010-4930-5488'],
+      ['대표 서영', '010-4930-5488'],
       ['부대표 금강', '010-3008-6245']
     ],
     donateTitle: '빛청모 후원하기',
@@ -57,11 +56,7 @@ const text = {
     donationUseIntro: '빛청모는 여러분의 후원을 기다리고 있습니다. 후원금은 다음과 같은 활동에 사용됩니다:',
     donationUses: ['커뮤니티 모임 및 행사 운영', '홍보용 굿즈 제작', '퀴어 관련 행사 부스 운영'],
     recurringDonation: '정기 후원',
-    oneTimeDonation: '일시 후원',
-    poliTitle: '빛청모 정치위원회',
-    poliDescription: '청소년의 정치적 권리를 선언하다',
-    poliCardTitle: '우리는 침묵하지 않는다',
-    poliCardDescription: '청소년·성소수자·노동권 의제를 중심으로 정치적 실천을 이어갑니다.'
+    oneTimeDonation: '일시 후원'
   },
   en: {
     homeIntro: 'Welcome to Shining Us, an LGBTQ mutual-aid organization. We run open chat rooms, social media channels, membership programs, and other community activities. Shining Us welcomes your participation and support. Learn about the organization, membership, contact channels, and more.',
@@ -105,10 +100,9 @@ const text = {
       ['Main email', 'jenaeon3@gmail.com'],
       ['Secretariat Wave Team / PR & Communications Team', 'shinelgbtqkr@naver.com'],
       ['Secretariat Planning & Organizing Team / Operations Support Team', 'shinelgbtqkr@proton.me'],
-      ['Political Committee', 'shinelgbtqpoli@proton.me'],
       ['Jeonnam-Gwangju Integrated Branch', 'ysgrainbow@gmail.com'],
       ['General inquiries', '070-7953-8302'],
-      ['Representative Park Seo-young', '010-4930-5488'],
+      ['Representative Seo-young', '010-4930-5488'],
       ['Vice Representative Geumgang', '010-3008-6245']
     ],
     donateTitle: 'Donate to Shining Us',
@@ -117,11 +111,7 @@ const text = {
     donationUseIntro: 'Shining Us welcomes your support. Donations are used for the following activities:',
     donationUses: ['Operating community gatherings and events', 'Creating promotional goods', 'Running booths at queer-related events'],
     recurringDonation: 'Recurring Donation',
-    oneTimeDonation: 'One-Time Donation',
-    poliTitle: 'Shining Us Political Committee',
-    poliDescription: 'Declaring the political rights of youth',
-    poliCardTitle: 'We Will Not Be Silent',
-    poliCardDescription: 'We continue political action centered on youth, LGBTQ, and labor rights.'
+    oneTimeDonation: 'One-Time Donation'
   }
 };
 
@@ -339,27 +329,6 @@ export function DonatePage() {
           <a href="https://link.donationbox.co.kr/donationBoxList.jsp?campaignuid=RKs7J0yqsW" className="btn btn-primary" target="_blank" rel="noopener noreferrer">{t.recurringDonation}</a>
           <a href="https://aq.gy/f/FOYjM" className="btn btn-primary" target="_blank" rel="noopener noreferrer">{t.oneTimeDonation}</a>
         </div>
-      </section>
-    </main>
-  );
-}
-
-export function PoliPage() {
-  const t = usePageText();
-
-  return (
-    <main className="container">
-      <section className="page-header">
-        <h1>{t.poliTitle}</h1>
-        <p>{t.poliDescription}</p>
-      </section>
-
-      <section className="card content">
-        <h2>{t.poliCardTitle}</h2>
-        <p>{t.poliCardDescription}</p>
-        <p className="join-column-item">
-          <a className="btn btn-primary" href={toHash('/contact')}>{t.contactTitle}</a>
-        </p>
       </section>
     </main>
   );
