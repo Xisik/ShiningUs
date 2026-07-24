@@ -24,10 +24,11 @@ function translateLinkLabel(label, t) {
 
 function translateContactLabel(label, t) {
   if (label === '\uC774\uBA54\uC77C') return t('email');
-  const representative = label.match(/^\uB300\uD45C\s+(.+)$/);
-  if (!representative) return label;
-  const nameKey = contactNameKeys[representative[1]];
-  return nameKey ? `${t('representative')} ${t(nameKey)}` : `${t('representative')} ${representative[1]}`;
+  const roleAndName = label.match(/^(\uBD80\uB300\uD45C|\uB300\uD45C)\s+(.+)$/);
+  if (!roleAndName) return label;
+  const roleKey = roleAndName[1] === '\uBD80\uB300\uD45C' ? 'viceRepresentative' : 'representative';
+  const nameKey = contactNameKeys[roleAndName[2]];
+  return nameKey ? `${t(roleKey)} ${t(nameKey)}` : `${t(roleKey)} ${roleAndName[2]}`;
 }
 
 function RegionBranchCard({ branch, isOpen, setOpenIds, t }) {

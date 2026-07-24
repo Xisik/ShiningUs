@@ -1,37 +1,3 @@
-# Third-Party Notices
-
-This project is distributed under the GNU General Public License v3.0 or later (`GPL-3.0-or-later`). Parts of the CSS design, animation timing, and visual treatment are derived from or inspired by third-party works noted below.
-
-The current visual system references Namari Landing Page v1.1.0 from ShapingRain and preserves prior references to FlySkyPie's `yorha.css` work/fork, which is based on the original YoRHa project by Ethan Chan.
-
-## Namari Landing Page
-
-- Source package: `namari-gh-pages/`
-- Original project: Namari Landing Page v1.1.0
-- Original author/site: ShapingRain, https://www.shapingrain.com
-- Usage note: The ShapingRain readme permits use in personal and commercial projects and does not require credit.
-- License for MIT-marked bundled components used as style/animation references: MIT License
-
-The Namari package also includes MIT-marked third-party components such as Featherlight, Load Awesome, animate.css, imagesLoaded, scrollUp, stickyNavbar, and enllax.js. Font Awesome assets in the package are distributed under their own Font Awesome terms (font: SIL OFL 1.1, CSS: MIT License).
-
-## KoddiUD OnGothic
-
-- Font files: `assets/fonts/Koddi/`
-- License source: `assets/fonts/Koddi/LICENSE`
-
-```text
-KoddiUD 온고딕 서체는 상업적, 비상업적 디자인 및 2차 저작물 등에 자유롭게 사용할 수 있으나 서체 자체를 판매, 유통하여 이익을 취하는 상업적 이용은 금지하고 있습니다.
-서체 파일의 데이터 수정을 통한 디자인 변형, 수정, 개작하여 사용하는 것을 제한하며 KoddiUD 온고딕의 디자인 가치가 훼손되지 않는 범위 내에서 다양하게 사용해주시기 바랍니다.
-```
-
-## 0xProto / 0xProto Nerd Font
-
-- Font files: `assets/fonts/0xProto/`
-- Original project: 0xProto by the 0xType Project Authors, https://github.com/0xType/0xProto
-- Icon font variant: `0xProtoNerdFont-Regular.ttf` from Nerd Fonts v3.4.0, https://github.com/ryanoasis/nerd-fonts/releases/tag/v3.4.0
-- License source: `assets/fonts/0xProto/LICENSE`
-
-```text
 Copyright (c) 2026, 0xType Project Authors (https://github.com/0xType)
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
@@ -124,4 +90,3 @@ INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
 DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE.
-```

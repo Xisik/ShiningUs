@@ -7,7 +7,7 @@ export const branches = [
       { label: '\uC778\uC2A4\uD0C0\uADF8\uB7A8', href: 'https://www.instagram.com/bukshinelgbtqkr' }
     ],
     contacts: [
-      { label: '\uB300\uD45C \uAE08\uAC15', value: '010-3008-6245' }
+      { label: '\uBD80\uB300\uD45C \uAE08\uAC15', value: '010-3008-6245' }
     ]
   },
   {
