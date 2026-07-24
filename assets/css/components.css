@@ -383,7 +383,7 @@ button.btn {
 .activity-detail-title,
 .statement-detail-title{
   margin: 0 0 0.75rem 0;
-  font-size: 1.75rem;
+  font-size: clamp(1.5rem, 5vw, 2rem);
   font-weight: normal;
   line-height: 1.4;
 }
@@ -1063,10 +1063,10 @@ button.member-toggle{
   }
 }
 
-.activity-title,
-.payment-title,
-.statement-title{
-  font-size     : clamp(0.95rem, 2vw, 1.25rem);
+.card .activity-title,
+.card .payment-title,
+.card .statement-title{
+  font-size     : clamp(1.05rem, 2vw, 1.25rem);
   font-weight   : 700;
   letter-spacing: -0.01em;
   line-height   : 1.35;
@@ -1165,7 +1165,6 @@ button.member-toggle{
 
   .activity-detail-title,
   .statement-detail-title{
-    font-size  : clamp(1.05rem, 7vw, 2rem);
     line-height: 1.2;
   }
 

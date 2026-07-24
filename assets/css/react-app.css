@@ -725,17 +725,6 @@ h6,
   overflow-wrap: break-word;
 }
 
-.card .activity-title,
-.card .payment-title,
-.card .statement-title {
-  font-size: clamp(0.95rem, 2vw, 1.25rem);
-}
-
-.activity-detail .activity-detail-title,
-.statement-detail .statement-detail-title {
-  font-size: clamp(0.95rem, 2vw, 2rem);
-}
-
 .site-header .container {
   position: relative;
 }
