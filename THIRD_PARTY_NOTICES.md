@@ -14,15 +14,13 @@ The current visual system references Namari Landing Page v1.1.0 from ShapingRain
 
 The Namari package also includes MIT-marked third-party components such as Featherlight, Load Awesome, animate.css, imagesLoaded, scrollUp, stickyNavbar, and enllax.js. Font Awesome assets in the package are distributed under their own Font Awesome terms (font: SIL OFL 1.1, CSS: MIT License).
 
-## KoddiUD OnGothic
+## Jayeon Sans
 
-- Font files: `assets/fonts/Koddi/`
-- License source: `assets/fonts/Koddi/LICENSE`
-
-```text
-KoddiUD 온고딕 서체는 상업적, 비상업적 디자인 및 2차 저작물 등에 자유롭게 사용할 수 있으나 서체 자체를 판매, 유통하여 이익을 취하는 상업적 이용은 금지하고 있습니다.
-서체 파일의 데이터 수정을 통한 디자인 변형, 수정, 개작하여 사용하는 것을 제한하며 KoddiUD 온고딕의 디자인 가치가 훼손되지 않는 범위 내에서 다양하게 사용해주시기 바랍니다.
-```
+- Font files: `assets/fonts/JayeonSans/`
+- Version: 1.309 (July 19, 2026)
+- Copyright: Copyright © 2026 Suh Ji-hwan / 서지환
+- Design lineage: Inter, Noto Sans CJK (Source Han Sans), M PLUS 1p, and Pretendard; redesigned as Jayeon Sans by Suh Ji-hwan.
+- License: SIL Open Font License, Version 1.1. The full license text is reproduced in the 0xProto section below and is also available from the [SIL Open Font License site](https://openfontlicense.org/open-font-license-official-text/).
 
 ## 0xProto / 0xProto Nerd Font
 

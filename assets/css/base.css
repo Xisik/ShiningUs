@@ -1,26 +1,17 @@
 @font-face {
-  font-family: 'KoddiUD OnGothic';
-  src: url('../fonts/Koddi/KoddiUDOnGothic-Regular.woff2') format('woff2'),
-       url('../fonts/Koddi/KoddiUDOnGothic-Regular.woff') format('woff');
+  font-family: 'Jayeon Sans';
+  src: url('../fonts/JayeonSans/woff2/JayeonSans-Regular.woff2') format('woff2'),
+       url('../fonts/JayeonSans/woff/JayeonSans-Regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'KoddiUD OnGothic';
-  src: url('../fonts/Koddi/KoddiUDOnGothic-Bold.woff2') format('woff2'),
-       url('../fonts/Koddi/KoddiUDOnGothic-Bold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'KoddiUD OnGothic';
-  src: url('../fonts/Koddi/KoddiUDOnGothic-ExtraBold.woff2') format('woff2'),
-       url('../fonts/Koddi/KoddiUDOnGothic-ExtraBold.woff') format('woff');
-  font-weight: 800;
+  font-family: 'Jayeon Sans';
+  src: url('../fonts/JayeonSans/woff2/JayeonSans-Medium.woff2') format('woff2'),
+       url('../fonts/JayeonSans/woff/JayeonSans-Medium.woff') format('woff');
+  font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
@@ -40,7 +31,7 @@ html {
 
 body {
   background-color: var(--main-bg-color);
-  font-family     : 'KoddiUD OnGothic', sans-serif;
+  font-family     : 'Jayeon Sans', sans-serif;
   letter-spacing  : 0.01rem;
   font-weight     : 400;
   color           : var(--text-primary);
