@@ -1,8 +1,8 @@
 {
   "_metadata": {
-    "lastUpdated": "2026-08-05T23:02:54.282Z",
-    "syncStatus": "success",
-    "errorMessage": null,
+    "lastUpdated": "2026-08-06T00:05:26.812Z",
+    "syncStatus": "error",
+    "errorMessage": "fetch failed",
     "activitiesCount": 15,
     "version": "1.0"
   },
