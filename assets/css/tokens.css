@@ -1,0 +1,58 @@
+/* =====================================================
+   Design tokens — Namari-inspired light theme
+===================================================== */
+:root {
+  color-scheme: light;
+
+  /* Namari base palette */
+  --bg-0:  #ffffff;
+  --bg-1:  #ffffff;
+  --bg-2:  #f5f5f5;
+
+  --bd-0:  #eeeeee;
+  --bd-1:  #e1e1e1;
+  --bd-2:  #d2b356;
+
+  --tx-0:  #111111;
+  --tx-1:  #333333;
+  --tx-2:  #9c9c9c;
+
+  --accent: #d2b356;
+  --accent-ink: #ffffff;
+  --page-border: #f3f3ef;
+
+  /* Existing component compatibility */
+  --pride-red:    var(--accent);
+  --pride-orange: var(--accent);
+  --pride-yellow: var(--accent);
+  --pride-green:  var(--accent);
+  --pride-blue:   var(--accent);
+  --pride-purple: var(--accent);
+  --accent-ribbon: linear-gradient(90deg, var(--accent), var(--accent));
+
+  --r:             3px;
+  --site-min-width: 360px;
+  --container-max: 1800px;
+  --container-readable: 1100px;
+  --container-gutter: clamp(0.75rem, 2.5vw, 2rem);
+  --page-gap: clamp(2rem, 5vw, 4rem);
+  --section-gap: clamp(1.25rem, 3vw, 2rem);
+  --card-gap: clamp(0.9rem, 2vw, 1.5rem);
+  --grid-card-min: 18rem;
+  --grid-card-wide-min: 22rem;
+
+  --main-bg-color:  var(--bg-0);
+  --text-primary:   var(--tx-0);
+  --text-secondary: var(--bg-0);
+  --text-shadow:    var(--tx-2);
+  --surface:        var(--bg-1);
+  --surface-strong: var(--bg-0);
+  --line:           var(--bd-0);
+  --primary:        var(--accent);
+  --shadow-1:       0 2px 10px rgba(0, 0, 0, 0.06);
+  --shadow-2:       0 10px 32px rgba(0, 0, 0, 0.10);
+
+  --bg-grid-color:   transparent;
+  --bg-grid-2-color: transparent;
+  --grid-size:       1px;
+}

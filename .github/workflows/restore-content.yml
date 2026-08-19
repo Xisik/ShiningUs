@@ -1,0 +1,50 @@
+name: Rebuild Notion Content
+
+on:
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: notion-content-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4.4.0
+        with:
+          node-version: '24'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Reset and rebuild all Notion content
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          ACTIVITIES_DATABASE_ID: ${{ secrets.ACTIVITIES_DATABASE_ID }}
+          PAYMENTS_DATABASE_ID: ${{ secrets.PAYMENTS_DATABASE_ID }}
+        run: |
+          rm -f data/activities.json data/payments.json
+          npm run sync:activities
+          npm run sync:payments
+
+      - name: Commit rebuilt content
+        run: |
+          git add data/activities.json data/payments.json assets/img/activities assets/payment
+          git diff --cached --quiet && exit 0
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
+          git commit -m "chore: rebuild content from Notion"
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push origin HEAD:"$GITHUB_REF_NAME"

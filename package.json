@@ -1,0 +1,33 @@
+{
+  "name": "shiningus",
+  "version": "8.0.4",
+  "description": "성소수자 공조 단체용 정적 사이트입니다.",
+  "scripts": {
+    "dev": "vite",
+    "sync:activities": "node scripts/sync-notion.js",
+    "sync:payments": "node scripts/sync-payments.js",
+    "optimize:assets": "node scripts/optimize-assets.js",
+    "build": "npm run optimize:assets && vite build && node scripts/copy-vite-static.js",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --test --test-isolation=none scripts/notion-sync.test.js && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xisik/ShiningUs.git"
+  },
+  "author": "Xisik",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Xisik/ShiningUs/issues"
+  },
+  "homepage": "https://github.com/Xisik/ShiningUs#readme",
+  "dependencies": {
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.3",
+    "sharp": "^0.35.2",
+    "vite": "^8.1.0"
+  }
+}

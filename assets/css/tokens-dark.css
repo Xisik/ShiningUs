@@ -1,0 +1,83 @@
+/* =====================================================
+   Dark mode override — Namari palette adapted for contrast
+===================================================== */
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg-0:  #111111;
+  --bg-1:  #171717;
+  --bg-2:  #222222;
+
+  --bd-0:  #2a2a2a;
+  --bd-1:  #363636;
+  --bd-2:  #d2b356;
+
+  --tx-0:  #f5f5f5;
+  --tx-1:  #dddddd;
+  --tx-2:  #9c9c9c;
+
+  --accent: #d2b356;
+  --accent-ink: #111111;
+  --page-border: #242424;
+
+  --pride-red:    var(--accent);
+  --pride-orange: var(--accent);
+  --pride-yellow: var(--accent);
+  --pride-green:  var(--accent);
+  --pride-blue:   var(--accent);
+  --pride-purple: var(--accent);
+  --accent-ribbon: linear-gradient(90deg, var(--accent), var(--accent));
+
+  --main-bg-color:  var(--bg-0);
+  --text-primary:   var(--tx-0);
+  --text-secondary: var(--bg-0);
+  --text-shadow:    var(--tx-2);
+  --surface:        var(--bg-1);
+  --surface-strong: var(--bg-1);
+  --line:           var(--bd-0);
+  --primary:        var(--accent);
+  --shadow-1:       0 2px 10px rgba(0, 0, 0, 0.28);
+  --shadow-2:       0 16px 42px rgba(0, 0, 0, 0.42);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --bg-0:  #111111;
+    --bg-1:  #171717;
+    --bg-2:  #222222;
+
+    --bd-0:  #2a2a2a;
+    --bd-1:  #363636;
+    --bd-2:  #d2b356;
+
+    --tx-0:  #f5f5f5;
+    --tx-1:  #dddddd;
+    --tx-2:  #9c9c9c;
+
+    --accent: #d2b356;
+    --accent-ink: #111111;
+    --page-border: #242424;
+
+    --pride-red:    var(--accent);
+    --pride-orange: var(--accent);
+    --pride-yellow: var(--accent);
+    --pride-green:  var(--accent);
+    --pride-blue:   var(--accent);
+    --pride-purple: var(--accent);
+    --accent-ribbon: linear-gradient(90deg, var(--accent), var(--accent));
+
+    --main-bg-color:  var(--bg-0);
+    --text-primary:   var(--tx-0);
+    --text-secondary: var(--bg-0);
+    --text-shadow:    var(--tx-2);
+    --surface:        var(--bg-1);
+    --surface-strong: var(--bg-1);
+    --line:           var(--bd-0);
+    --primary:        var(--accent);
+    --shadow-1:       0 2px 10px rgba(0, 0, 0, 0.28);
+    --shadow-2:       0 16px 42px rgba(0, 0, 0, 0.42);
+  }
+}

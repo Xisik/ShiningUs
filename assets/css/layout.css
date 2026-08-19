@@ -1,0 +1,240 @@
+/* assets/css/layout.css
+   Layout primitives: containers, page flow, responsive grids, header/footer layout.
+   Component visuals are in components.css.
+*/
+
+.container{
+  width : min(var(--container-max), calc(100% - var(--container-gutter) - var(--container-gutter)));
+  margin: 0 auto;
+}
+
+/* =========================
+   Header
+========================= */
+.site-header{
+  position           : sticky;
+  top                : 0;
+  z-index            : 20;
+  margin             : 0;
+  background         : color-mix(in srgb, var(--bg-0) 94%, transparent);
+  border-bottom      : 1px solid var(--bd-0, var(--line));
+  box-shadow         : var(--shadow-1);
+  backdrop-filter    : blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.site-header::after{
+  display: none;
+}
+
+
+
+@media (max-width: 1040px){
+  .container{
+    width         : 100%;
+    padding-inline: var(--container-gutter);
+  }
+
+  .site-header{
+    position: static;
+  }
+}
+
+/* =========================
+   Page flow
+========================= */
+main.container{
+  display              : grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap                  : var(--section-gap);
+  padding-block        : clamp(1rem, 2.5vw, 2rem) 0;
+}
+
+.hero,
+.page-header{
+  margin-bottom: 0;
+  padding      : clamp(2.5rem, 7vw, 6rem) 0 clamp(1.5rem, 4vw, 3.5rem) 0;
+}
+
+.hero p,
+.page-header p{
+  margin-inline: 0;
+  padding-inline: 0;
+  max-width  : var(--container-readable);
+  color      : var(--tx-2, var(--text-shadow));
+  font-size  : clamp(1rem, 1.6vw, 1.15rem);
+  font-weight: 300;
+  text-align : left;
+  text-indent: 0;
+}
+
+main.container > .card,
+main.container > .content,
+main.container > article,
+main.container > section{
+  min-width: 0;
+}
+
+/* =========================
+   System grids
+========================= */
+.grid{
+  display              : grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-card-min)), 2fr));
+  gap                  : var(--card-gap);
+  margin               : 0;
+}
+
+.activities-container,
+.payments-container{
+  display              : grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-card-wide-min)), 1.5fr));
+  gap                  : var(--card-gap);
+  margin               : 0 0 1.25rem 0;
+  align-items          : stretch;
+}
+
+.activities-container > .content,
+.payments-container > .content{
+  grid-column: 1 / -1;
+}
+
+/* =========================
+   Footer
+========================= */
+.site-footer{
+  margin     : clamp(3rem, 7vw, 5rem) 0 1.5rem 0;
+  padding-top: clamp(1.25rem, 3vw, 2rem);
+  border-top : 1px solid var(--bd-0, var(--line));
+}
+
+.footer-inner{
+  display              : grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap                  : 1rem;
+  align-items          : start;
+}
+
+.footer-legal{
+  width: 100%;
+}
+
+/* =========================
+   Home page
+========================= */
+.index_main_grid{
+  padding-top: clamp(1rem, 2vw, 1.5rem);
+}
+
+.index_main_grid > .main-content{
+  display              : grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(20rem, 1.15fr);
+  grid-template-areas  :
+    "title slides"
+    "hero slides"
+    "buttons buttons";
+  grid-template-rows   : auto auto auto;
+  align-items          : center;
+  column-gap           : clamp(1.5rem, 4vw, 4rem);
+  row-gap              : clamp(0.6rem, 2vw, 1.25rem);
+}
+
+.index_main_grid > .main-content,
+.index_main_grid .hero-title,
+.index_main_grid .slides,
+.index_main_grid .hero,
+.index_main_grid .grid{
+  min-width: 0;
+}
+
+.index_main_grid .hero-title{
+  grid-area    : title;
+  margin       : clamp(1.5rem, 4vw, 3.5rem) 0 0 0;
+  font-size    : clamp(2.25rem, 7vw, 5.6rem);
+  align-self   : end;
+  justify-self : stretch;
+}
+
+.index_main_grid .slides{
+  grid-area   : slides;
+  width       : 100%;
+  max-width   : min(100%, 64rem);
+  align-self   : center;
+  justify-self: end;
+}
+
+.index_main_grid .hero{
+  grid-area    : hero;
+  align-self   : start;
+  margin-bottom: 0;
+  min-height   : 0;
+  padding      : 0 0 clamp(1.5rem, 5vw, 4rem) 0;
+}
+
+.index_main_grid .grid{
+  grid-area             : buttons;
+  grid-template-columns : repeat(3, minmax(0, 1fr));
+  margin-top            : clamp(0.75rem, 3vh, 2rem);
+}
+
+@media (max-width: 1120px), (max-aspect-ratio: 4 / 5){
+  .index_main_grid{
+    padding-top: 0;
+  }
+
+  .index_main_grid > .main-content{
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas  :
+      "title"
+      "hero"
+      "slides"
+      "buttons";
+    grid-template-rows   : auto;
+    align-items          : start;
+    gap                  : clamp(1.25rem, 5vw, 2rem);
+  }
+
+  .index_main_grid .slides{
+    max-width   : none;
+    justify-self: stretch;
+  }
+
+  .index_main_grid .hero{
+    padding: 0;
+  }
+
+  .index_main_grid .hero-title{
+    margin-top: clamp(2rem, 8vw, 3.5rem);
+    font-size : clamp(2rem, 11vw, 4.25rem);
+  }
+
+  .index_main_grid .grid{
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    margin-top           : 0;
+  }
+}
+
+/* =========================
+   Donate page
+========================= */
+.donate-container-grid{
+  display              : grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(20rem, 1.05fr);
+  gap                  : var(--section-gap);
+  align-items          : start;
+}
+
+.donate-container-grid > .page-header{
+  grid-column: 1 / -1;
+  padding: clamp(1.5rem, 4vw, 3rem) 0;
+}
+
+.donate-container-grid > .card{
+  align-self: stretch;
+}
+
+@media (max-width: 900px){
+  .donate-container-grid{
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

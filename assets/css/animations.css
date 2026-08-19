@@ -1,0 +1,119 @@
+/* assets/css/animations.css
+   이징 기반 모션 시스템
+   ─────────────────────────────────────────────────────────────
+   EASE-IN-OUT  cubic-bezier(0.4, 0, 0.2, 1)   진입+퇴장 공존, 루프
+   EASE-OUT     cubic-bezier(0, 0, 0.2, 1)     도착·등장 (빠르게 시작 → 정착)
+   EASE-IN      cubic-bezier(0.4, 0, 1, 1)     퇴장·사라짐 (천천히 → 빠르게)
+   OVERSHOOT    cubic-bezier(0.22, 1, 0.36, 1) 스크롤 등장 오버슈트
+*/
+
+
+/* =========================
+   @keyframes — EASE-IN-OUT
+========================= */
+
+/* 페이지 로드 히어로 진입 */
+@keyframes heroReveal {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes navItemReveal {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes loadingPulse {
+  0%, 100% { opacity: 0.35; transform: scale(0.82); }
+  50%      { opacity: 1;    transform: scale(1);    }
+}
+
+
+/* =========================
+   히어로 / 페이지 헤더  (overshoot)
+========================= */
+
+.hero,
+.page-header {
+  animation: heroReveal 0.75s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+}
+
+
+/* =========================
+   카드 호버 lift  (ease-out)
+========================= */
+
+.card {
+  transition: border-color 0.2s,
+              transform    0.28s cubic-bezier(0.25, 0.1, 0.25, 1),
+              box-shadow   0.28s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.card:hover {
+  transform : translateY(-4px);
+  box-shadow: var(--shadow-2);
+}
+
+/* 모바일(터치): hover 눌러붙음 방지, :active로 대체 */
+@media (hover: none) {
+  .card:hover {
+    transform : none;
+    box-shadow: none;
+  }
+
+  .card:active {
+    transform : translateY(-4px);
+    box-shadow: var(--shadow-2);
+  }
+}
+
+
+.loading-state::before {
+  animation: loadingPulse 1.2s ease-in-out infinite;
+}
+
+
+/* =========================
+   nav-link 언더라인  (ease-in-out)
+========================= */
+
+.site-header .nav-link::after {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* =========================
+   모바일 nav 아이템 순차 진입  (ease-in-out)
+========================= */
+
+@media (max-width: 1040px) {
+  .site-header .nav.is-open .nav-link {
+    animation: navItemReveal 0.18s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+}
+
+/* =========================
+   prefers-reduced-motion — 모든 모션 비활성
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration        : 0.01ms !important;
+    animation-iteration-count : 1      !important;
+    transition-duration       : 0.01ms !important;
+  }
+
+  /* 카드 hover/active 효과 제거 */
+  .card:hover,
+  .card:active {
+    transform : none;
+    box-shadow: none;
+  }
+
+  .hero h1,
+  .loading-state::before {
+    animation: none;
+  }
+}

@@ -1,0 +1,50 @@
+# Dependencies
+node_modules/
+
+# Build output (GitHub Pages 배포 산출물)
+_site/
+dist/
+
+# Generated responsive image derivatives
+assets/img/generated/
+
+# Environment variables
+.env
+.env.local
+
+# Notion API keys (절대 커밋하지 마세요!)
+*.key
+*.token
+
+# Data files (GitHub Actions에서 생성)
+# data/activities.json은 커밋되지만, 로컬 테스트용은 제외
+data/activities.local.json
+
+# IDE
+.cursor/
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Security exports and audit artifacts
+organization_security_overview_alerts_*.csv
+
+.env*
+.dev.vars
+key.json
+*service-account*.json
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+docs/
+AGENTS.md
+.agent/
